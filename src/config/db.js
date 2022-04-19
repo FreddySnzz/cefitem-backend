@@ -9,7 +9,7 @@ module.exports = {
   //url: process.env.DEV_DATABASE_URL,
   username: 'root',
   password: 'supersecret',
-  database: 'cefitem-backend',
+  database: 'cefitem-backend-local',
   // host: 'mysql_db', // Docker Comunication local
   host: '127.0.0.1', // local
   dialect: process.env.DB_DIALECT || "mysql",
