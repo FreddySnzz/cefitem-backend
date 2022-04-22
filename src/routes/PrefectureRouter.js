@@ -7,12 +7,21 @@ const PrefectureController = require('../controllers/PrefectureController');
 RouterForPrefecture.get(
   '/',
   PrefectureController.getPrefecture
-)
+);
 
 RouterForPrefecture.post(
   '/register',
-  //AuthMiddleware.validateJWT,
   PrefectureController.registerPrefecture
+);
+
+RouterForPrefecture.patch(
+  '/edit',
+  PrefectureController.editPrefecture
+);
+
+RouterForPrefecture.delete(
+  '/delete',
+  PrefectureController.deletePrefecture
 );
 
 module.exports = RouterForPrefecture;
