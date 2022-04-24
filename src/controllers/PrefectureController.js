@@ -14,7 +14,7 @@ module.exports = {
 
       } else {
         response.status(401).json({ error: 'Unauthorized' });
-      }
+      };
 
     } catch (error) {
       response.status(500).json({ error: error });
@@ -53,7 +53,6 @@ module.exports = {
       response.status(200).json({ message: 'Prefecture edited' });
 
     } catch (error) {
-      console.log(error)
       response.status(500).json({ error: error });
     };
   },
@@ -68,7 +67,6 @@ module.exports = {
       response.status(200).json({ message: 'Prefecture deleted' });
 
     } catch (error) {
-      console.log(error)
       response.status(500).json({ error: error });
     };
   }
