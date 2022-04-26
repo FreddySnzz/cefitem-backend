@@ -66,10 +66,6 @@ const User = (sequelize, DataTypes) => {
         type: DataTypes.STRING(6),
         allowNull: true,
       },
-      secure_token: {
-        type: DataTypes.STRING(12),
-        allowNull: true,
-      },
       enabled: {
         type: DataTypes.BOOLEAN,
         allowNull: false,

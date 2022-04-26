@@ -8,6 +8,7 @@ var indexRouter = require('./routes/index');
 var userRouter = require('./routes/UserRouter');
 var prefectureRouter = require('./routes/PrefectureRouter');
 var economicActivityRouter = require('./routes/EconomicActivityRouter');
+var authRouter = require('./routes/AuthRouter');
 
 var app = express();
 
@@ -22,9 +23,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-//app.use('/user', userRouter);
+app.use('/user', userRouter);
 app.use('/prefecture', prefectureRouter);
 app.use('/economic-activity', economicActivityRouter);
+app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

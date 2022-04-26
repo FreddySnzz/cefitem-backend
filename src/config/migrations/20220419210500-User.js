@@ -74,10 +74,6 @@ module.exports = {
         type: Sequelize.DataTypes.STRING(6),
         allowNull: true,
       },
-      secure_token: {
-        type: Sequelize.DataTypes.STRING(12),
-        allowNull: true,
-      },
       enabled: {
         type: Sequelize.DataTypes.BOOLEAN,
         allowNull: false,
@@ -90,6 +86,14 @@ module.exports = {
         type: Sequelize.DataTypes.BOOLEAN,
         allowNull: false,
       },
+      created_at: {
+        type: Sequelize.DataTypes.DATE,
+        allowNull: false,
+      },
+      updated_at: {
+        type: Sequelize.DataTypes.DATE,
+        allowNull: false,
+      }
     });
   },
   async down(queryInterface, Sequelize) {

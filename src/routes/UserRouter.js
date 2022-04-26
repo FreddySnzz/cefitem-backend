@@ -1,14 +1,14 @@
-// const express = require('express');
-// const RouterForUser = express.Router();
-// const { celebrate, Segments, Joi } = require('celebrate');
-// const UserController = require('../controllers/UserController');
-// const AuthMiddleware = require('../middleware/AuthMiddleware');
+const express = require('express');
+const RouterForUser = express.Router();
+const { celebrate, Segments, Joi } = require('celebrate');
+const UserController = require('../controllers/UserController');
+const AuthMiddleware = require('../middleware/AuthMiddleware');
 
-// RouterForUser.get(
-//   '/',
-//   AuthMiddleware.validateJWT,
-//   UserController.getUsers
-// ),
+RouterForUser.get(
+  '/me',
+  AuthMiddleware.validateJWT,
+  UserController.getUser
+),
 
 // RouterForUser.put(
 //   '/change-password',
@@ -28,4 +28,4 @@
 //   UserController.changeNickname
 // )
 
-// module.exports = RouterForUser;
+module.exports = RouterForUser;
