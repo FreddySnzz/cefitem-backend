@@ -11,7 +11,7 @@ module.exports = {
   password: 'kGGnN95q99Sh',
   database: 'wlissesmenezes_cefitem_staging',
   // host: 'mysql_db', // Docker Comunication local
-  host: '207.244.244.74', // local
+  host: '207.244.244.73', // local
   dialect: process.env.DB_DIALECT || "mysql",
   explicit_defaults_for_timestamp: false,
   define: {
