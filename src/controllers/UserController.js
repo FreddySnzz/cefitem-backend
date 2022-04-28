@@ -7,7 +7,7 @@ module.exports = {
     try {
       let getToken = request.headers['authorization'];
       let getId = await getJWTBody(getToken);
-      let userCompare = await User.findOne({ where: { id: getId },
+      let getUser = await User.findOne({ where: { id: getId },
         attributes: 
           {
             exclude: ['id', 'phrase', 
@@ -16,64 +16,89 @@ module.exports = {
           }
       });
 
-      if (userCompare == null) {
+      if (getUser == null) {
         response.status(403).json({ error: 'Method not allowed'});
-        
+
       } else {
-        response.status(200).json({ body: userCompare });
-      }
+        response.status(200).json({ body: getUser });
+      };
+
+    } catch (error) {
+      response.status(500).json({ error: error });
+    };
+  },
+
+  async changePassword (request, response) {
+    try {
+      let getToken = request.headers['authorization'];
+      let getId = await getJWTBody(getToken);
+      let getUser = await User.findOne({ raw: true, where: {id: getId}});
+
+      console.log(request.body)
+
+      if (getUser != null) {
+        let phraseCompare = bcrypt.compareSync(request.body.old_password, getUser.phrase);
+        
+        if (phraseCompare) {
+          const salt = await bcrypt.genSalt(10);
+          let newPhraseEncrypted = await bcrypt.hashSync(request.body.new_password, salt);
+
+          request.body.phrase = newPhraseEncrypted;
+          await User.update(
+            request.body, {
+              where: {id: getUser}
+          });
+
+          response.status(200).json({ message: 'Password changed' });
+        }
+
+      } else {
+        response.status(401).json({ message: 'Not authorized' })
+        };
+
     } catch (error) {
       console.log(error)
       response.status(500).json({ error: error });
     };
   },
 
-  // async changePhrase (request, response) {
-  //   try {
-  //   let getToken = request.headers['authorization'];
-  //   let getId = await getJWTBody(getToken);
-  //   let user = await User.findOne({ where: {id: getId}});
+  async updateUser (request, response) {
+    try {
+      let getToken = request.headers['authorization'];
+      let getId = await getJWTBody(getToken);
+      let getUser = await User.findOne({
+        where: { id: getId }
+      });
 
-  //   if (user != null) {
-  //     let phraseCompare = bcrypt.compareSync(request.body.oldPhrase, user.phrase);
+      await User.update(
+        request.body, {
+          where: {id: getUser}
+        });
+
+      response.status(200).json({ message: 'User updated' });
+
+    } catch (error) {
+      response.status(500).json({ error: error });
+    };
+  },
+
+  async deleteUser (request, response) {
+    try {
+      let getToken = request.headers['authorization'];
+      let getId = await getJWTBody(getToken);
+      let getUser = await User.findOne({
+        where: { id: getId }
+      });
+
+      if (getUser == null || getUser == undefined) {
+        response.status(404).json({ message: "User not found" });
+      } else {
+        await getUser.destroy();
+        response.status(200).json({ message: "User deleted" });
+      };
       
-  //     if (phraseCompare) {
-  //       const salt = await bcrypt.genSalt(10);
-  //       let newPhraseEncrypted = await bcrypt.hashSync(request.body.newPhrase, salt);
-
-  //       request.body.phrase = newPhraseEncrypted;
-  //       await User.update(
-  //         request.body, {
-  //           where: {id: getId}
-  //       })
-
-  //       response.status(200).json({ message: 'Password changed' });
-
-  //     }
-  //   } else {
-  //     response.status(401).json({ message: 'Not authorized' })
-  //     }
-  //   } catch (error) {
-  //     response.status(500).json({ error: error });
-  //   };
-  // },
-
-  // async changeNickname (request, response) {
-  //   try {
-  //   let getToken = request.headers['authorization'];
-  //   let getId = await getJWTBody(getToken);
-  //   let user = await User.findOne({ where: {id: getId }});
-
-  //   request.body.nickname = request.body.newNick.toLowerCase();
-  //   await User.update(
-  //     request.body, {
-  //       where: {id: getId}
-  //     });
-
-  //   response.status(200).json({ message: 'Nickname changed' });
-
-  //   } catch (error) {
-  //     response.status(500).json({ error: error });
-  //   };
-  // }
+    } catch (error) {
+      response.status(500).json({ error: error });
+    };
+  },
 }

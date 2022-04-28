@@ -45,7 +45,6 @@ module.exports = {
       let queryId = request.query.id;
       let getPrefecture = await Prefecture.findByPk(queryId);
 
-      
       await Prefecture.update(request.body, {
         where: {id: queryId}
       });

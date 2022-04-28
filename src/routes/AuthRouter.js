@@ -49,16 +49,26 @@ RouterForAuth.post(
   AuthController.enableUser
 );
 
-// RouterForAuth.post(
-//   '/recovery',
-//   celebrate({
-//     [Segments.BODY]: Joi.object().keys({
-//       token: Joi.string().required(),
-//       new_phrase: Joi.string().required()
-//     }),
-//   }),
-//   AuthController.recoveryPhrase
-// );
+RouterForAuth.post(
+  '/send_token',
+  celebrate({
+    [Segments.BODY]: Joi.object().keys({
+      email: Joi.string().email().required()
+    }),
+  }),
+  AuthController.sendTokenRecovery
+);
+
+RouterForAuth.post(
+  '/recovery',
+  celebrate({
+    [Segments.BODY]: Joi.object().keys({
+      token: Joi.string().required(),
+      new_phrase: Joi.string().required()
+    }),
+  }),
+  AuthController.recoveryPhrase
+);
 
 
 module.exports = RouterForAuth;

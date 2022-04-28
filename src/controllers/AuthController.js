@@ -1,9 +1,9 @@
 const { User } = require('../models');
 const bcrypt = require("bcryptjs");
-var crypto = require('crypto');
 
 const { generateNewToken } = require('../functions/auth/GenerateToken');
 const { generateJWT } = require('../functions/auth/GenerateJWT');
+const { sendEmail } = require("../functions/sendEmail");
 
 module.exports = {
   async createUser (request, response) {
@@ -24,6 +24,17 @@ module.exports = {
         request.body.terms_confirmed = true;
 
         await User.create(request.body);
+
+        await sendEmail({
+          subject: 'Confirmação de cadastro',
+          email: request.body.email,
+          link: 'confimationLink',
+          label: 'Confirmar conta',
+          token: request.body.token,
+          title: "Bem vindo (a) ao Cefitem! Confirme seu cadastro para poder aproveitar de todas as funcionalidades da plataforma.",
+          subtitle: "Digite o token recebido ou click no botão abaixo."
+        });
+
         response.status(201).json({ body: 'User created' })
       } else {
         response.status(401).json({ error: 'Unauthorized' });
@@ -64,24 +75,6 @@ module.exports = {
     }
   },
 
-  async getToken (request, response) {
-    try {
-      const verifyUserByEmail = await User.findOne( { where: { email: request.body.email } });
-
-      if(verifyUserByEmail == null || verifyUserByEmail == undefined) {
-        response.status(412).json({ 'message': 'User not found' });
-      }
-      else {
-        const getToken = verifyUserByEmail.token;
-        response.status(200).json({ body: getToken });
-      }
-
-    } catch (error) {
-      console.log(error);
-      response.status(500).json({ error: error });
-    }
-  },
-
   async enableUser (request, response) {
     try {
       let verifyUserByEmail = await User.findOne( { where: { email: request.body.email } });
@@ -111,34 +104,73 @@ module.exports = {
     }
   },
 
-  // async recoveryPhrase (request, response) {
-  //   try {
+  async recoveryPhrase (request, response) {
+    try {
 
-  //     let verifyUserBySecureToken = await User.findOne({ where: { secure_token: request.body.token } });
+      let verifyUserBySecureToken = await User.findOne({ where: { token: request.body.token } });
 
-  //     if(verifyUserBySecureToken == null || verifyUserBySecureToken == undefined) {
-  //       response.status(404).json({ message: "User not found" });
-  //     } else {
+      if(verifyUserBySecureToken == null || verifyUserBySecureToken == undefined) {
+        response.status(404).json({ message: "User not found" });
+      } else {
 
-  //       let phraseCompare = bcrypt.compareSync(request.body.new_phrase, verifyUserBySecureToken.phrase);
+        let phraseCompare = bcrypt.compareSync(request.body.new_phrase, verifyUserBySecureToken.phrase);
 
-  //       if(phraseCompare) {
-  //         response.status(401).json({ message: "The new password must never have been used" });
-  //       }
-  //       else {
-  //         const salt = await bcrypt.genSalt(10);
-  //         let newPhrase = await bcrypt.hashSync(request.body.new_phrase, salt);
+        if(phraseCompare) {
+          response.status(401).json({ message: "The new password must never have been used" });
+        }
+        else {
+          const salt = await bcrypt.genSalt(10);
+          let newPhrase = await bcrypt.hashSync(request.body.new_phrase, salt);
 
-  //         await User.update(
-  //           { phrase: newPhrase },
-  //           { where: { secure_token: request.body.token }
-  //         });
+          await User.update(
+            { phrase: newPhrase },
+            { where: { token: request.body.token }
+          });
 
-  //         response.status(200).json({ body: "Password changed" });
-  //       }
-  //     }
-  //   } catch (error) {
-  //     response.status(500).json({ message: error });
-  //   }
-  // }
+          response.status(200).json({ body: "Password changed" });
+        }
+      }
+    } catch (error) {
+      response.status(500).json({ error: error });
+    }
+  },
+
+  async sendTokenRecovery (request, response) {
+    try {
+      let verifyUserByEmail = await User.findOne( { where: { email: request.body.email } });
+
+      if(verifyUserByEmail == null || verifyUserByEmail == undefined) {
+        response.status(412).json({ 'message': 'User not found' });
+      } else {
+        const { generateNewToken } = require('../functions/auth/GenerateToken');
+        let newToken = await generateNewToken(0, 9);
+
+        let token = await User.findOne({
+          where: { token: newToken }
+        });
+
+        if (token == null || token == undefined) {
+          await User.update(newToken, {
+            where: { email: request.body.email }
+          });
+
+          await sendEmail({
+            subject: 'Recuperação de senha',
+            email: request.body.email,
+            link: 'recoveryLink',
+            label: 'Recuperar senha',
+            token: newToken,
+            title: "A sua senha logo logo será recuperada!",
+            subtitle: "Digite o token recebido e sua nova senha ou click no botão abaixo."
+          });
+
+          response.status(200).json({ message: 'Verify your email' });
+        }
+      };
+
+    } catch (error) {
+      console.log(error)
+      response.status(500).json({ error: error });
+    }
+  }
 }
