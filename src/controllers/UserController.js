@@ -62,14 +62,11 @@ module.exports = {
     try {
       let getToken = request.headers['authorization'];
       let getId = await getJWTBody(getToken);
-      let getUser = await User.findOne({
-        where: { id: getId }
-      });
+      let getUser = await User.findOne({ raw: true, where: { id: getId } });
 
-      await User.update(
-        request.body, {
-          where: {id: getUser}
-        });
+      console.log(request.body)
+
+      await User.update({ where: { id: getUser }});
 
       response.status(200).json({ message: 'User updated' });
 
@@ -82,8 +79,7 @@ module.exports = {
     try {
       let getToken = request.headers['authorization'];
       let getId = await getJWTBody(getToken);
-      let getUser = await User.findOne({
-        where: { id: getId }
+      let getUser = await User.findOne({where: { id: getId }
       });
 
       if (getUser == null || getUser == undefined) {
