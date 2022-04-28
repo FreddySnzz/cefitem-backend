@@ -8,9 +8,9 @@ module.exports = {
       let getToken = request.headers['authorization'];
       let getId = await getJWTBody(getToken);
       let getUser = await User.findOne({ where: { id: getId },
-        attributes: 
+        attributes:
           {
-            exclude: ['id', 'phrase', 
+            exclude: ['id', 'phrase',
               'token', 'terms_confirmed', 'is_super_user',
               'createdAt', 'updatedAt']
           }
@@ -32,22 +32,18 @@ module.exports = {
     try {
       let getToken = request.headers['authorization'];
       let getId = await getJWTBody(getToken);
-      let getUser = await User.findOne({ raw: true, where: {id: getId}});
-
-      console.log(request.body)
+      let getUser = await User.findOne({ raw: true, where: { id: getId } });
 
       if (getUser != null) {
         let phraseCompare = bcrypt.compareSync(request.body.old_password, getUser.phrase);
-        
+
         if (phraseCompare) {
           const salt = await bcrypt.genSalt(10);
           let newPhraseEncrypted = await bcrypt.hashSync(request.body.new_password, salt);
 
-          request.body.phrase = newPhraseEncrypted;
-          await User.update(
-            request.body, {
-              where: {id: getUser}
-          });
+          let data = { phrase: newPhraseEncrypted };
+
+          await User.update( data, { where: { id: getId } });
 
           response.status(200).json({ message: 'Password changed' });
         }
@@ -96,7 +92,7 @@ module.exports = {
         await getUser.destroy();
         response.status(200).json({ message: "User deleted" });
       };
-      
+
     } catch (error) {
       response.status(500).json({ error: error });
     };
