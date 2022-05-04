@@ -104,7 +104,15 @@ const Prefecture = (sequelize, DataTypes) => {
       timestamps: true,
     }
   );
-  
+
+  prefecture.associate = (models) => {
+    prefecture.hasMany(models.Files, {
+      foreignKey: "user_files",
+      as: "files_upload"
+    });
+  }
+
+
   return prefecture;
 };
 

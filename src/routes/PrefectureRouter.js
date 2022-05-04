@@ -2,6 +2,7 @@ const express = require('express');
 const RouterForPrefecture = express.Router();
 const { celebrate, Segments, Joi } = require("celebrate");
 const PrefectureController = require('../controllers/PrefectureController');
+const FileUploadMiddleware = require("../middleware/FileUpload").saveFile();
 
 RouterForPrefecture.get(
   '/',
@@ -78,5 +79,11 @@ RouterForPrefecture.delete(
   '/delete',
   PrefectureController.deletePrefecture
 );
+
+RouterForPrefecture.post(
+  '/upload',
+  FileUploadMiddleware.array('files', 3),
+  PrefectureController.uploadFiles
+)
 
 module.exports = RouterForPrefecture;

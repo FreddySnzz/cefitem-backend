@@ -1,4 +1,6 @@
 const { Prefecture } = require('../models');
+const { generateJWT } = require('../functions/auth/GenerateJWT');
+const { getJWTBody } = require('../functions/auth/getJWTBody');
 
 module.exports = {
   async registerPrefecture (request, response) {
@@ -8,15 +10,17 @@ module.exports = {
       });
 
       if (verifyPrefecture == null || verifyPrefecture == undefined) {
-        await Prefecture.create(request.body);
+        let prefectureRegisted = await Prefecture.create(request.body);
+        let jwtToken = await generateJWT({ id: prefectureRegisted.id });
 
-        response.status(201).json({ message: 'Prefecture registed' });
+        response.status(201).json({ message: 'Prefecture registed', id: jwtToken });
 
       } else {
         response.status(401).json({ error: 'Unauthorized' });
       };
 
     } catch (error) {
+      console.log(error);
       response.status(500).json({ error: error });
     };
   },
@@ -68,5 +72,29 @@ module.exports = {
     } catch (error) {
       response.status(500).json({ error: error });
     };
+  },
+
+  async uploadFiles (request, response) {
+    try {
+
+      let getToken = request.headers['authorization'];
+      let getId = await getJWTBody(getToken);
+
+
+      let verifyPrefecture = await Prefecture.findOne({
+        where: { id: getId }
+      });
+
+      if (verifyPrefecture == null || verifyPrefecture == undefined) {
+        response.status(401).json({ message: 'Prefecture not fount' });
+      }
+
+      response.status(200).json({ message: verifyPrefecture });
+
+    }
+    catch (error) {
+      console.log(error)
+      response.status(500).json({ error: error });
+    }
   }
 };

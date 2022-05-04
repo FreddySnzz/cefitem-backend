@@ -91,7 +91,7 @@ const User = (sequelize, DataTypes) => {
       as: "user_economic_activity"
     });
   }
-  
+
   return user;
 };
 

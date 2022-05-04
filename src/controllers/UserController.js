@@ -34,6 +34,8 @@ module.exports = {
       let getId = await getJWTBody(getToken);
       let getUser = await User.findOne({ raw: true, where: { id: getId } });
 
+      console.log(request.body)
+
       if (getUser != null) {
         let phraseCompare = bcrypt.compareSync(request.body.old_password, getUser.phrase);
 
@@ -53,7 +55,6 @@ module.exports = {
         };
 
     } catch (error) {
-      console.log(error)
       response.status(500).json({ error: error });
     };
   },
@@ -79,8 +80,7 @@ module.exports = {
     try {
       let getToken = request.headers['authorization'];
       let getId = await getJWTBody(getToken);
-      let getUser = await User.findOne({where: { id: getId }
-      });
+      let getUser = await User.findOne({ where: { id: getId } });
 
       if (getUser == null || getUser == undefined) {
         response.status(404).json({ message: "User not found" });
