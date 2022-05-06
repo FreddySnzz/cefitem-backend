@@ -6,7 +6,6 @@ const multerS3 = require("multer-s3");
 const { getJWTBody } = require('../functions/auth/getJWTBody');
 const { saveFileInDB } = require('../functions/saveFileInDB');
 
-
 const credentials = new AWS.SharedIniFileCredentials({ profile: 'wasabi' });
 AWS.config.credentials = credentials;
 
@@ -23,7 +22,6 @@ const s3 = new AWS.S3 ({
 });
 
 const storageTypes = {
-  id: 1,
   s3: multerS3({
     s3: s3,
     bucket: process.env.AWS_BUCKET_NAME,
@@ -51,7 +49,6 @@ const storageTypes = {
 module.exports = {
   saveFile (id) {
     const storage = storageTypes.s3
-    storageTypes.id = id;
     return multer({ storage });
   }
 }

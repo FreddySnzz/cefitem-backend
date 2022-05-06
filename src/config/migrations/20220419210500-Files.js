@@ -14,7 +14,7 @@ module.exports = {
         type: Sequelize.DataTypes.STRING(300),
         allowNull: false,
       },
-      user_files: {
+      prefecture_files: {
         type: Sequelize.DataTypes.STRING(3),
         allowNull: true
       },

@@ -106,6 +106,10 @@ module.exports = {
         type: Sequelize.DataTypes.STRING(50),
         allowNull: false,
       },
+      phrase: {
+        type: Sequelize.DataTypes.STRING(255),
+        allowNull: false
+      },
       created_at: {
         type: Sequelize.DataTypes.DATE,
         allowNull: false,

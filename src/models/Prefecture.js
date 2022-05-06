@@ -98,6 +98,10 @@ const Prefecture = (sequelize, DataTypes) => {
         type: DataTypes.STRING(50),
         allowNull: false,
       },
+      phrase: {
+        type: DataTypes.STRING(255),
+        allowNull: false
+      },
     },
     {
       tableName: "prefecture",
@@ -107,7 +111,7 @@ const Prefecture = (sequelize, DataTypes) => {
 
   prefecture.associate = (models) => {
     prefecture.hasMany(models.Files, {
-      foreignKey: "user_files",
+      foreignKey: "prefecture_files",
       as: "files_upload"
     });
   }

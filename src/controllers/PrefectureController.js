@@ -13,6 +13,10 @@ module.exports = {
         let prefectureRegisted = await Prefecture.create(request.body);
         let jwtToken = await generateJWT({ id: prefectureRegisted.id });
 
+        const salt = await bcrypt.genSalt(10);
+        let phraseEncrypted = await bcrypt.hashSync(request.body.phrase, salt);
+        request.body.phrase = phraseEncrypted;
+
         response.status(201).json({ message: 'Prefecture registed', id: jwtToken });
 
       } else {

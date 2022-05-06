@@ -10,6 +10,7 @@ var userRouter = require('./routes/UserRouter');
 var prefectureRouter = require('./routes/PrefectureRouter');
 var economicActivityRouter = require('./routes/EconomicActivityRouter');
 var authRouter = require('./routes/AuthRouter');
+var filesRouter = require('./routes/FilesRouter');
 
 var app = express();
 
@@ -29,6 +30,7 @@ app.use('/user', userRouter);
 app.use('/prefecture', prefectureRouter);
 app.use('/economic-activity', economicActivityRouter);
 app.use('/auth', authRouter);
+app.use('/files', filesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
