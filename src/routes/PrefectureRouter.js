@@ -37,6 +37,7 @@ RouterForPrefecture.post(
       contact_email: Joi.string().required(),
       prefecture_telephone: Joi.string().min(8).required(),
       prefecture_email: Joi.string().required(),
+      phrase: Joi.string().required()
     }),
   }),
   PrefectureController.registerPrefecture
