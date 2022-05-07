@@ -29,7 +29,7 @@ app.use(cors());
 
 // error cors handlind
 const allowedOrigins = [
-  'capacitor://localhost',
+  'http://cefitem.net',
   'ionic://localhost',
   'http://localhost',
   'http://localhost:3000',
