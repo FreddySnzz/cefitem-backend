@@ -1,6 +1,5 @@
 const { Files, Prefecture } = require('../models');
 const { getJWTBody } = require('../functions/auth/getJWTBody');
-const Op = require('sequelize').Op;
 
 const AWS = require("aws-sdk");
 const credentials = new AWS.SharedIniFileCredentials({ profile: 'wasabi' });
@@ -21,7 +20,7 @@ const s3 = new AWS.S3 ({
 module.exports = {
   async cancelUpload (request, response) {
     try {
-      let getToken = request.headers['Authorization'];
+      let getToken = request.headers['authorization'];
       let getId = await getJWTBody(getToken);
       let getPrefecture = await Prefecture.findOne({
         where: { id: getId }

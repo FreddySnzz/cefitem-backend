@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 module.exports = {
   async validateJWT (request, response, next) {
     try {
-      let getToken = request.headers['Authorization'];
+      let getToken = request.headers['authorization'];
       getToken = getToken.split(' ');
 
       if (getToken[1]) {
