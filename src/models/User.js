@@ -85,12 +85,12 @@ const User = (sequelize, DataTypes) => {
     }
   );
 
-  user.associate = (models) => {
-    user.belongsTo(models.EconomicActivity, {
-      foreignKey: "economic_activity",
-      as: "user_economic_activity"
-    });
-  }
+  // user.associate = (models) => {
+  //   user.belongsTo(models.EconomicActivity, {
+  //     foreignKey: "activity_name",
+  //     as: "economic_activity"
+  //   });
+  // }
 
   return user;
 };

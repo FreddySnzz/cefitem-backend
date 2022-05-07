@@ -2,7 +2,7 @@ const EconomicActivity = (sequelize, DataTypes) => {
   let economic_activity = sequelize.define(
     "EconomicActivity",
     {
-      name: {
+      activity_name: {
         type: DataTypes.STRING(100),
         allowNull: false,
       }
@@ -13,12 +13,12 @@ const EconomicActivity = (sequelize, DataTypes) => {
     }
   );
   
-  economic_activity = (models) => {
-    economic_activity.hasMany(models.User, {
-      foreignKey: "user_economic_activity",
-      as: "economic_activity"
-    });
-  }
+  // economic_activity = (models) => {
+  //   economic_activity.hasMany(models.User, {
+  //     foreignKey: "activity_name",
+  //     as: "economic_activity"
+  //   });
+  // }
 
   return economic_activity;
 };
