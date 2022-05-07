@@ -30,7 +30,7 @@ module.exports = {
 
   async changePassword (request, response) {
     try {
-      let getToken = request.headers['Authorization'];
+      let getToken = request.headers['authorization'];
       let getId = await getJWTBody(getToken);
       let getUser = await User.findOne({ raw: true, where: { id: getId } });
 
@@ -61,7 +61,7 @@ module.exports = {
 
   async updateUser (request, response) {
     try {
-      let getToken = request.headers['Authorization'];
+      let getToken = request.headers['authorization'];
       let getId = await getJWTBody(getToken);
       let getUser = await User.findOne({ raw: true, where: { id: getId } });
 
@@ -78,7 +78,7 @@ module.exports = {
 
   async deleteUser (request, response) {
     try {
-      let getToken = request.headers['Authorization'];
+      let getToken = request.headers['authorization'];
       let getId = await getJWTBody(getToken);
       let getUser = await User.findOne({ where: { id: getId } });
 

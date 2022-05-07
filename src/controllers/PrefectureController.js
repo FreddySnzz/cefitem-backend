@@ -82,7 +82,7 @@ module.exports = {
   async uploadFiles (request, response) {
     try {
 
-      let getToken = request.headers['Authorization'];
+      let getToken = request.headers['authorization'];
       let getId = await getJWTBody(getToken);
 
 
