@@ -33,7 +33,7 @@ const storageTypes = {
           cb(err);
         }
 
-        let getToken = req.headers['authorization'];
+        let getToken = req.headers['Authorization'];
         let getId = await getJWTBody(getToken);
 
         const fileName = `${hash.toString("hex")}-${file.originalname.replace(/ /g,'-')}`;

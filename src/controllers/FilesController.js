@@ -21,7 +21,7 @@ const s3 = new AWS.S3 ({
 module.exports = {
   async cancelUpload (request, response) {
     try {
-      let getToken = request.headers['authorization'];
+      let getToken = request.headers['Authorization'];
       let getId = await getJWTBody(getToken);
       let getPrefecture = await Prefecture.findOne({
         where: { id: getId }
@@ -33,14 +33,14 @@ module.exports = {
         Bucket: process.env.AWS_BUCKET_NAME,
         Key: request.body.link.substring(43, request.body.link.length) // https://s3.us-east-1.wasabisys.com/cefitem/fbbb6643cc25807f5e5238501b1fb679-ORÇAMENTO-ANDRÉ-LUIS.pdf
       };
-    
+
       // upload object to previously created "examplebucket"
       s3.deleteObject(object_upload_params, async function (error, data) {
         if (error) {
           console.log(error, error.stack);  // an error occurred
         } else {
           await Files.destroy({
-            where: { file: request.body.link } 
+            where: { file: request.body.link }
           });
           console.log(data); // successful response
         };

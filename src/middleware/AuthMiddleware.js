@@ -3,13 +3,13 @@ const jwt = require('jsonwebtoken');
 module.exports = {
   async validateJWT (request, response, next) {
     try {
-      let getToken = request.headers['authorization'];
+      let getToken = request.headers['Authorization'];
       getToken = getToken.split(' ');
 
       if (getToken[1]) {
         let secureToken = process.env.JWT_SECRET
         jwt.verify(getToken[1], secureToken, function(erro, decoded) {
-          
+
           if(decoded) {
             next();
           } else {
