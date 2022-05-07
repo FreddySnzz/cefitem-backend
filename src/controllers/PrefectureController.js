@@ -1,6 +1,7 @@
 const { Prefecture } = require('../models');
 const { generateJWT } = require('../functions/auth/GenerateJWT');
 const { getJWTBody } = require('../functions/auth/getJWTBody');
+const bcrypt = require('bcryptjs');
 
 module.exports = {
   async registerPrefecture (request, response) {
