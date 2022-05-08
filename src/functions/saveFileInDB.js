@@ -7,7 +7,7 @@ module.exports = {
 
       if(getPrefecture != null || getPrefecture != undefined) {
         link = `https://s3.us-east-1.wasabisys.com/cefitem/${link}`;
-        let file = await Files.create({ file: link, user_files: id });
+        let file = await Files.create({ file: link, prefecture_id: id });
         console.log(file);
         return true
       }
