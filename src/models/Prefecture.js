@@ -110,8 +110,8 @@ const Prefecture = (sequelize, DataTypes) => {
   );
 
   prefecture.associate = (models) => {
-    prefecture.hasMany(models.Files, {
-      foreignKey: "prefecture_files",
+    prefecture.belongsTo(models.Files, {
+      foreignKey: "prefecture_id",
       as: "files_upload"
     });
   }

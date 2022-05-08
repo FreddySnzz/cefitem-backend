@@ -6,7 +6,7 @@ const Files = (sequelize, DataTypes) => {
         type: DataTypes.STRING(300),
         allowNull: false,
       },
-      prefecture_files: {
+      prefecture_id: {
         type: DataTypes.STRING(3),
         allowNull: false
       }
@@ -18,8 +18,8 @@ const Files = (sequelize, DataTypes) => {
   );
 
   files.associate = (models) => {
-    files.belongsTo(models.Prefecture, {
-      foreignKey: "prefecture_files",
+    files.hasMany(models.Prefecture, {
+      foreignKey: "prefecture_id",
       as: "files_upload"
     });
   }

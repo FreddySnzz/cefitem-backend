@@ -26,8 +26,6 @@ module.exports = {
         where: { id: getId }
       });
 
-      console.log(request.body.link.substring(43, request.body.link.length))
-
       const object_upload_params = {
         Bucket: process.env.AWS_BUCKET_NAME,
         Key: request.body.link.substring(43, request.body.link.length) // https://s3.us-east-1.wasabisys.com/cefitem/fbbb6643cc25807f5e5238501b1fb679-ORÇAMENTO-ANDRÉ-LUIS.pdf
