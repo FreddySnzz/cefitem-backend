@@ -37,6 +37,7 @@ const storageTypes = {
         let getId = await getJWTBody(getToken);
 
         const fileName = `${hash.toString("hex")}-${file.originalname.replace(/ /g,'-')}`;
+        console.log('Antes de salvar no banco')
 
         await saveFileInDB(getId, fileName);
 
