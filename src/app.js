@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 
 var indexRouter = require('./routes/index');
-var userRouter = require('./routes/UserRouter');
+var contributorRouter = require('./routes/ContributorRouter');
 var prefectureRouter = require('./routes/PrefectureRouter');
 var economicActivityRouter = require('./routes/EconomicActivityRouter');
 var authRouter = require('./routes/AuthRouter');
@@ -50,7 +50,7 @@ const corsOptions = {
 app.options('*', cors(corsOptions));
 
 app.use('/', cors(corsOptions), indexRouter);
-app.use('/user', cors(corsOptions), userRouter);
+app.use('/contributor', cors(corsOptions), contributorRouter);
 app.use('/prefecture', cors(corsOptions), prefectureRouter);
 app.use('/economic-activity', cors(corsOptions), economicActivityRouter);
 app.use('/auth', cors(corsOptions), authRouter);

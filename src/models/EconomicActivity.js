@@ -14,7 +14,7 @@ const EconomicActivity = (sequelize, DataTypes) => {
   );
   
   economic_activity = (models) => {
-    economic_activity.hasMany(models.User, {
+    economic_activity.hasMany(models.Contributor, {
       foreignKey: "activity_name",
       as: "economic_activity"
     });

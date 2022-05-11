@@ -6,7 +6,7 @@ const { generateJWT } = require('../functions/auth/GenerateJWT');
 const { sendEmail } = require("../functions/sendEmail");
 
 module.exports = {
-  async createUser (request, response) {
+  async createContributor (request, response) {
     try {
       let verifyUser = await User.findOne({
         where: { name: request.body.name }
@@ -44,7 +44,7 @@ module.exports = {
     }
   },
 
-  async authUser (request, response) {
+  async authContributor (request, response) {
     try {
       const verifyUserByEmail = await User.findOne({ where: { email: request.body.email } });
 
@@ -76,7 +76,7 @@ module.exports = {
     }
   },
 
-  async enableUser (request, response) {
+  async enableContributor (request, response) {
     try {
       let verifyUserByEmail = await User.findOne( { where: { email: request.body.email } });
 

@@ -1,6 +1,6 @@
-const User = (sequelize, DataTypes) => {
-  let user = sequelize.define(
-    "User",
+const Contributor = (sequelize, DataTypes) => {
+  let contributor = sequelize.define(
+    "Contributor",
     {
       name: {
         type: DataTypes.STRING(100),
@@ -80,19 +80,19 @@ const User = (sequelize, DataTypes) => {
       },
     },
     {
-      tableName: "user",
+      tableName: "contributor",
       timestamps: true,
     }
   );
 
-  // user.associate = (models) => {
-  //   user.belongsTo(models.EconomicActivity, {
+  // contributor.associate = (models) => {
+  //   contributor.belongsTo(models.EconomicActivity, {
   //     foreignKey: "activity_name",
   //     as: "economic_activity"
   //   });
   // }
 
-  return user;
+  return contributor;
 };
 
-module.exports = User;
+module.exports = Contributor;

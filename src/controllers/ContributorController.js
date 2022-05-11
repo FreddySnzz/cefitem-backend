@@ -1,13 +1,13 @@
 const { getJWTBody } = require('../functions/auth/getJWTBody');
-const { User } = require('../models');
+const { Contributor } = require('../models');
 const bcrypt = require('bcryptjs');
 
 module.exports = {
-  async getUser (request, response) {
+  async getContributor (request, response) {
     try {
       let getToken = request.headers['authorization'];
       let getId = await getJWTBody(getToken);
-      let getUser = await User.findOne({ where: { id: getId },
+      let getContributor = await Contributor.findOne({ where: { id: getId },
         attributes:
           {
             exclude: ['id', 'phrase',
@@ -16,11 +16,11 @@ module.exports = {
           }
       });
 
-      if (getUser == null) {
+      if (getContributor == null) {
         response.status(403).json({ error: 'Method not allowed'});
 
       } else {
-        response.status(200).json({ body: getUser });
+        response.status(200).json({ body: getContributor });
       };
 
     } catch (error) {
@@ -32,12 +32,12 @@ module.exports = {
     try {
       let getToken = request.headers['authorization'];
       let getId = await getJWTBody(getToken);
-      let getUser = await User.findOne({ raw: true, where: { id: getId } });
+      let getContributor = await Contributor.findOne({ raw: true, where: { id: getId } });
 
       console.log(request.body)
 
-      if (getUser != null) {
-        let phraseCompare = bcrypt.compareSync(request.body.old_password, getUser.phrase);
+      if (getContributor != null) {
+        let phraseCompare = bcrypt.compareSync(request.body.old_password, getContributor.phrase);
 
         if (phraseCompare) {
           const salt = await bcrypt.genSalt(10);
@@ -45,7 +45,7 @@ module.exports = {
 
           let data = { phrase: newPhraseEncrypted };
 
-          await User.update( data, { where: { id: getId } });
+          await Contributor.update( data, { where: { id: getId } });
 
           response.status(200).json({ message: 'Password changed' });
         }
@@ -59,34 +59,34 @@ module.exports = {
     };
   },
 
-  async updateUser (request, response) {
+  async updateContributor (request, response) {
     try {
       let getToken = request.headers['authorization'];
       let getId = await getJWTBody(getToken);
-      let getUser = await User.findOne({ raw: true, where: { id: getId } });
+      let getContributor = await Contributor.findOne({ raw: true, where: { id: getId } });
 
       console.log(request.body)
 
-      await User.update({ where: { id: getUser }});
+      await Contributor.update({ where: { id: getContributor }});
 
-      response.status(200).json({ message: 'User updated' });
+      response.status(200).json({ message: 'Contributor updated' });
 
     } catch (error) {
       response.status(500).json({ error: error });
     };
   },
 
-  async deleteUser (request, response) {
+  async deleteContributor (request, response) {
     try {
       let getToken = request.headers['authorization'];
       let getId = await getJWTBody(getToken);
-      let getUser = await User.findOne({ where: { id: getId } });
+      let getContributor = await Contributor.findOne({ where: { id: getId } });
 
-      if (getUser == null || getUser == undefined) {
-        response.status(404).json({ message: "User not found" });
+      if (getContributor == null || getContributor == undefined) {
+        response.status(404).json({ message: "Contributor not found" });
       } else {
-        await getUser.destroy();
-        response.status(200).json({ message: "User deleted" });
+        await getContributor.destroy();
+        response.status(200).json({ message: "Contributor deleted" });
       };
 
     } catch (error) {

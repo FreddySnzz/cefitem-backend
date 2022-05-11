@@ -1,22 +1,22 @@
 const express = require('express');
-const RouterForUser = express.Router();
+const RouterForContributor = express.Router();
 const { celebrate, Segments, Joi } = require('celebrate');
-const UserController = require('../controllers/UserController');
+const ContributorController = require('../controllers/ContributorController');
 const AuthMiddleware = require('../middleware/AuthMiddleware');
 
-RouterForUser.get(
+RouterForContributor.get(
   '/me',
   AuthMiddleware.validateJWT,
-  UserController.getUser
+  ContributorController.getContributor
 );
 
-RouterForUser.post(
+RouterForContributor.post(
   '/change-password',
   AuthMiddleware.validateJWT,
-  UserController.changePassword
+  ContributorController.changePassword
 )
 
-RouterForUser.put(
+RouterForContributor.put(
   '/update',
   celebrate({
     [Segments.BODY]: Joi.object().keys({
@@ -37,13 +37,13 @@ RouterForUser.put(
     }),
   }),
   AuthMiddleware.validateJWT,
-  UserController.updateUser
+  ContributorController.updateContributor
 );
 
-RouterForUser.delete(
+RouterForContributor.delete(
   '/delete',
   AuthMiddleware.validateJWT,
-  UserController.deleteUser
+  ContributorController.deleteContributor
 );
 
-module.exports = RouterForUser;
+module.exports = RouterForContributor;

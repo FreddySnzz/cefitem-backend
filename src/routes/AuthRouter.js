@@ -24,7 +24,7 @@ RouterForAuth.post(
       phrase: Joi.string().min(8).required()
     }),
   }),
-  AuthController.createUser
+  AuthController.createContributor
 );
 
 RouterForAuth.post(
@@ -35,7 +35,7 @@ RouterForAuth.post(
       phrase: Joi.string().min(8).required()
     }),
   }),
-  AuthController.authUser
+  AuthController.authContributor
 );
 
 RouterForAuth.post(
@@ -46,7 +46,7 @@ RouterForAuth.post(
       token: Joi.string().required()
     }),
   }),
-  AuthController.enableUser
+  AuthController.enableContributor
 );
 
 RouterForAuth.post(
