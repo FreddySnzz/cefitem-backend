@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { Contributor } = require('../models');
 const bcrypt = require("bcryptjs");
 
 const { generateNewToken } = require('../functions/auth/GenerateToken');
@@ -8,7 +8,7 @@ const { sendEmail } = require("../functions/sendEmail");
 module.exports = {
   async createContributor (request, response) {
     try {
-      let verifyUser = await User.findOne({
+      let verifyUser = await Contributor.findOne({
         where: { name: request.body.name }
       })
 
@@ -23,7 +23,7 @@ module.exports = {
         request.body.is_super_user = false;
         request.body.terms_confirmed = true;
 
-        await User.create(request.body);
+        await Contributor.create(request.body);
 
         await sendEmail({
           subject: 'Confirmação de cadastro',
@@ -35,18 +35,19 @@ module.exports = {
           subtitle: "Digite o token recebido ou click no botão abaixo."
         });
 
-        response.status(201).json({ body: 'User created' })
+        response.status(201).json({ body: 'Contributor created' })
       } else {
         response.status(401).json({ error: 'Unauthorized' });
       }
     } catch (error) {
+      console.log(error)
       response.status(500).json({ error: error });
     }
   },
 
   async authContributor (request, response) {
     try {
-      const verifyUserByEmail = await User.findOne({ where: { email: request.body.email } });
+      const verifyUserByEmail = await Contributor.findOne({ where: { email: request.body.email } });
 
       if(verifyUserByEmail == null || verifyUserByEmail == undefined){
         response.status(401).json({ message: 'Unauthorized'});
@@ -64,7 +65,7 @@ module.exports = {
             }
           });
         }
-        response.status(401).json({ message: 'User disabled' });
+        response.status(401).json({ message: 'Contributor disabled' });
       }
       else {
         response.status(401).json({ message: 'Fail'});
@@ -78,10 +79,10 @@ module.exports = {
 
   async enableContributor (request, response) {
     try {
-      let verifyUserByEmail = await User.findOne( { where: { email: request.body.email } });
+      let verifyUserByEmail = await Contributor.findOne( { where: { email: request.body.email } });
 
       if(verifyUserByEmail == null || verifyUserByEmail == undefined) {
-        response.status(412).json({ 'message': 'User not found' });
+        response.status(412).json({ 'message': 'Contributor not found' });
       }
       else {
         if(verifyUserByEmail.token == request.body.token) {
@@ -89,10 +90,10 @@ module.exports = {
             let data = { enabled: true }
 
             await User.update( data, { where: { email: request.body.email } });
-            response.status(200).json({ "body": "User enabled" });
+            response.status(200).json({ "body": "Contributor enabled" });
           }
           else {
-            response.status(412).json({ message: "User has enabled" });
+            response.status(412).json({ message: "Contributor has enabled" });
           }
         }
         else {
@@ -108,10 +109,10 @@ module.exports = {
   async recoveryPhrase (request, response) {
     try {
 
-      let verifyUserBySecureToken = await User.findOne({ where: { token: request.body.token } });
+      let verifyUserBySecureToken = await Contributor.findOne({ where: { token: request.body.token } });
 
       if(verifyUserBySecureToken == null || verifyUserBySecureToken == undefined) {
-        response.status(404).json({ message: "User not found" });
+        response.status(404).json({ message: "Contributor not found" });
       } else {
 
         let phraseCompare = bcrypt.compareSync(request.body.new_phrase, verifyUserBySecureToken.phrase);
@@ -138,10 +139,10 @@ module.exports = {
 
   async sendTokenRecovery (request, response) {
     try {
-      let verifyUserByEmail = await User.findOne( { where: { email: request.body.email } });
+      let verifyUserByEmail = await Contributor.findOne( { where: { email: request.body.email } });
 
       if(verifyUserByEmail == null || verifyUserByEmail == undefined) {
-        response.status(412).json({ 'message': 'User not found' });
+        response.status(412).json({ 'message': 'Contributor not found' });
       } else {
         const { generateNewToken } = require('../functions/auth/GenerateToken');
         let newToken = await generateNewToken(0, 9);
@@ -151,7 +152,7 @@ module.exports = {
         });
 
         if (token == null || token == undefined) {
-          await User.update(newToken, {
+          await Contributor.update(newToken, {
             where: { email: request.body.email }
           });
 

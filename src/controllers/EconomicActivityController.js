@@ -1,4 +1,4 @@
-const { EconomicActivity, User } = require('../models');
+const { EconomicActivity, Contributor } = require('../models');
 const { getJWTBody } = require('../functions/auth/getJWTBody');
 
 module.exports = {
@@ -6,7 +6,7 @@ module.exports = {
     try {
       let getToken = request.headers['authorization'];
       let getId = await getJWTBody(getToken);
-      let getUser = await User.findOne({ raw: true, where: { id: getId, is_super_user: true } });
+      let getUser = await Contributor.findOne({ raw: true, where: { id: getId, is_super_user: true } });
 
       if (getUser == null || getUser == undefined) {
         response.status(401).json({ error: 'Unauthorized' });
@@ -26,7 +26,7 @@ module.exports = {
     try {
       let getToken = request.headers['authorization'];
       let getId = await getJWTBody(getToken);
-      let getUser = await User.findOne({ raw: true, where: { id: getId, is_super_user: true } });
+      let getUser = await Contributor.findOne({ raw: true, where: { id: getId, is_super_user: true } });
 
       if (getUser == null || getUser == undefined) {
         response.status(401).json({ error: 'Unauthorized' });
@@ -54,7 +54,7 @@ module.exports = {
     try {
       let getToken = request.headers['authorization'];
       let getId = await getJWTBody(getToken);
-      let getUser = await User.findOne({ raw: true, where: { id: getId, is_super_user: true } });
+      let getUser = await Contributor.findOne({ raw: true, where: { id: getId, is_super_user: true } });
 
       if (getUser == null || getUser == undefined) {
         response.status(401).json({ error: 'Unauthorized' });
@@ -75,7 +75,7 @@ module.exports = {
     try {
       let getToken = request.headers['authorization'];
       let getId = await getJWTBody(getToken);
-      let getUser = await User.findOne({ raw: true, where: { id: getId, is_super_user: true } });
+      let getUser = await Contributor.findOne({ raw: true, where: { id: getId, is_super_user: true } });
 
       if (getUser == null || getUser == undefined) {
         response.status(401).json({ error: 'Unauthorized' });
