@@ -49,12 +49,12 @@ const corsOptions = {
 
 app.options('*', cors(corsOptions));
 
-app.use('/',cors(corsOptions), indexRouter);
-app.use('/user',cors(corsOptions), userRouter);
-app.use('/prefecture',cors(corsOptions), prefectureRouter);
-app.use('/economic-activity',cors(corsOptions), economicActivityRouter);
-app.use('/auth',cors(corsOptions), authRouter);
-app.use('/files',cors(corsOptions), filesRouter);
+app.use('/', cors(corsOptions), indexRouter);
+app.use('/user', cors(corsOptions), userRouter);
+app.use('/prefecture', cors(corsOptions), prefectureRouter);
+app.use('/economic-activity', cors(corsOptions), economicActivityRouter);
+app.use('/auth', cors(corsOptions), authRouter);
+app.use('/files', cors(corsOptions), filesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

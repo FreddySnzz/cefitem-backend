@@ -13,12 +13,12 @@ const EconomicActivity = (sequelize, DataTypes) => {
     }
   );
   
-  // economic_activity = (models) => {
-  //   economic_activity.hasMany(models.User, {
-  //     foreignKey: "activity_name",
-  //     as: "economic_activity"
-  //   });
-  // }
+  economic_activity = (models) => {
+    economic_activity.hasMany(models.User, {
+      foreignKey: "activity_name",
+      as: "economic_activity"
+    });
+  }
 
   return economic_activity;
 };

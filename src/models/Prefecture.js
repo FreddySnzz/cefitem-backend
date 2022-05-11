@@ -98,10 +98,6 @@ const Prefecture = (sequelize, DataTypes) => {
         type: DataTypes.STRING(50),
         allowNull: false,
       },
-      phrase: {
-        type: DataTypes.STRING(255),
-        allowNull: false
-      },
     },
     {
       tableName: "prefecture",
