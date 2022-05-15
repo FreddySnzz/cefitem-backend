@@ -89,7 +89,7 @@ module.exports = {
           if(verifyUserByEmail.enabled == false) {
             let data = { enabled: true }
 
-            await User.update( data, { where: { email: request.body.email } });
+            await Contributor.update( data, { where: { email: request.body.email } });
             response.status(200).json({ "body": "Contributor enabled" });
           }
           else {
@@ -124,7 +124,7 @@ module.exports = {
           const salt = await bcrypt.genSalt(10);
           let newPhrase = await bcrypt.hashSync(request.body.new_phrase, salt);
 
-          await User.update(
+          await Contributor.update(
             { phrase: newPhrase },
             { where: { token: request.body.token }
           });
@@ -147,7 +147,7 @@ module.exports = {
         const { generateNewToken } = require('../functions/auth/GenerateToken');
         let newToken = await generateNewToken(0, 9);
 
-        let token = await User.findOne({
+        let token = await Contributor.findOne({
           where: { token: newToken }
         });
 

@@ -1,8 +1,8 @@
 const EconomicActivity = (sequelize, DataTypes) => {
-  let economic_activity = sequelize.define(
+  let economicActivity = sequelize.define(
     "EconomicActivity",
     {
-      activity_name: {
+      name: {
         type: DataTypes.STRING(100),
         allowNull: false,
       }
@@ -13,14 +13,14 @@ const EconomicActivity = (sequelize, DataTypes) => {
     }
   );
   
-  economic_activity = (models) => {
-    economic_activity.hasMany(models.Contributor, {
-      foreignKey: "activity_name",
-      as: "economic_activity"
+  economicActivity = (models) => {
+    economicActivity.hasMany(models.Contributor, {
+      foreignKey: "name",
+      as: "economicActivity"
     });
   }
 
-  return economic_activity;
+  return economicActivity;
 };
 
 module.exports = EconomicActivity;

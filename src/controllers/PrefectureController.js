@@ -6,18 +6,27 @@ const bcrypt = require('bcryptjs');
 module.exports = {
   async registerPrefecture (request, response) {
     try {
-      let verifyPrefecture = await Prefecture.findOne({
-        where: {name: request.body.name}
-      });
+      let verifyPrefectureByName = await Prefecture.findOne({ raw: true, 
+        where: { name: request.body.name }});
+      let verifyPrefectureByCity = await Prefecture.findOne({ raw: true, 
+        where: { city: request.body.city }}); 
 
-      if (verifyPrefecture == null || verifyPrefecture == undefined) {
+      if (verifyPrefectureByName == null || verifyPrefectureByName == undefined) {
+        if (verifyPrefectureByCity == null || verifyPrefectureByCity == undefined) {
+
         let prefectureRegisted = await Prefecture.create(request.body);
         let jwtToken = await generateJWT({ id: prefectureRegisted.id });
 
         response.status(201).json({ message: 'Prefecture registed', id: jwtToken });
 
+        } else {
+          response.status(401).json({ error: 'Unauthorized' });
+        };
+
       } else {
-        response.status(401).json({ error: 'Unauthorized' });
+        let jwtToken = await generateJWT({ id: verifyPrefectureByName.id });
+
+        response.status(401).json({ message: "A prefecture has already been created with this city", id: jwtToken });
       };
 
     } catch (error) {
@@ -28,7 +37,7 @@ module.exports = {
 
   async getPrefecture (request, response) {
     try {
-      let getPrefecture = await Prefecture.findAll(request.body);
+      let getPrefecture = await Prefecture.findAll();
       let queryId = request.query.id;
 
       if ( queryId > 0 ) {
@@ -48,13 +57,20 @@ module.exports = {
   async editPrefecture (request, response) {
     try {
       let queryId = request.query.id;
-      let getPrefecture = await Prefecture.findByPk(queryId);
-
-      await Prefecture.update(request.body, {
+      let getPrefecture = await Prefecture.findOne({raw: true,
         where: {id: queryId}
       });
 
-      response.status(200).json({ message: 'Prefecture edited' });
+      if (queryId == null || queryId == undefined) {
+        response.status(401).json({ error: "Unauthorized" });
+
+      } else {
+        await Prefecture.update(request.body, {
+          where: { name: getPrefecture.name }
+        });
+  
+        response.status(200).json({ message: 'Prefecture edited' });
+      };
 
     } catch (error) {
       response.status(500).json({ error: error });
@@ -65,22 +81,31 @@ module.exports = {
     try {
       let queryId = request.query.id;
 
-      let getPrefecture = await Prefecture.findByPk(queryId);
-      await getPrefecture.destroy();
+      if (queryId == null || queryId == undefined) {
+        response.status(401).json({ error: "Unauthorized" });
 
-      response.status(200).json({ message: 'Prefecture deleted' });
+      } else {
+        let getPrefecture = await Prefecture.findOne({raw: true,
+          where: {id: queryId}
+        });
+        //console.log(getPrefecture)
+        await Prefecture.destroy(getPrefecture, {
+          where: { id: getPrefecture.id }
+        });
+
+        response.status(200).json({ message: 'Prefecture deleted' });
+      };
 
     } catch (error) {
+      console.log(error)
       response.status(500).json({ error: error });
     };
   },
 
   async uploadFiles (request, response) {
     try {
-
       let getToken = request.headers['authorization'];
       let getId = await getJWTBody(getToken);
-
 
       let verifyPrefecture = await Prefecture.findOne({
         where: { id: getId }

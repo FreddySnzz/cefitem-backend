@@ -4,18 +4,21 @@ const { getJWTBody } = require('../functions/auth/getJWTBody');
 module.exports = {
   async getActivities (request, response) {
     try {
-      let getToken = request.headers['authorization'];
-      let getId = await getJWTBody(getToken);
-      let getUser = await Contributor.findOne({ raw: true, where: { id: getId, is_super_user: true } });
+      console.log(await EconomicActivity)
+      // let getToken = request.headers['authorization'];
+      // let getId = await getJWTBody(getToken);
+      // let getUser = await Contributor.findOne({ raw: true,
+      //   where: { id: getId, is_super_user: true }
+      // });
 
-      if (getUser == null || getUser == undefined) {
-        response.status(401).json({ error: 'Unauthorized' });
+      // if (getUser == null || getUser == undefined) {
+      //   response.status(401).json({ error: 'Unauthorized' });
 
-      } else {
-        let getActivities = await EconomicActivity.findAll(request.body);
+      // } else {
+      //   let getActivities = await EconomicActivity.findAll();
 
-        response.status(200).json({ body: getActivities });
-      };
+      //   response.status(200).json({ body: getActivities });
+      // };
       
     } catch (error) {
       response.status(500).json({ error: error });
@@ -26,15 +29,16 @@ module.exports = {
     try {
       let getToken = request.headers['authorization'];
       let getId = await getJWTBody(getToken);
-      let getUser = await Contributor.findOne({ raw: true, where: { id: getId, is_super_user: true } });
+      let getUser = await Contributor.findOne({ raw: true,
+        where: { id: getId, is_super_user: true }
+      });
 
-      if (getUser == null || getUser == undefined) {
+      if (getUser == null || getUser == undefined || getUser.is_super_user == false) {
         response.status(401).json({ error: 'Unauthorized' });
 
       } else {
-        let verifyActivity = await EconomicActivity.findOne({
-          where: { name: request.body.name }
-        });
+        let verifyActivity = await EconomicActivity.findOne({ raw: true, 
+          where: { name: request.body.name }});
   
         if (verifyActivity == null || verifyActivity == undefined) {
           await EconomicActivity.create(request.body);
@@ -46,6 +50,7 @@ module.exports = {
     };
 
     } catch (error) {
+      console.log(error)
       response.status(500).json({ error: error });
     };
   },

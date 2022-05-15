@@ -65,13 +65,12 @@ module.exports = {
       let getId = await getJWTBody(getToken);
       let getContributor = await Contributor.findOne({ raw: true, where: { id: getId } });
 
-      console.log(request.body)
-
-      await Contributor.update({ where: { id: getContributor }});
+      await Contributor.update(request.body, { where: { id: getContributor.id }});
 
       response.status(200).json({ message: 'Contributor updated' });
 
     } catch (error) {
+      console.log(error)
       response.status(500).json({ error: error });
     };
   },
