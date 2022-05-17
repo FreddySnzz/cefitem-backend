@@ -2,7 +2,7 @@ const COSIF = (sequelize, DataTypes) => {
   let cosif = sequelize.define(
     "COSIF",
     {
-      prefecture: {
+      prefecture_id: {
         type: DataTypes.STRING(100),
         allowNull: false,
       },
@@ -17,12 +17,12 @@ const COSIF = (sequelize, DataTypes) => {
     }
   );
 
-  // cosif.associate = (models) => {
-  //   cosif.belongsTo(models.Prefecture, {
-  //     foreignKey: "prefecture_id",
-  //     as: "cosif_upload"
-  //   });
-  // }
+  cosif.associate = (models) => {
+    cosif.belongsTo(models.Prefecture, {
+      foreignKey: "prefecture_id",
+      as: "cosif_prefecture"
+    });
+  }
 
   return cosif;
 };

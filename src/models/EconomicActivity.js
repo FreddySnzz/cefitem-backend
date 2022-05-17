@@ -5,7 +5,11 @@ const EconomicActivity = (sequelize, DataTypes) => {
       name: {
         type: DataTypes.STRING(100),
         allowNull: false,
-      }
+      },
+      contributor_id: {
+        type: DataTypes.STRING(100),
+        allowNull: false,
+      },
     },
     {
       tableName: "economic_activity",
@@ -15,8 +19,8 @@ const EconomicActivity = (sequelize, DataTypes) => {
   
   economicActivity = (models) => {
     economicActivity.hasMany(models.Contributor, {
-      foreignKey: "name",
-      as: "economicActivity"
+      foreignKey: "contributor_id",
+      as: "contributor_activity"
     });
   }
 

@@ -74,10 +74,6 @@ const Contributor = (sequelize, DataTypes) => {
         type: DataTypes.BOOLEAN,
         allowNull: false,
       },
-      is_super_user: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-      },
     },
     {
       tableName: "contributor",
@@ -85,12 +81,12 @@ const Contributor = (sequelize, DataTypes) => {
     }
   );
 
-  // contributor.associate = (models) => {
-  //   contributor.belongsTo(models.EconomicActivity, {
-  //     foreignKey: "activity_name",
-  //     as: "economic_activity"
-  //   });
-  // }
+  contributor.associate = (models) => {
+    contributor.belongsTo(models.EconomicActivity, {
+      foreignKey: "contributor_id",
+      as: "contributor_activity"
+    });
+  }
 
   return contributor;
 };

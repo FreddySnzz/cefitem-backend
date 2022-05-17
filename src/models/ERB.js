@@ -2,7 +2,7 @@ const ERB = (sequelize, DataTypes) => {
   let erb = sequelize.define(
     "ERB",
     {
-      prefecture: {
+      prefecture_id: {
         type: DataTypes.STRING(100),
         allowNull: false,
       },
@@ -17,12 +17,12 @@ const ERB = (sequelize, DataTypes) => {
     }
   );
 
-  // erb.associate = (models) => {
-  //   erb.belongsTo(models.Prefecture, {
-  //     foreignKey: "prefecture_id",
-  //     as: "erb_upload"
-  //   });
-  // }
+  erb.associate = (models) => {
+    erb.belongsTo(models.Prefecture, {
+      foreignKey: "prefecture_id",
+      as: "erb_prefecture"
+    });
+  }
 
   return erb;
 };
