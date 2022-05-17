@@ -12,6 +12,7 @@ var prefectureRouter = require('./routes/PrefectureRouter');
 var economicActivityRouter = require('./routes/EconomicActivityRouter');
 var authRouter = require('./routes/AuthRouter');
 var filesRouter = require('./routes/FilesRouter');
+var adminRouter = require('./routes/AdminRouter');
 
 var app = express();
 
@@ -30,11 +31,8 @@ app.use(cors());
 // error cors handlind
 const allowedOrigins = [
   'http://cefitem.net',
-  'ionic://localhost',
   'http://localhost',
-  'http://localhost:3000',
   'http://localhost:8080',
-  'http://localhost:8100',
 ];
 
 const corsOptions = {
@@ -55,6 +53,7 @@ app.use('/prefecture', cors(corsOptions), prefectureRouter);
 app.use('/economic-activity', cors(corsOptions), economicActivityRouter);
 app.use('/auth', cors(corsOptions), authRouter);
 app.use('/files', cors(corsOptions), filesRouter);
+app.use('/admin', cors(corsOptions), adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
