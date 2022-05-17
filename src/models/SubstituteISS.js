@@ -2,7 +2,7 @@ const SubstituteISS = (sequelize, DataTypes) => {
   let substitute_iss = sequelize.define(
     "SubstituteISS",
     {
-      prefecture: {
+      prefecture_id: {
         type: DataTypes.STRING(100),
         allowNull: false,
       },
@@ -17,12 +17,12 @@ const SubstituteISS = (sequelize, DataTypes) => {
     }
   );
 
-  // substitute_iss.associate = (models) => {
-  //   substitute_iss.belongsTo(models.Prefecture, {
-  //     foreignKey: "prefecture_id",
-  //     as: "substitute_iss_upload"
-  //   });
-  // }
+  substitute_iss.associate = (models) => {
+    substitute_iss.belongsTo(models.Prefecture, {
+      foreignKey: "prefecture_id",
+      as: "substitute_iss_prefecture"
+    });
+  }
 
   return substitute_iss;
 };

@@ -2,7 +2,7 @@ const OwnISS = (sequelize, DataTypes) => {
   let own_iss = sequelize.define(
     "OwnISS",
     {
-      prefecture: {
+      prefecture_id: {
         type: DataTypes.STRING(100),
         allowNull: false,
       },
@@ -17,12 +17,12 @@ const OwnISS = (sequelize, DataTypes) => {
     }
   );
 
-  // own_iss.associate = (models) => {
-  //   own_iss.belongsTo(models.Prefecture, {
-  //     foreignKey: "prefecture_id",
-  //     as: "own_iss_upload"
-  //   });
-  // }
+  own_iss.associate = (models) => {
+    own_iss.belongsTo(models.Prefecture, {
+      foreignKey: "prefecture_id",
+      as: "own_iss_prefecture"
+    });
+  }
 
   return own_iss;
 };

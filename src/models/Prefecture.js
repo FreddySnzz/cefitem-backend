@@ -110,6 +110,41 @@ const Prefecture = (sequelize, DataTypes) => {
       foreignKey: "prefecture_id",
       as: "files_upload"
     });
+
+    prefecture.hasMany(models.Commercial, {
+      foreignKey: "prefecture_id",
+      as: "commercial_prefecture"
+    });
+
+    prefecture.hasMany(models.COSIF, {
+      foreignKey: "prefecture_id",
+      as: "cosif_prefecture"
+    });
+
+    prefecture.hasMany(models.COSIP, {
+      foreignKey: "prefecture_id",
+      as: "cosip_prefecture"
+    });
+
+    prefecture.hasMany(models.ERB, {
+      foreignKey: "prefecture_id",
+      as: "erb_prefecture"
+    });
+
+    prefecture.hasMany(models.Hired, {
+      foreignKey: "prefecture_id",
+      as: "hired_prefecture"
+    });
+
+    prefecture.hasMany(models.OwnISS, {
+      foreignKey: "prefecture_id",
+      as: "own_iss_prefecture"
+    });
+
+    prefecture.hasMany(models.SubstituteISS, {
+      foreignKey: "prefecture_id",
+      as: "substitute_iss_prefecture"
+    });
   }
 
 

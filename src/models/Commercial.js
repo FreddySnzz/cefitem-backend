@@ -2,7 +2,7 @@ const Commercial = (sequelize, DataTypes) => {
   let commercial = sequelize.define(
     "Commercial",
     {
-      prefecture: {
+      prefecture_id: {
         type: DataTypes.STRING(100),
         allowNull: false,
       },
@@ -17,12 +17,12 @@ const Commercial = (sequelize, DataTypes) => {
     }
   );
 
-  // commercial.associate = (models) => {
-  //   commercial.belongsTo(models.Prefecture, {
-  //     foreignKey: "prefecture_id",
-  //     as: "commercial_upload"
-  //   });
-  // }
+  commercial.associate = (models) => {
+    commercial.belongsTo(models.Prefecture, {
+      foreignKey: "prefecture_id",
+      as: "commercial_prefecture"
+    });
+  }
 
   return commercial;
 };
