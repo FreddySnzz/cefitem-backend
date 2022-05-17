@@ -81,12 +81,12 @@ const Contributor = (sequelize, DataTypes) => {
     }
   );
 
-  contributor.associate = (models) => {
-    contributor.belongsTo(models.EconomicActivity, {
-      foreignKey: "contributor_id",
-      as: "contributor_activity"
-    });
-  }
+  // contributor.associate = (models) => {
+  //   contributor.belongsTo(models.EconomicActivity, {
+  //     foreignKey: "contributor_id",
+  //     as: "contributor_activity"
+  //   });
+  // }
 
   return contributor;
 };
