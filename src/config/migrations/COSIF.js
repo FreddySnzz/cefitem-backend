@@ -10,7 +10,7 @@ module.exports = {
         primaryKey: true,
         field: "id"
       },
-      prefecture: {
+      prefecture_id: {
         type: Sequelize.DataTypes.STRING(100),
         allowNull: true
       },
