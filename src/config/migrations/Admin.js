@@ -2,7 +2,7 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('commercial', {
+    await queryInterface.createTable('admin', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -10,13 +10,29 @@ module.exports = {
         primaryKey: true,
         field: "id"
       },
-      prefecture: {
+      name: {
         type: Sequelize.DataTypes.STRING(100),
-        allowNull: true
+        allowNull: false,
       },
-      status: {
-        type: Sequelize.DataTypes.STRING(50),
-        allowNull: true
+      email: {
+        type: Sequelize.DataTypes.STRING(100),
+        allowNull: false
+      },
+      phrase: {
+        type: Sequelize.DataTypes.STRING(255),
+        allowNull: false,
+      },
+      token: {
+        type: Sequelize.DataTypes.STRING(6),
+        allowNull: true,
+      },
+      enabled: {
+        type: Sequelize.DataTypes.BOOLEAN,
+        allowNull: false,
+      },
+      is_super_admin : {
+        type: Sequelize. DataTypes.BOOLEAN,
+        allowNull: false,
       },
       created_at: {
         type: Sequelize.DataTypes.DATE,
@@ -29,6 +45,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('commercial');
+    await queryInterface.dropTable('admin');
   }
 };
