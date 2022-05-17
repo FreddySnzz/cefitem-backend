@@ -83,7 +83,7 @@ const Contributor = (sequelize, DataTypes) => {
 
   contributor.associate = (models) => {
     contributor.belongsTo(models.EconomicActivity, {
-      foreignKey: "economic_activity",
+      foreignKey: "contributor_id",
       as: "contributor_activity"
     });
   }
