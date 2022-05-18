@@ -47,11 +47,15 @@ module.exports = {
 
   async authUser (request, response) {
     try {
-      const verifyUserByEmail = await Contributor.findOne({ where: { email: request.body.email } });
+
+      let role = 'Contributor';
+
+      let verifyUserByEmail = await Contributor.findOne({ where: { email: request.body.email } });
 
       if(verifyUserByEmail == null || verifyUserByEmail == undefined){
 
         verifyUserByEmail = await Admin.findOne({ where: { email: request.body.email } });
+        role = 'Admin';
 
         if(verifyUserByEmail == null || verifyUserByEmail == undefined){
           response.status(401).json({ message: 'Unauthorized'});
@@ -66,7 +70,8 @@ module.exports = {
           return response.status(200).json({
             "body":{
               "x-access-token": jwtToken,
-              "email": verifyUserByEmail.email
+              "email": verifyUserByEmail.email,
+              role
             }
           });
         }
