@@ -1,6 +1,7 @@
 const express = require('express');
 const RouterForAdmin = express.Router();
 const AuthMiddeware = require('../middleware/AuthMiddleware');
+const AdminMiddleware = require('../middleware/AdminMiddleware');
 const AdminController = require('../controllers/AdminController');
 const { celebrate, Segments, Joi } = require("celebrate");
 
@@ -13,13 +14,13 @@ RouterForAdmin.post(
       phrase: Joi.string().min(8).required()
     }),
   }),
-  AuthMiddeware.validateJWT,
+  AdminMiddleware.ValidateADM,
   AdminController.createAdmin
 );
 
 RouterForAdmin.get(
   '/me',
-  AuthMiddeware.validateJWT,
+  AdminMiddleware.ValidateADM,
   AdminController.getAdmin
 );
 

@@ -13,7 +13,7 @@ RouterForCommercial.post(
   '/register',
   AuthMiddeware.validateJWT,
   CommercialController.registerCommercial
-)
+);
 
 
 module.exports = RouterForCommercial;
