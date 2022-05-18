@@ -1,5 +1,5 @@
 const { Prefecture, Commercial, Admin } = require('../models');
-//const { getJWTBody } = require('../functions/auth/getJWTBody');
+const { getJWTBody } = require('../functions/auth/getJWTBody');
 
 module.exports = {
   async getCommercials (request, response) {
@@ -25,12 +25,12 @@ module.exports = {
         response.status(401).json({ error: 'Unauthorized' });
 
       } else {
-        let verifyActivity = await Commercial.findOne({ raw: true, 
+        let verifyCommercial = await Commercial.findOne({ raw: true, 
           where: { name: request.body.name }});
   
-        if (verifyActivity == null || verifyActivity == undefined) {
-          await EconomicActivity.create(request.body);
-          response.status(201).json({ message: 'Activity created' });
+        if (verifyCommercial == null || verifyCommercial == undefined) {
+          await Commercial.create(request.body);
+          response.status(201).json({ message: 'Commercial created' });
 
         } else {
         response.status(401).json({ error: 'Unauthorized' });
