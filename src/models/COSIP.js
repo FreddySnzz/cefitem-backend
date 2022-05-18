@@ -3,11 +3,11 @@ const COSIP = (sequelize, DataTypes) => {
     "COSIP",
     {
       prefecture_id: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.STRING(300),
         allowNull: false,
       },
       status: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.BOOLEAN,
         allowNull: false
       }
     },

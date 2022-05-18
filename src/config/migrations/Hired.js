@@ -11,11 +11,11 @@ module.exports = {
         field: "id"
       },
       prefecture_id: {
-        type: Sequelize.DataTypes.STRING(100),
+        type: Sequelize.DataTypes.STRING(300),
         allowNull: true
       },
       status: {
-        type: Sequelize.DataTypes.STRING(50),
+        type: Sequelize.DataTypes.BOOLEAN,
         allowNull: true
       },
       created_at: {

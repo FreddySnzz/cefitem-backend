@@ -26,7 +26,7 @@ module.exports = {
 
       } else {
         let verifyCommercial = await Commercial.findOne({ raw: true, 
-          where: { name: request.body.name }});
+          where: { status: request.body.status }});
   
         if (verifyCommercial == null || verifyCommercial == undefined) {
           await Commercial.create(request.body);
