@@ -13,7 +13,7 @@ RouterForAdmin.post(
       phrase: Joi.string().min(8).required()
     }),
   }),
-  AdminController.create
+  AdminController.createAdmin
 );
 
 module.exports = RouterForAdmin;
