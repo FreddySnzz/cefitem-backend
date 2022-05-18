@@ -35,7 +35,7 @@ RouterForAuth.post(
       phrase: Joi.string().min(8).required()
     }),
   }),
-  AuthController.authContributor
+  AuthController.auth
 );
 
 RouterForAuth.post(

@@ -4,15 +4,14 @@ const { sendEmail } = require("../functions/sendEmail");
 const { getJWTBody } = require('../functions/auth/getJWT');
 
 module.exports = {
-
-  async create(request, response) {
+  async createAdmin(request, response) {
     try {
 
-      let adminSession = await getJWTBody(request);
+      // let adminSession = await getJWTBody(request);
 
-      if (adminSession.is_super_admin) {
-        console.log('Creu')
-      }
+      // if (adminSession.is_super_admin) {
+      //   console.log('Creu')
+      // }
 
       let verifyAdmin = await Admin.findOne({ where: request.body.email });
 

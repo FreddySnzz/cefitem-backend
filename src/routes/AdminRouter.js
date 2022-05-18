@@ -13,14 +13,8 @@ RouterForAdmin.post(
       phrase: Joi.string().min(8).required()
     }),
   }),
-  // AuthMiddeware.validateJWT,
   AdminController.create
 );
 
-RouterForAdmin.get(
-  '/me',
-  AuthMiddeware.validateJWT,
-  AdminController.getAdmin
-);
-
 module.exports = RouterForAdmin;
+

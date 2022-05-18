@@ -1,4 +1,4 @@
-const { Contributor } = require('../models');
+const { Contributor, Admin } = require('../models');
 const bcrypt = require("bcryptjs");
 
 const { generateNewToken } = require('../functions/auth/GenerateToken');
@@ -45,12 +45,17 @@ module.exports = {
     }
   },
 
-  async authContributor (request, response) {
+  async authUser (request, response) {
     try {
       const verifyUserByEmail = await Contributor.findOne({ where: { email: request.body.email } });
 
       if(verifyUserByEmail == null || verifyUserByEmail == undefined){
-        response.status(401).json({ message: 'Unauthorized'});
+
+        verifyUserByEmail = await Admin.findOne({ where: { email: request.body.email } });
+
+        if(verifyUserByEmail == null || verifyUserByEmail == undefined){
+          response.status(401).json({ message: 'Unauthorized'});
+        }
       }
 
       let phraseCompare = bcrypt.compareSync(request.body.phrase, verifyUserByEmail.phrase);
@@ -65,7 +70,7 @@ module.exports = {
             }
           });
         }
-        response.status(401).json({ message: 'Contributor disabled' });
+        response.status(401).json({ message: 'User disabled' });
       }
       else {
         response.status(401).json({ message: 'Fail'});
