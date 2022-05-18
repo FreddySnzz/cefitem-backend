@@ -16,13 +16,13 @@ const EconomicActivity = (sequelize, DataTypes) => {
       timestamps: true,
     }
   );
-  
-  economicActivity = (models) => {
-    economicActivity.belongsTo(models.Contributor, {
-      foreignKey: "contributor_id",
-      as: "contributor_activity"
-    });
-  }
+
+  // economicActivity = (models) => {
+  //   economicActivity.belongsTo(models.Contributor, {
+  //     foreignKey: "contributor_id",
+  //     as: "contributor_activity"
+  //   });
+  // }
 
   return economicActivity;
 };
