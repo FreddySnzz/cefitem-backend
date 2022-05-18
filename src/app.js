@@ -13,6 +13,7 @@ var economicActivityRouter = require('./routes/EconomicActivityRouter');
 var authRouter = require('./routes/AuthRouter');
 var filesRouter = require('./routes/FilesRouter');
 var adminRouter = require('./routes/AdminRouter');
+var commercialRouter = require('./routes/CommercialRouter');
 
 var app = express();
 
@@ -54,6 +55,7 @@ app.use('/economic-activity', cors(corsOptions), economicActivityRouter);
 app.use('/auth', cors(corsOptions), authRouter);
 app.use('/files', cors(corsOptions), filesRouter);
 app.use('/admin', cors(corsOptions), adminRouter);
+app.use('/commercial', cors(corsOptions), commercialRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

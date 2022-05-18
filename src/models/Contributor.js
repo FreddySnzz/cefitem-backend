@@ -26,10 +26,6 @@ const Contributor = (sequelize, DataTypes) => {
         type: DataTypes.STRING(100),
         allowNull: false,
       },
-      economic_activity: {
-        type: DataTypes.STRING(100),
-        allowNull: false,
-      },
       cep: {
         type: DataTypes.STRING(8),
         allowNull: false,
@@ -82,9 +78,10 @@ const Contributor = (sequelize, DataTypes) => {
   );
 
   // contributor.associate = (models) => {
-  //   contributor.belongsTo(models.EconomicActivity, {
+  //   console.log(models)
+  //   contributor.hasMany(models.economicActivity, {
   //     foreignKey: "contributor_id",
-  //     as: "contributor_activity"
+  //     as: "contributor_prefecture"
   //   });
   // }
 

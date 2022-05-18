@@ -10,7 +10,7 @@ module.exports = {
 
       let adminSession = await getJWTBody(request);
 
-      if(adminSession.is_super_admin) {
+      if (adminSession.is_super_admin) {
         console.log('Creu')
       }
 

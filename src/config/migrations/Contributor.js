@@ -34,10 +34,6 @@ module.exports = {
         type: Sequelize.DataTypes.STRING(100),
         allowNull: false,
       },
-      economic_activity: {
-        type: Sequelize.DataTypes.STRING(100),
-        allowNull: false,
-      },
       cep: {
         type: Sequelize.DataTypes.STRING(8),
         allowNull: false,
