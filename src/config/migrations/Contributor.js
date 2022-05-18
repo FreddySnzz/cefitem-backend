@@ -78,10 +78,6 @@ module.exports = {
         type: Sequelize.DataTypes.BOOLEAN,
         allowNull: false,
       },
-      is_super_user: {
-        type: Sequelize.DataTypes.BOOLEAN,
-        allowNull: false,
-      },
       created_at: {
         type: Sequelize.DataTypes.DATE,
         allowNull: false,
