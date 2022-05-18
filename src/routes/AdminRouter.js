@@ -17,5 +17,11 @@ RouterForAdmin.post(
   AdminController.createAdmin
 );
 
+RouterForAdmin.get(
+  '/me',
+  AuthMiddeware.validateJWT,
+  AdminController.getAdmin
+);
+
 module.exports = RouterForAdmin;
 

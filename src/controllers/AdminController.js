@@ -50,6 +50,15 @@ module.exports = {
   async getAdmin(request, response) {
     try {
 
+      let adminSession = await getJWTBody(request);
+      let verifyAdmin = await Admin.findOne({ where: { id: adminSession }, attributes:
+        {
+          exclude: ['id', 'phrase','token','createdAt', 'updatedAt']
+        }
+      });
+
+      return response.status(200).json({ body: verifyAdmin });
+
     } catch (error) {
 
     }
