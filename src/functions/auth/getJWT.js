@@ -2,8 +2,7 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
   async getJWTBody (request) {
-    console.log(request)
-    let token = request.headers('authorization');
+    let token = request.headers['authorization'];
     let newToken = token.split(' ');
     let id;
     try {

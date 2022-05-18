@@ -13,6 +13,7 @@ RouterForAdmin.post(
       phrase: Joi.string().min(8).required()
     }),
   }),
+  AuthMiddeware.validateJWT,
   AdminController.createAdmin
 );
 
