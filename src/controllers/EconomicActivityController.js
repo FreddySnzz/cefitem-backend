@@ -4,7 +4,7 @@ const { getJWTBody } = require('../functions/auth/getJWTBody');
 module.exports = {
   async getActivities (request, response) {
     try {
-      console.log(await EconomicActivity)
+      console.log(await EconomicActivity.findAll())
       // let getToken = request.headers['authorization'];
       // let getId = await getJWTBody(getToken);
       // let getUser = await Contributor.findOne({ raw: true,

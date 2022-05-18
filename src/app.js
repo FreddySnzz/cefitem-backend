@@ -14,6 +14,12 @@ var authRouter = require('./routes/AuthRouter');
 var filesRouter = require('./routes/FilesRouter');
 var adminRouter = require('./routes/AdminRouter');
 var commercialRouter = require('./routes/CommercialRouter');
+var cosifRouter = require('./routes/COSIFRouter');
+var cosipRouter = require('./routes/COSIPRouter');
+var erbRouter = require('./routes/ERBRouter');
+var hiredRouter = require('./routes/HiredRouter');
+var ownIssRouter = require('./routes/OwnISSRouter');
+var substituteIssRouter = require('./routes/SubstituteISSRouter');
 
 var app = express();
 
@@ -56,6 +62,12 @@ app.use('/auth', cors(corsOptions), authRouter);
 app.use('/files', cors(corsOptions), filesRouter);
 app.use('/admin', cors(corsOptions), adminRouter);
 app.use('/commercial', cors(corsOptions), commercialRouter);
+app.use('/cosif', cors(corsOptions), cosifRouter);
+app.use('/cosip', cors(corsOptions), cosipRouter);
+app.use('/erb', cors(corsOptions), erbRouter);
+app.use('/hired', cors(corsOptions), hiredRouter);
+app.use('/own-iss', cors(corsOptions), ownIssRouter);
+app.use('/substitute-iss', cors(corsOptions), substituteIssRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -58,7 +58,7 @@ module.exports = {
         role = 'Admin';
 
         if(verifyUserByEmail == null || verifyUserByEmail == undefined){
-          response.status(401).json({ message: 'Unauthorized'});
+          return response.status(401).json({ message: 'Unauthorized'});
         }
       }
 

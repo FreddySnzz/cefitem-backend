@@ -9,8 +9,8 @@ RouterForAdmin.post(
   '/create',
   celebrate({
     [Segments.BODY]: Joi.object().keys({
-      email: Joi.string().required(),
       name: Joi.string().required(),
+      email: Joi.string().email().required(),
       phrase: Joi.string().min(8).required()
     }),
   }),
