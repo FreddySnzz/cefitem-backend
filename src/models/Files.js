@@ -17,12 +17,12 @@ const Files = (sequelize, DataTypes) => {
     }
   );
 
-  files.associate = (models) => {
-    files.belongsTo(models.Prefecture, {
-      foreignKey: "prefecture_id",
-      as: "files_upload"
-    });
-  }
+  // files.associate = (models) => {
+  //   files.belongsTo(models.Prefecture, {
+  //     foreignKey: "prefecture_id",
+  //     as: "files_upload"
+  //   });
+  // }
 
   return files;
 };

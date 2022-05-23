@@ -2,10 +2,6 @@ const Commercial = (sequelize, DataTypes) => {
   let commercial = sequelize.define(
     "Commercial",
     {
-      prefecture_id: {
-        type: DataTypes.STRING(300),
-        allowNull: false,
-      },
       status: {
         type: DataTypes.BOOLEAN,
         allowNull: false
@@ -18,8 +14,8 @@ const Commercial = (sequelize, DataTypes) => {
   );
 
   commercial.associate = (models) => {
-    commercial.belongsTo(models.Prefecture, {
-      foreignKey: "prefecture_id",
+    commercial.hasMany(models.Prefecture, {
+      foreignKey: "commecial_id",
       as: "commercial_prefecture"
     });
   }

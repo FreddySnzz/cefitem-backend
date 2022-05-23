@@ -17,12 +17,12 @@ const SubstituteISS = (sequelize, DataTypes) => {
     }
   );
 
-  substitute_iss.associate = (models) => {
-    substitute_iss.belongsTo(models.Prefecture, {
-      foreignKey: "prefecture_id",
-      as: "substitute_iss_prefecture"
-    });
-  }
+  // substitute_iss.associate = (models) => {
+  //   substitute_iss.belongsTo(models.Prefecture, {
+  //     foreignKey: "prefecture_id",
+  //     as: "substitute_iss_prefecture"
+  //   });
+  // }
 
   return substitute_iss;
 };

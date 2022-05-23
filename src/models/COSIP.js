@@ -17,12 +17,12 @@ const COSIP = (sequelize, DataTypes) => {
     }
   );
 
-  cosip.associate = (models) => {
-    cosip.belongsTo(models.Prefecture, {
-      foreignKey: "prefecture_id",
-      as: "cosip_prefecture"
-    });
-  }
+  // cosip.associate = (models) => {
+  //   cosip.belongsTo(models.Prefecture, {
+  //     foreignKey: "prefecture_id",
+  //     as: "cosip_prefecture"
+  //   });
+  // }
 
   return cosip;
 };

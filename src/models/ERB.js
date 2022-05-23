@@ -17,12 +17,12 @@ const ERB = (sequelize, DataTypes) => {
     }
   );
 
-  erb.associate = (models) => {
-    erb.belongsTo(models.Prefecture, {
-      foreignKey: "prefecture_id",
-      as: "erb_prefecture"
-    });
-  }
+  // erb.associate = (models) => {
+  //   erb.belongsTo(models.Prefecture, {
+  //     foreignKey: "prefecture_id",
+  //     as: "erb_prefecture"
+  //   });
+  // }
 
   return erb;
 };

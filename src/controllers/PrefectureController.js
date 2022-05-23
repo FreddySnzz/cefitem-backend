@@ -6,24 +6,28 @@ const { calculateLimitAndOffset, paginate } = require("paginate-info");
 module.exports = {
   async registerPrefecture (request, response) {
     try {
-      let verifyPrefectureByName = await Prefecture.findOne({ raw: true, 
+      let verifyPrefectureByName = await Prefecture.findOne({ raw: true,
         where: { name: request.body.name }});
-      let verifyPrefectureByCity = await Prefecture.findOne({ raw: true, 
-        where: { city: request.body.city }}); 
+      let verifyPrefectureByCity = await Prefecture.findOne({ raw: true,
+        where: { city: request.body.city }});
 
       if (verifyPrefectureByName == null || verifyPrefectureByName == undefined) {
         if (verifyPrefectureByCity == null || verifyPrefectureByCity == undefined) {
 
+        let commercialId = await Commercial.create({ status: false });
+
+
+        request.body.commecial_id = commercialId.id;
+
         let prefectureRegisted = await Prefecture.create(request.body);
         let jwtToken = await generateJWT({ id: prefectureRegisted.id });
 
-        await Commercial.create({ prefecture_id: prefectureRegisted.id, status: false });
-        await COSIF.create({ prefecture_id: prefectureRegisted.id, status: false });
-        await COSIP.create({ prefecture_id: prefectureRegisted.id, status: false });
-        await ERB.create({ prefecture_id: prefectureRegisted.id, status: false });
-        await Hired.create({ prefecture_id: prefectureRegisted.id, status: false });
-        await OwnISS.create({ prefecture_id: prefectureRegisted.id, status: false });
-        await SubstituteISS.create({ prefecture_id: prefectureRegisted.id, status: false });
+        // await COSIF.create({ prefecture_id: prefectureRegisted.id, status: false });
+        // await COSIP.create({ prefecture_id: prefectureRegisted.id, status: false });
+        // await ERB.create({ prefecture_id: prefectureRegisted.id, status: false });
+        // await Hired.create({ prefecture_id: prefectureRegisted.id, status: false });
+        // await OwnISS.create({ prefecture_id: prefectureRegisted.id, status: false });
+        // await SubstituteISS.create({ prefecture_id: prefectureRegisted.id, status: false });
 
         response.status(201).json({ message: 'Prefecture registed', id: jwtToken });
 
@@ -52,7 +56,7 @@ module.exports = {
         where: {
           id: id
         }, include: [
-          { model: Commercial, as: "commercial_prefecture", attributes: [  ]  },
+          { model: Commercial, as: "commercial_prefecture", attributes: { exclude: ['id', 'createdAt', 'updatedAt'] }},
           // { model: COSIF, as: "cosif_prefecture", attributes: [  ]  },
           // { model: COSIP, as: "cosip_prefecture", attributes: [  ]  },
           // { model: ERB, as: "erb_prefecture", attributes: [  ]  },
@@ -110,7 +114,7 @@ module.exports = {
         await Prefecture.update(request.body, {
           where: { name: getPrefecture.name }
         });
-  
+
         response.status(200).json({ message: 'Prefecture edited' });
       };
 
@@ -130,7 +134,7 @@ module.exports = {
         let getPrefecture = await Prefecture.findOne({raw: true,
           where: {id: queryId}
         });
-        
+
         if ( getPrefecture == null || getPrefecture == undefined ) {
 
           return response.status(400).json({ message: "This prefecture not exist" });

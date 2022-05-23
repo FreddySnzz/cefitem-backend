@@ -17,12 +17,12 @@ const OwnISS = (sequelize, DataTypes) => {
     }
   );
 
-  own_iss.associate = (models) => {
-    own_iss.belongsTo(models.Prefecture, {
-      foreignKey: "prefecture_id",
-      as: "own_iss_prefecture"
-    });
-  }
+  // own_iss.associate = (models) => {
+  //   own_iss.belongsTo(models.Prefecture, {
+  //     foreignKey: "prefecture_id",
+  //     as: "own_iss_prefecture"
+  //   });
+  // }
 
   return own_iss;
 };

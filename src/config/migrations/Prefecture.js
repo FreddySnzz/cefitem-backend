@@ -106,6 +106,10 @@ module.exports = {
         type: Sequelize.DataTypes.STRING(50),
         allowNull: false,
       },
+      commecial_id: {
+        type: Sequelize.DataTypes.STRING(300),
+        allowNull: false,
+      },
       created_at: {
         type: Sequelize.DataTypes.DATE,
         allowNull: false,

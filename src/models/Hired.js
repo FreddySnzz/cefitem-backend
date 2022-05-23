@@ -17,12 +17,12 @@ const Hired = (sequelize, DataTypes) => {
     }
   );
 
-  hired.associate = (models) => {
-    hired.belongsTo(models.Prefecture, {
-      foreignKey: "prefecture_id",
-      as: "hired_prefecture"
-    });
-  }
+  // hired.associate = (models) => {
+  //   hired.belongsTo(models.Prefecture, {
+  //     foreignKey: "prefecture_id",
+  //     as: "hired_prefecture"
+  //   });
+  // }
 
   return hired;
 };
