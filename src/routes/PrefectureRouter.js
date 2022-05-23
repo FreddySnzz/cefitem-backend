@@ -2,11 +2,14 @@ const express = require('express');
 const RouterForPrefecture = express.Router();
 const { celebrate, Segments, Joi } = require("celebrate");
 const PrefectureController = require('../controllers/PrefectureController');
+const ParameterizationTIAF = require('../controllers/ParameterizationTIAFController');
 const FileUploadMiddleware = require("../middleware/FileUpload").saveFile();
 const AuthMiddleware = require('../middleware/AuthMiddleware');
+const AdminMiddleware = require('../middleware/AdminMiddleware');
 
 RouterForPrefecture.get(
-  '/',
+  '/:id',
+  AdminMiddleware.ValidateADM,
   PrefectureController.getPrefecture
 );
 
@@ -86,6 +89,12 @@ RouterForPrefecture.post(
   AuthMiddleware.validateJWT,
   FileUploadMiddleware.array('files', 3),
   PrefectureController.uploadFiles
-)
+);
+
+RouterForPrefecture.post(
+  '/register-tiaf',
+  AdminMiddleware.ValidateADM,
+  ParameterizationTIAF.registerTIAF
+);
 
 module.exports = RouterForPrefecture;

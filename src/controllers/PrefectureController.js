@@ -1,7 +1,7 @@
 const { Prefecture, Commercial, COSIF, COSIP, ERB, Hired, OwnISS, SubstituteISS } = require('../models');
 const { generateJWT } = require('../functions/auth/GenerateJWT');
 const { getJWTBody } = require('../functions/auth/getJWTBody');
-const bcrypt = require('bcryptjs');
+const { calculateLimitAndOffset, paginate } = require("paginate-info");
 
 module.exports = {
   async registerPrefecture (request, response) {
@@ -44,17 +44,52 @@ module.exports = {
 
   async getPrefecture (request, response) {
     try {
-      let getPrefecture = await Prefecture.findAll();
-      let queryId = request.query.id;
+      const { query: { currentPage, pageSize } } = request;
+      const { limit, offset } = calculateLimitAndOffset(currentPage, pageSize);
+      const { id } = request.params;
 
-      if ( queryId > 0 ) {
-        let getPrefecture = await Prefecture.findOne({
-          where: {id: request.query.id}
-        });
-        response.status(200).json({ body: getPrefecture });
-      } else {
-        response.status(200).json({ body: getPrefecture });
-      };
+      const { rows, count } = await Prefecture.findAndCountAll({
+        where: {
+          id: id
+        }, include: [
+          { model: Commercial, as: "commercial_prefecture", attributes: [  ]  },
+          // { model: COSIF, as: "cosif_prefecture", attributes: [  ]  },
+          // { model: COSIP, as: "cosip_prefecture", attributes: [  ]  },
+          // { model: ERB, as: "erb_prefecture", attributes: [  ]  },
+          // { model: Hired, as: "hired_prefecture", attributes: [  ]  },
+          // { model: OwnISS, as: "own_iss_prefecture", attributes: [  ]  },
+          // { model: SubstituteISS, as: "substitute_iss_prefecture", attributes: [  ]  },
+        ],
+        order: [
+          ['createdAt', 'DESC'],
+        ],
+        attributes: {
+          exclude: [ ]
+        },
+        limit,
+        offset,
+      });
+
+      rows.map( async function ( x ) {
+        let PrefectureData = await getPrefectureData( x.dataValues.id );
+        if( PrefectureData.data.status != x.dataValues.status || PrefectureData.data.status == 'Processado' ) {
+
+          await Prefecture.update(
+            { status: PrefectureData.data.status,
+              data: JSON.stringify( PrefectureData.data.resultado )
+            },
+            { where: { id: x.dataValues.id } }
+          );
+        }
+      });
+
+      const meta = paginate( currentPage, count, rows, pageSize );
+      response.json({
+        rows,
+        meta,
+        status: "200",
+        message: "Wallet purchased",
+      });
 
     } catch (error) {
       response.status(500).json({ error: error });
