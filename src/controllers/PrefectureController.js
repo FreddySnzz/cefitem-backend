@@ -6,28 +6,37 @@ const { calculateLimitAndOffset, paginate } = require("paginate-info");
 module.exports = {
   async registerPrefecture (request, response) {
     try {
-      let verifyPrefectureByName = await Prefecture.findOne({ raw: true,
-        where: { name: request.body.name }});
-      let verifyPrefectureByCity = await Prefecture.findOne({ raw: true,
-        where: { city: request.body.city }});
+      let verifyPrefectureByName = await Prefecture.findOne({
+        raw: true,
+        where: { name: request.body.name }
+      });
+
+      let verifyPrefectureByCity = await Prefecture.findOne({
+        raw: true,
+        where: { city: request.body.city }
+      });
 
       if (verifyPrefectureByName == null || verifyPrefectureByName == undefined) {
         if (verifyPrefectureByCity == null || verifyPrefectureByCity == undefined) {
 
         let commercialId = await Commercial.create({ status: false });
-
+        let cosifId = await COSIF.create({ status: false });
+        let cosipId = await COSIP.create({ status: false });
+        let ERBId = await ERB.create({ status: false });
+        let hiredId = await Hired.create({ status: false });
+        let ownIssId = await OwnISS.create({ status: false });
+        let substituteIssId = await SubstituteISS.create({ status: false });
 
         request.body.commecial_id = commercialId.id;
+        request.body.cosif_id = cosifId.id;
+        request.body.cosip_id = cosipId.id;
+        request.body.erb_id = ERBId.id;
+        request.body.hired_id = hiredId.id;
+        request.body.own_iss_id = ownIssId.id;
+        request.body.substitute_iss_id = substituteIssId.id;
 
         let prefectureRegisted = await Prefecture.create(request.body);
         let jwtToken = await generateJWT({ id: prefectureRegisted.id });
-
-        // await COSIF.create({ prefecture_id: prefectureRegisted.id, status: false });
-        // await COSIP.create({ prefecture_id: prefectureRegisted.id, status: false });
-        // await ERB.create({ prefecture_id: prefectureRegisted.id, status: false });
-        // await Hired.create({ prefecture_id: prefectureRegisted.id, status: false });
-        // await OwnISS.create({ prefecture_id: prefectureRegisted.id, status: false });
-        // await SubstituteISS.create({ prefecture_id: prefectureRegisted.id, status: false });
 
         response.status(201).json({ message: 'Prefecture registed', id: jwtToken });
 
@@ -68,7 +77,7 @@ module.exports = {
           ['createdAt', 'DESC'],
         ],
         attributes: {
-          exclude: [ ]
+          exclude: ['commecial_id', 'cosif_id', 'cosip_id', 'erb_id', 'hired_id', 'own_iss_id', 'substitute_iss_id', 'createdAt', 'updatedAt']
         },
         limit,
         offset,
@@ -79,7 +88,7 @@ module.exports = {
         rows,
         meta,
         status: "200",
-        message: "Wallet purchased",
+        message: "Prefecture geted",
       });
 
     } catch (error) {

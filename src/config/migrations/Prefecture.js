@@ -107,7 +107,31 @@ module.exports = {
         allowNull: false,
       },
       commecial_id: {
-        type: Sequelize.DataTypes.STRING(300),
+        type: Sequelize.DataTypes.STRING(10),
+        allowNull: false,
+      },
+      cosif_id: {
+        type: Sequelize.DataTypes.STRING(10),
+        allowNull: false,
+      },
+      cosip_id: {
+        type: Sequelize.DataTypes.STRING(10),
+        allowNull: false,
+      },
+      erb_id: {
+        type: Sequelize.DataTypes.STRING(10),
+        allowNull: false,
+      },
+      hired_id: {
+        type: Sequelize.DataTypes.STRING(10),
+        allowNull: false,
+      },
+      own_iss_id: {
+        type: Sequelize.DataTypes.STRING(10),
+        allowNull: false,
+      },
+      substitute_iss_id : {
+        type: Sequelize.DataTypes.STRING(10),
         allowNull: false,
       },
       created_at: {

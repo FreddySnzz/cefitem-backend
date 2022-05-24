@@ -14,7 +14,7 @@ const OwnISS = (sequelize, DataTypes) => {
   );
 
   own_iss.associate = (models) => {
-    own_iss.belongsTo(models.Prefecture, {
+    own_iss.hasMany(models.Prefecture, {
       foreignKey: "own_iss_id",
       as: "own_iss_prefecture"
     });

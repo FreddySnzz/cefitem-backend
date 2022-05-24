@@ -14,7 +14,7 @@ const COSIP = (sequelize, DataTypes) => {
   );
 
   cosip.associate = (models) => {
-    cosip.belongsTo(models.Prefecture, {
+    cosip.hasMany(models.Prefecture, {
       foreignKey: "cosip_id",
       as: "cosip_prefecture"
     });

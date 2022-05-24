@@ -14,7 +14,7 @@ const SubstituteISS = (sequelize, DataTypes) => {
   );
 
   substitute_iss.associate = (models) => {
-    substitute_iss.belongsTo(models.Prefecture, {
+    substitute_iss.hasMany(models.Prefecture, {
       foreignKey: "substitute_iss_id",
       as: "substitute_iss_prefecture"
     });

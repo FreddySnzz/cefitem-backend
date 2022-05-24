@@ -2,10 +2,6 @@ const ERB = (sequelize, DataTypes) => {
   let erb = sequelize.define(
     "ERB",
     {
-      prefecture_id: {
-        type: DataTypes.STRING(300),
-        allowNull: false,
-      },
       status: {
         type: DataTypes.BOOLEAN,
         allowNull: false
@@ -18,8 +14,8 @@ const ERB = (sequelize, DataTypes) => {
   );
 
   erb.associate = (models) => {
-    erb.belongsTo(models.Prefecture, {
-      foreignKey: "prefecture_id",
+    erb.hasMany(models.Prefecture, {
+      foreignKey: "erb_id",
       as: "erb_prefecture"
     });
   }

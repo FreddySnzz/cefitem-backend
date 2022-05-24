@@ -14,7 +14,7 @@ const Hired = (sequelize, DataTypes) => {
   );
 
   hired.associate = (models) => {
-    hired.belongsTo(models.Prefecture, {
+    hired.hasMany(models.Prefecture, {
       foreignKey: "hired_id",
       as: "hired_prefecture"
     });
