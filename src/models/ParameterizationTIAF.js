@@ -84,7 +84,7 @@ const ParameterizationTIAF = (sequelize, DataTypes) => {
   parameterization_tiaf.associate = (models) => {
     parameterization_tiaf.belongsTo(models.Prefecture, {
       foreignKey: "prefecture_id",
-      as: "parameterization_tiaf_prefecture"
+      as: "parameterization_tiaf"
     });
   }
 

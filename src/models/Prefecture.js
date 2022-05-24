@@ -174,9 +174,9 @@ const Prefecture = (sequelize, DataTypes) => {
       as: "substitute_iss_prefecture"
     });
 
-    prefecture.hasMany(models.ParametrizationTIAF, {
+    prefecture.hasMany(models.ParameterizationTIAF, {
       foreignKey: "prefecture_id",
-      as: "parameterization_tiaf_prefecture"
+      as: "parameterization_tiaf"
     });
   }
 
