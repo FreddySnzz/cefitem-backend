@@ -14,7 +14,8 @@ module.exports = {
 
   async editCommercial (request, response) {
     try {
-      let getCommercial = await Commercial.findOne({ raw: true,
+      let getCommercial = await Commercial.findOne({ 
+        raw: true,
         where: { prefecture_id: request.body.prefecture_id }
       });
 

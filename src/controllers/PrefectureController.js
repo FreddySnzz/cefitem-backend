@@ -64,14 +64,15 @@ module.exports = {
       const { rows, count } = await Prefecture.findAndCountAll({
         where: {
           id: id
-        }, include: [
-          { model: Commercial, as: "commercial_prefecture", attributes: { exclude: ['id', 'createdAt', 'updatedAt'] }},
-          { model: COSIF, as: "cosif_prefecture", attributes: { exclude: ['id', 'createdAt', 'updatedAt'] }  },
-          { model: COSIP, as: "cosip_prefecture", attributes: { exclude: ['id', 'createdAt', 'updatedAt'] }  },
-          { model: ERB, as: "erb_prefecture", attributes: { exclude: ['id', 'createdAt', 'updatedAt'] }  },
-          { model: Hired, as: "hired_prefecture", attributes: { exclude: ['id', 'createdAt', 'updatedAt'] }  },
-          { model: OwnISS, as: "own_iss_prefecture", attributes: { exclude: ['id', 'createdAt', 'updatedAt'] }  },
-          { model: SubstituteISS, as: "substitute_iss_prefecture", attributes: { exclude: ['id', 'createdAt', 'updatedAt'] }  },
+        }, 
+        include: [
+          { model: Commercial, as: "commercial_prefecture", attributes: { exclude: ['id', 'createdAt', 'updatedAt'] } },
+          { model: COSIF, as: "cosif_prefecture", attributes: { exclude: ['id', 'createdAt', 'updatedAt'] } },
+          { model: COSIP, as: "cosip_prefecture", attributes: { exclude: ['id', 'createdAt', 'updatedAt'] } },
+          { model: ERB, as: "erb_prefecture", attributes: { exclude: ['id', 'createdAt', 'updatedAt'] } },
+          { model: Hired, as: "hired_prefecture", attributes: { exclude: ['id', 'createdAt', 'updatedAt'] } },
+          { model: OwnISS, as: "own_iss_prefecture", attributes: { exclude: ['id', 'createdAt', 'updatedAt'] } },
+          { model: SubstituteISS, as: "substitute_iss_prefecture", attributes: { exclude: ['id', 'createdAt', 'updatedAt'] } },
         ],
         order: [
           ['createdAt', 'DESC'],
@@ -112,6 +113,7 @@ module.exports = {
         });
 
         response.status(200).json({ message: 'Prefecture edited' });
+
       };
 
     } catch (error) {
@@ -127,7 +129,8 @@ module.exports = {
         response.status(401).json({ error: "Unauthorized" });
 
       } else {
-        let getPrefecture = await Prefecture.findOne({raw: true,
+        let getPrefecture = await Prefecture.findOne({
+          raw: true,
           where: {id: queryId}
         });
 
@@ -142,6 +145,7 @@ module.exports = {
           });
 
           response.status(200).json({ message: 'Prefecture deleted' });
+
         };
       };
 
@@ -168,6 +172,6 @@ module.exports = {
     }
     catch (error) {
       response.status(500).json({ error: error });
-    }
-  }
+    };
+  },
 };

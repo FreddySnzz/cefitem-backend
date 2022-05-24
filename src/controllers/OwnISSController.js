@@ -14,7 +14,8 @@ module.exports = {
 
   async editOwnISS (request, response) {
     try {
-      let getOwnISS = await OwnISS.findOne({ raw: true,
+      let getOwnISS = await OwnISS.findOne({ 
+        raw: true,
         where: { prefecture_id: request.body.prefecture_id }
       });
 

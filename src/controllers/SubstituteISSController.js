@@ -14,7 +14,8 @@ module.exports = {
 
   async editSubstituteISS (request, response) {
     try {
-      let getSubstituteISS = await SubstituteISS.findOne({ raw: true,
+      let getSubstituteISS = await SubstituteISS.findOne({ 
+        raw: true,
         where: { prefecture_id: request.body.prefecture_id }
       });
 

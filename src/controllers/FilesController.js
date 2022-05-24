@@ -28,7 +28,7 @@ module.exports = {
 
       const object_upload_params = {
         Bucket: process.env.AWS_BUCKET_NAME,
-        Key: request.body.link.substring(43, request.body.link.length) // https://s3.us-east-1.wasabisys.com/cefitem/fbbb6643cc25807f5e5238501b1fb679-ORÇAMENTO-ANDRÉ-LUIS.pdf
+        Key: request.body.link.substring(43, request.body.link.length)
       };
 
       // upload object to previously created "examplebucket"
@@ -46,7 +46,6 @@ module.exports = {
       response.status(200).json({ message: "File updated" })
 
     } catch (error) {
-      console.log(error)
       response.status(500).json ({ error: error });
     };
   },

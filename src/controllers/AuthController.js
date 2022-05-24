@@ -95,7 +95,9 @@ module.exports = {
       });
 
       if (verifyUserByEmail == null || verifyUserByEmail == undefined) {
+
         response.status(412).json({ 'message': 'Contributor not found' });
+
       } else {
         if (verifyUserByEmail.token == request.body.token) {
           if (verifyUserByEmail.enabled == false) {
@@ -123,21 +125,22 @@ module.exports = {
 
   async recoveryPhrase (request, response) {
     try {
-
       let verifyUserBySecureToken = await Contributor.findOne({ where: { token: request.body.token } });
 
       if(verifyUserBySecureToken == null || verifyUserBySecureToken == undefined) {
-        response.status(404).json({ message: "Contributor not found" });
-      } else {
 
+        response.status(404).json({ message: "Contributor not found" });
+
+      } else {
         let phraseCompare = bcrypt.compareSync(request.body.new_phrase, verifyUserBySecureToken.phrase);
 
-        if(phraseCompare) {
+        if (phraseCompare) {
+
           response.status(401).json({ message: "The new password must never have been used" });
-        }
-        else {
+
+        } else {
           const salt = await bcrypt.genSalt(10);
-          let newPhrase = await bcrypt.hashSync(request.body.new_phrase, salt);
+          let newPhrase = await bcrypt.hashSync( request.body.new_phrase, salt );
 
           await Contributor.update(
             { phrase: newPhrase },
@@ -145,19 +148,25 @@ module.exports = {
           });
 
           response.status(200).json({ body: "Password changed" });
-        }
-      }
+
+        };
+      };
+
     } catch (error) {
       response.status(500).json({ error: error });
-    }
+    };
   },
 
   async sendTokenRecovery (request, response) {
     try {
-      let verifyUserByEmail = await Contributor.findOne( { where: { email: request.body.email } });
+      let verifyUserByEmail = await Contributor.findOne({
+        where: { email: request.body.email } 
+      });
 
-      if(verifyUserByEmail == null || verifyUserByEmail == undefined) {
+      if (verifyUserByEmail == null || verifyUserByEmail == undefined) {
+
         response.status(412).json({ 'message': 'Contributor not found' });
+
       } else {
         const { generateNewToken } = require('../functions/auth/GenerateToken');
         let newToken = await generateNewToken(0, 9);
@@ -182,12 +191,12 @@ module.exports = {
           });
 
           response.status(200).json({ message: 'Verify your email' });
-        }
+
+        };
       };
 
     } catch (error) {
-      console.log(error)
       response.status(500).json({ error: error });
-    }
-  }
-}
+    };
+  },
+};

@@ -14,7 +14,8 @@ module.exports = {
 
   async editCOSIF (request, response) {
     try {
-      let getCOSIF = await COSIF.findOne({ raw: true,
+      let getCOSIF = await COSIF.findOne({ 
+        raw: true,
         where: { prefecture_id: request.body.prefecture_id }
       });
 

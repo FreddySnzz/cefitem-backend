@@ -14,7 +14,8 @@ module.exports = {
 
   async editERB (request, response) {
     try {
-      let getERB = await ERB.findOne({ raw: true,
+      let getERB = await ERB.findOne({ 
+        raw: true,
         where: { prefecture_id: request.body.prefecture_id }
       });
 

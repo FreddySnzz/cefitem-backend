@@ -3,7 +3,6 @@ const { ParameterizationTIAF, Prefecture } = require('../models');
 module.exports = {
   async registerTIAF ( request, response ) {
     try {
-
       let getPrefecture = request.body.prefecture_id;
       let verifyPrefecture = await Prefecture.findByPk(getPrefecture);
 
@@ -19,7 +18,7 @@ module.exports = {
 
         if (verifyTIAF == null || verifyTIAF == undefined) {
 
-          await ParameterizationTIAF.create( request.body );
+          await ParameterizationTIAF.create(request.body);
           response.status(200).json({ message: "Parameterization TIAF Created" });
 
         } else {
@@ -30,15 +29,12 @@ module.exports = {
       };
 
     } catch (error) {
-
       response.status(500).json({ error: error });
-
     };
   },
 
   async editTIAF ( request, response ) {
     try {
-
       let getPrefecture = request.body.prefecture_id;
       let verifyPrefecture = await Prefecture.findByPk(getPrefecture);
 
@@ -48,7 +44,7 @@ module.exports = {
 
       } else {
 
-        await ParameterizationTIAF.update( request.body, {
+        await ParameterizationTIAF.update(request.body, {
           where: { id: request.body.id }
         });
 
@@ -57,15 +53,12 @@ module.exports = {
       };
 
     } catch (error) {
-
       response.status(500).json({ error: error });
-
     };
   },
 
   async getTIAF ( request, response ) {
     try {
-
       let prefectureId  = request.params.id;
       let getTIAF = await ParameterizationTIAF.findOne({
         raw: true,
@@ -75,14 +68,10 @@ module.exports = {
         }
       });
 
-      // console.log('ID da prefeitura: ' + prefectureId )
-
       response.status(200).json({ body: getTIAF });
 
     } catch (error) {
-
       response.status(500).json({ error: error });
-
     };
   },
 

@@ -14,7 +14,8 @@ module.exports = {
 
   async editHired (request, response) {
     try {
-      let getHired = await Hired.findOne({ raw: true,
+      let getHired = await Hired.findOne({ 
+        raw: true,
         where: { prefecture_id: request.body.prefecture_id }
       });
 
