@@ -93,8 +93,67 @@ RouterForPrefecture.post(
 
 RouterForPrefecture.post(
   '/register-tiaf',
+  celebrate({
+    [Segments.BODY]: Joi.object().keys({
+      prefecture_id: Joi.string().required(),
+      partner: Joi.string().required(),
+      law_type: Joi.string().required(),
+      law_number: Joi.string().required(),
+      publication_date: Joi.string().required(),
+      initial_article_tax: Joi.string().required(),
+      final_article_tax: Joi.string().required(),
+      monetary_correction: Joi.string().required(),
+      dl_monetary_correction: Joi.string().required(),
+      late_payment_interest: Joi.string().required(),
+      dl_late_payment_interest: Joi.string().required(),
+      moratorium_fine: Joi.string().required(), 
+      limit_moratorium_fine: Joi.string().required(),
+      aplication_moratorium_fine: Joi.string().required(),
+      indexer: Joi.string().required(),
+      indexer_name: Joi.string().required(),
+      indexer_value: Joi.string().required(),
+      effective_date: Joi.string().required(),
+    }),
+  }),
   AdminMiddleware.ValidateADM,
   ParameterizationTIAF.registerTIAF
 );
+
+RouterForPrefecture.post(
+  '/edit-tiaf',
+  celebrate({
+    [Segments.BODY]: Joi.object().keys({
+      id: Joi.string().required(),
+      prefecture_id: Joi.string().required(),
+      partner: Joi.string().optional(),
+      law_type: Joi.string().optional(),
+      law_number: Joi.string().optional(),
+      publication_date: Joi.string().optional(),
+      initial_article_tax: Joi.string().optional(),
+      final_article_tax: Joi.string().optional(),
+      monetary_correction: Joi.string().optional(),
+      dl_monetary_correction: Joi.string().optional(),
+      late_payment_interest: Joi.string().optional(),
+      dl_late_payment_interest: Joi.string().optional(),
+      moratorium_fine: Joi.string().optional(), 
+      limit_moratorium_fine: Joi.string().optional(),
+      aplication_moratorium_fine: Joi.string().optional(),
+      indexer: Joi.string().optional(),
+      indexer_name: Joi.string().optional(),
+      indexer_value: Joi.string().optional(),
+      effective_date: Joi.string().optional(),
+    }),
+  }),  
+  AdminMiddleware.ValidateADM,
+  ParameterizationTIAF.editTIAF
+);
+
+RouterForPrefecture.get(
+  '/get-tiaf/:id',
+  AdminMiddleware.ValidateADM,
+  ParameterizationTIAF.getTIAF
+);
+
+
 
 module.exports = RouterForPrefecture;

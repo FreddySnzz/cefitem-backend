@@ -1,20 +1,19 @@
 const { Contributor, Admin } = require('../models');
-const bcrypt = require("bcryptjs");
-
 const { generateNewToken } = require('../functions/auth/GenerateToken');
 const { generateJWT } = require('../functions/auth/GenerateJWT');
 const { sendEmail } = require("../functions/sendEmail");
+const bcrypt = require("bcryptjs");
 
 module.exports = {
   async createContributor (request, response) {
     try {
       let verifyUser = await Contributor.findOne({
         where: { name: request.body.name }
-      })
+      });
 
-      if(verifyUser == null || verifyUser == undefined) {
+      if (verifyUser == null || verifyUser == undefined) {
         const salt = await bcrypt.genSalt(10);
-        let phraseEncrypted = await bcrypt.hashSync(request.body.phrase, salt);
+        let phraseEncrypted = await bcrypt.hashSync( request.body.phrase, salt );
 
         request.body.name = request.body.name.toLowerCase();
         request.body.phrase = phraseEncrypted;
@@ -35,37 +34,40 @@ module.exports = {
           subtitle: "Digite o token recebido ou click no botão abaixo."
         });
 
-        response.status(201).json({ body: 'Contributor created' })
+        response.status(201).json({ body: 'Contributor created' });
+
       } else {
         response.status(401).json({ error: 'Unauthorized' });
       }
     } catch (error) {
-      console.log(error)
       response.status(500).json({ error: error });
-    }
+    };
   },
 
   async authUser (request, response) {
     try {
-
       let role = 'Contributor';
 
-      let verifyUserByEmail = await Contributor.findOne({ where: { email: request.body.email } });
+      let verifyUserByEmail = await Contributor.findOne({ 
+        where: { email: request.body.email } 
+      });
 
-      if(verifyUserByEmail == null || verifyUserByEmail == undefined){
+      if (verifyUserByEmail == null || verifyUserByEmail == undefined) {
+        verifyUserByEmail = await Admin.findOne({ 
+          where: { email: request.body.email } 
+        });
 
-        verifyUserByEmail = await Admin.findOne({ where: { email: request.body.email } });
         role = 'Admin';
 
-        if(verifyUserByEmail == null || verifyUserByEmail == undefined){
+        if (verifyUserByEmail == null || verifyUserByEmail == undefined) {
           return response.status(401).json({ message: 'Unauthorized'});
-        }
-      }
+        };
+      };
 
-      let phraseCompare = bcrypt.compareSync(request.body.phrase, verifyUserByEmail.phrase);
+      let phraseCompare = bcrypt.compareSync( request.body.phrase, verifyUserByEmail.phrase );
 
-      if(phraseCompare) {
-        if(verifyUserByEmail.enabled) {
+      if (phraseCompare) {
+        if (verifyUserByEmail.enabled) {
           let jwtToken = await generateJWT({ id: verifyUserByEmail.id });
           return response.status(200).json({
             "body":{
@@ -74,46 +76,49 @@ module.exports = {
               role
             }
           });
-        }
-        response.status(401).json({ message: 'User disabled' });
-      }
-      else {
-        response.status(401).json({ message: 'Fail'});
-      }
+        };
 
+        response.status(401).json({ message: 'User disabled' });
+
+      } else {
+        response.status(401).json({ message: 'Fail'});
+      };
     } catch (error) {
-      console.log(error)
       response.status(500).json({ error: error });
-    }
+    };
   },
 
   async enableContributor (request, response) {
     try {
-      let verifyUserByEmail = await Contributor.findOne( { where: { email: request.body.email } });
+      let verifyUserByEmail = await Contributor.findOne({ 
+        where: { email: request.body.email } 
+      });
 
-      if(verifyUserByEmail == null || verifyUserByEmail == undefined) {
+      if (verifyUserByEmail == null || verifyUserByEmail == undefined) {
         response.status(412).json({ 'message': 'Contributor not found' });
-      }
-      else {
-        if(verifyUserByEmail.token == request.body.token) {
-          if(verifyUserByEmail.enabled == false) {
+      } else {
+        if (verifyUserByEmail.token == request.body.token) {
+          if (verifyUserByEmail.enabled == false) {
             let data = { enabled: true }
 
-            await Contributor.update( data, { where: { email: request.body.email } });
+            await Contributor.update( data, { 
+              where: { email: request.body.email } 
+            });
+
             response.status(200).json({ "body": "Contributor enabled" });
-          }
-          else {
+
+          } else {
             response.status(412).json({ message: "Contributor has enabled" });
-          }
-        }
-        else {
+          };
+
+        } else {
           response.status(401).json({ message: "Token not corret" });
-        }
-      }
+        };
+      };
+
     } catch (error) {
-      console.log(error);
       response.status(500).json({ error: error });
-    }
+    };
   },
 
   async recoveryPhrase (request, response) {

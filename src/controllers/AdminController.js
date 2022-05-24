@@ -7,14 +7,17 @@ const bcrypt = require("bcryptjs");
 module.exports = {
   async createAdmin(request, response) {
     try {
-
       let adminSession = await getJWTBody(request);
-      let verifySuperAdmin = await Admin.findOne({ where: { id: adminSession } });
+      let verifySuperAdmin = await Admin.findOne({ 
+        where: { id: adminSession } 
+      });
 
       if(verifySuperAdmin.is_super_admin) {
-        let verifyAdmin = await Admin.findOne({ where: { email: request.body.email } });
+        let verifyAdmin = await Admin.findOne({ 
+          where: { email: request.body.email } 
+        });
 
-        if(verifyAdmin == undefined || verifyAdmin == null) {
+        if (verifyAdmin == undefined || verifyAdmin == null) {
           const salt = await bcrypt.genSalt(10);
           let phraseEncrypted = await bcrypt.hashSync(request.body.phrase, salt);
 
@@ -36,23 +39,23 @@ module.exports = {
           });
 
           return response.status(201).json({ body: 'Admin is created' });
-        }
-      }
 
-      response.status(401).json({ body: 'This user not super admin'});
+        };
+      };
+
+      response.status(401).json({ error: 'This user not super admin'});
 
     } catch (error) {
-      console.log(error)
       response.status(500).json({ error: error });
-    }
+    };
   },
 
   async getAdmin(request, response) {
     try {
-
       let adminSession = await getJWTBody(request);
-      let verifyAdmin = await Admin.findOne({ where: { id: adminSession }, attributes:
-        {
+      let verifyAdmin = await Admin.findOne({ 
+        where: { id: adminSession }, 
+        attributes: {
           exclude: ['id', 'phrase','token','createdAt', 'updatedAt']
         }
       });
@@ -60,7 +63,7 @@ module.exports = {
       return response.status(200).json({ body: verifyAdmin });
 
     } catch (error) {
-
-    }
-  }
-}
+      response.status(500).json({ error: error });
+    };
+  },
+};
