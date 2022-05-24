@@ -57,12 +57,12 @@ module.exports = {
           id: id
         }, include: [
           { model: Commercial, as: "commercial_prefecture", attributes: { exclude: ['id', 'createdAt', 'updatedAt'] }},
-          // { model: COSIF, as: "cosif_prefecture", attributes: [  ]  },
-          // { model: COSIP, as: "cosip_prefecture", attributes: [  ]  },
-          // { model: ERB, as: "erb_prefecture", attributes: [  ]  },
-          // { model: Hired, as: "hired_prefecture", attributes: [  ]  },
-          // { model: OwnISS, as: "own_iss_prefecture", attributes: [  ]  },
-          // { model: SubstituteISS, as: "substitute_iss_prefecture", attributes: [  ]  },
+          { model: COSIF, as: "cosif_prefecture", attributes: { exclude: ['id', 'createdAt', 'updatedAt'] }  },
+          { model: COSIP, as: "cosip_prefecture", attributes: { exclude: ['id', 'createdAt', 'updatedAt'] }  },
+          { model: ERB, as: "erb_prefecture", attributes: { exclude: ['id', 'createdAt', 'updatedAt'] }  },
+          { model: Hired, as: "hired_prefecture", attributes: { exclude: ['id', 'createdAt', 'updatedAt'] }  },
+          { model: OwnISS, as: "own_iss_prefecture", attributes: { exclude: ['id', 'createdAt', 'updatedAt'] }  },
+          { model: SubstituteISS, as: "substitute_iss_prefecture", attributes: { exclude: ['id', 'createdAt', 'updatedAt'] }  },
         ],
         order: [
           ['createdAt', 'DESC'],
@@ -72,19 +72,6 @@ module.exports = {
         },
         limit,
         offset,
-      });
-
-      rows.map( async function ( x ) {
-        let PrefectureData = await getPrefectureData( x.dataValues.id );
-        if( PrefectureData.data.status != x.dataValues.status || PrefectureData.data.status == 'Processado' ) {
-
-          await Prefecture.update(
-            { status: PrefectureData.data.status,
-              data: JSON.stringify( PrefectureData.data.resultado )
-            },
-            { where: { id: x.dataValues.id } }
-          );
-        }
       });
 
       const meta = paginate( currentPage, count, rows, pageSize );

@@ -2,10 +2,6 @@ const COSIF = (sequelize, DataTypes) => {
   let cosif = sequelize.define(
     "COSIF",
     {
-      prefecture_id: {
-        type: DataTypes.STRING(300),
-        allowNull: false,
-      },
       status: {
         type: DataTypes.BOOLEAN,
         allowNull: false
@@ -17,12 +13,12 @@ const COSIF = (sequelize, DataTypes) => {
     }
   );
 
-  // cosif.associate = (models) => {
-  //   cosif.belongsTo(models.Prefecture, {
-  //     foreignKey: "prefecture_id",
-  //     as: "cosif_prefecture"
-  //   });
-  // }
+  cosif.associate = (models) => {
+    cosif.belongsTo(models.Prefecture, {
+      foreignKey: "cosif_id",
+      as: "cosif_prefecture"
+    });
+  }
 
   return cosif;
 };

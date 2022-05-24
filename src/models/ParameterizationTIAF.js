@@ -81,12 +81,12 @@ const ParameterizationTIAF = (sequelize, DataTypes) => {
     }
   );
 
-  // parameterization_tiaf.associate = (models) => {
-  //   parameterization_tiaf.belongsTo(models.Prefecture, {
-  //     foreignKey: "prefecture_id",
-  //     as: "parameterization_tiaf_prefecture"
-  //   });
-  // }
+  parameterization_tiaf.associate = (models) => {
+    parameterization_tiaf.belongsTo(models.Prefecture, {
+      foreignKey: "prefecture_id",
+      as: "parameterization_tiaf_prefecture"
+    });
+  }
 
   return parameterization_tiaf;
 };

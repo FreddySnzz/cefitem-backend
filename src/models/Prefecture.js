@@ -101,6 +101,30 @@ const Prefecture = (sequelize, DataTypes) => {
       commecial_id: {
         type: DataTypes.STRING(300),
         allowNull: false,
+      },
+      cosif_id: {
+        type: DataTypes.STRING(300),
+        allowNull: false,
+      },
+      cosip_id: {
+        type: DataTypes.STRING(300),
+        allowNull: false,
+      },
+      erb_id: {
+        type: DataTypes.STRING(300),
+        allowNull: false,
+      },
+      hired_id: {
+        type: DataTypes.STRING(300),
+        allowNull: false,
+      },
+      own_iss_id: {
+        type: DataTypes.STRING(300),
+        allowNull: false,
+      },
+      substitute_iss_id: {
+        type: DataTypes.STRING(300),
+        allowNull: false,
       }
     },
     {
@@ -120,40 +144,40 @@ const Prefecture = (sequelize, DataTypes) => {
       as: "commercial_prefecture"
     });
 
-    // prefecture.hasMany(models.COSIF, {
-    //   foreignKey: "prefecture_id",
-    //   as: "cosif_prefecture"
-    // });
+    prefecture.belongsTo(models.COSIF, {
+      foreignKey: "cosif_id",
+      as: "cosif_prefecture"
+    });
 
-    // prefecture.hasMany(models.COSIP, {
-    //   foreignKey: "prefecture_id",
-    //   as: "cosip_prefecture"
-    // });
+    prefecture.belongsTo(models.COSIP, {
+      foreignKey: "cosip_id",
+      as: "cosip_prefecture"
+    });
 
-    // prefecture.hasMany(models.ERB, {
-    //   foreignKey: "prefecture_id",
-    //   as: "erb_prefecture"
-    // });
+    prefecture.belongsTo(models.ERB, {
+      foreignKey: "erb_id",
+      as: "erb_prefecture"
+    });
 
-    // prefecture.hasMany(models.Hired, {
-    //   foreignKey: "prefecture_id",
-    //   as: "hired_prefecture"
-    // });
+    prefecture.belongsTo(models.Hired, {
+      foreignKey: "hired_id",
+      as: "hired_prefecture"
+    });
 
-    // prefecture.hasMany(models.OwnISS, {
-    //   foreignKey: "prefecture_id",
-    //   as: "own_iss_prefecture"
-    // });
+    prefecture.belongsTo(models.OwnISS, {
+      foreignKey: "own_iss_id",
+      as: "own_iss_prefecture"
+    });
 
-    // prefecture.hasMany(models.SubstituteISS, {
-    //   foreignKey: "prefecture_id",
-    //   as: "substitute_iss_prefecture"
-    // });
+    prefecture.belongsTo(models.SubstituteISS, {
+      foreignKey: "substitute_iss_id",
+      as: "substitute_iss_prefecture"
+    });
 
-    // prefecture.hasMany(models.SubstituteISS, {
-    //   foreignKey: "prefecture_id",
-    //   as: "parameterization_tiaf_prefecture"
-    // });
+    prefecture.hasMany(models.ParametrizationTIAF, {
+      foreignKey: "prefecture_id",
+      as: "parameterization_tiaf_prefecture"
+    });
   }
 
 

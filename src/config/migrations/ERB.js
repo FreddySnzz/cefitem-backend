@@ -10,10 +10,6 @@ module.exports = {
         primaryKey: true,
         field: "id"
       },
-      prefecture_id: {
-        type: Sequelize.DataTypes.STRING(300),
-        allowNull: true
-      },
       status: {
         type: Sequelize.DataTypes.BOOLEAN,
         allowNull: true
