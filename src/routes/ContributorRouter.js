@@ -14,7 +14,7 @@ RouterForContributor.post(
   '/change-password',
   AuthMiddleware.validateJWT,
   ContributorController.changePassword
-)
+);
 
 RouterForContributor.put(
   '/update',

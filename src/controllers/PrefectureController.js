@@ -59,12 +59,9 @@ module.exports = {
     try {
       const { query: { currentPage, pageSize } } = request;
       const { limit, offset } = calculateLimitAndOffset(currentPage, pageSize);
-      const { id } = request.params;
+      //const getPrefectures = await Prefecture.findAll()
 
       const { rows, count } = await Prefecture.findAndCountAll({
-        where: {
-          id: id
-        }, 
         include: [
           { model: Commercial, as: "commercial_prefecture", attributes: { exclude: ['id', 'createdAt', 'updatedAt'] } },
           { model: COSIF, as: "cosif_prefecture", attributes: { exclude: ['id', 'createdAt', 'updatedAt'] } },

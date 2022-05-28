@@ -8,7 +8,7 @@ const AuthMiddleware = require('../middleware/AuthMiddleware');
 const AdminMiddleware = require('../middleware/AdminMiddleware');
 
 RouterForPrefecture.get(
-  '/:id',
+  '/',
   AdminMiddleware.ValidateADM,
   PrefectureController.getPrefecture
 );
