@@ -27,7 +27,7 @@ module.exports = {
         let ownIssId = await OwnISS.create({ status: false });
         let substituteIssId = await SubstituteISS.create({ status: false });
 
-        request.body.commecial_id = commercialId.id;
+        request.body.commercial_id = commercialId.id;
         request.body.cosif_id = cosifId.id;
         request.body.cosip_id = cosipId.id;
         request.body.erb_id = ERBId.id;

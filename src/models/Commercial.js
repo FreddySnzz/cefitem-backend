@@ -15,7 +15,7 @@ const Commercial = (sequelize, DataTypes) => {
 
   commercial.associate = (models) => {
     commercial.hasMany(models.Prefecture, {
-      foreignKey: "commecial_id",
+      foreignKey: "commercial_id",
       as: "commercial_prefecture"
     });
   }
