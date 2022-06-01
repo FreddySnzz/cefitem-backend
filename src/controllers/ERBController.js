@@ -1,4 +1,4 @@
-const { ERB } = require('../models');
+const { ERB, Prefecture } = require('../models');
 
 module.exports = {
   async getERBs (request, response) {
@@ -14,9 +14,14 @@ module.exports = {
 
   async editERB (request, response) {
     try {
+      let getPrefecture = await Prefecture.findOne({ 
+        raw: true,
+        where: { id: request.body.prefecture_id }
+      });
+
       let getERB = await ERB.findOne({ 
         raw: true,
-        where: { prefecture_id: request.body.prefecture_id }
+        where: { id: getPrefecture.erb_id }
       });
 
       if ( getERB == null || getERB == undefined ) {
@@ -26,7 +31,7 @@ module.exports = {
       } else {
 
         await ERB.update({ status: !getERB.status }, {
-          where: { prefecture_id: request.body.prefecture_id } 
+          where: { id: getPrefecture.erb_id } 
         });
 
         response.status(200).json({ message: 'ERB edited' });

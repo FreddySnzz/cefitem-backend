@@ -1,4 +1,4 @@
-const { COSIF } = require('../models');
+const { COSIF, Prefecture } = require('../models');
 
 module.exports = {
   async getCOSIFs (request, response) {
@@ -14,6 +14,7 @@ module.exports = {
 
   async editCOSIF (request, response) {
     try {
+
       let getPrefecture = await Prefecture.findOne({ 
         raw: true,
         where: { id: request.body.prefecture_id }

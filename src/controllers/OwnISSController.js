@@ -1,4 +1,4 @@
-const { OwnISS } = require('../models');
+const { OwnISS, Prefecture } = require('../models');
 
 module.exports = {
   async getOwnISSs (request, response) {
@@ -14,9 +14,14 @@ module.exports = {
 
   async editOwnISS (request, response) {
     try {
+      let getPrefecture = await Prefecture.findOne({ 
+        raw: true,
+        where: { id: request.body.prefecture_id }
+      });
+
       let getOwnISS = await OwnISS.findOne({ 
         raw: true,
-        where: { prefecture_id: request.body.prefecture_id }
+        where: { id: getPrefecture.own_iss_id }
       });
 
       if ( getOwnISS == null || getOwnISS == undefined ) {
@@ -26,7 +31,7 @@ module.exports = {
       } else {
 
         await OwnISS.update({ status: !getOwnISS.status }, {
-          where: { prefecture_id: request.body.prefecture_id } 
+          where: { id: getPrefecture.own_iss_id } 
         });
 
         response.status(200).json({ message: 'OwnISS edited' });
