@@ -22,6 +22,10 @@ module.exports = {
         type: Sequelize.DataTypes.STRING(100),
         allowNull: false,
       },
+      third_party: {
+        type: Sequelize.DataTypes.BOOLEAN,
+        allowNull: false,
+      },
       company_name: {
         type: Sequelize.DataTypes.STRING(50),
         allowNull: true,
@@ -32,6 +36,14 @@ module.exports = {
       },
       email: {
         type: Sequelize.DataTypes.STRING(100),
+        allowNull: false,
+      },
+      cnpj: {
+        type: Sequelize.DataTypes.STRING(14),
+        allowNull: true,
+      },
+      economic_activity: {
+        type: Sequelize.DataTypes.STRING(50),
         allowNull: false,
       },
       cep: {
@@ -71,10 +83,6 @@ module.exports = {
         allowNull: true,
       },
       enabled: {
-        type: Sequelize.DataTypes.BOOLEAN,
-        allowNull: false,
-      },
-      terms_confirmed: {
         type: Sequelize.DataTypes.BOOLEAN,
         allowNull: false,
       },
