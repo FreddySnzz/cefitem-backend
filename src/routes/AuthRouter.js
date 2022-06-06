@@ -8,8 +8,8 @@ RouterForAuth.post(
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       name: Joi.string().required(),
-      contributor_position: Joi.string().allow('', null),
-      contributor_registry: Joi.string().allow('', null),
+      contributor_position: Joi.string().required(),
+      contributor_registry: Joi.string().required(),
       third_party: Joi.string().optional(),
       company_name: Joi.string().allow('', null),
       company_cnpj: Joi.string().allow('', null),
