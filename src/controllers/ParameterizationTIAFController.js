@@ -1,4 +1,5 @@
 const { ParameterizationTIAF, Prefecture } = require('../models');
+const saveDocx = require('../functions/createDocxFile');
 
 module.exports = {
   async registerTIAF ( request, response ) {
@@ -69,6 +70,24 @@ module.exports = {
       });
 
       response.status(200).json({ body: getTIAF });
+
+    } catch (error) {
+      response.status(500).json({ error: error });
+    };
+  },
+
+  async generateDocument ( request, response ) {
+    try {
+      let id = request.body.id;
+      let getTIAF = await ParameterizationTIAF.findOne({
+        raw: true,
+        where: { id: id},
+        attributes: {
+          exclude: ['createdAt', 'updatedAt']
+        }
+      });
+
+      console.log(getTIAF);
 
     } catch (error) {
       response.status(500).json({ error: error });

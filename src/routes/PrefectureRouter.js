@@ -154,6 +154,12 @@ RouterForPrefecture.get(
   ParameterizationTIAF.getTIAF
 );
 
+RouterForPrefecture.post(
+  '/generate-document',
+  AdminMiddleware.ValidateADM,
+  ParameterizationTIAF.generateDocument
+);
+
 
 
 module.exports = RouterForPrefecture;

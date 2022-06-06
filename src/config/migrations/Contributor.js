@@ -47,7 +47,7 @@ module.exports = {
         allowNull: false,
       },
       cep: {
-        type: Sequelize.DataTypes.STRING(8),
+        type: Sequelize.DataTypes.STRING(9),
         allowNull: false,
       },
       uf: {
