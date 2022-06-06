@@ -32,8 +32,10 @@ module.exports = {
   async generateDocx (data) {
     try {
 
+      
+
     } catch (error) {
-      res
+      console.log(error);
     }
   }
 }
