@@ -20,7 +20,6 @@ module.exports = {
         request.body.token = await generateNewToken(0, 9);
         request.body.enabled = false;
         request.body.is_super_user = false;
-        request.body.terms_confirmed = true;
 
         await Contributor.create(request.body);
 

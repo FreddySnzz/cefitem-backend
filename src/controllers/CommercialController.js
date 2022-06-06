@@ -1,4 +1,4 @@
-const { Commercial } = require('../models');
+const { Commercial, Prefecture } = require('../models');
 
 module.exports = {
   async getCommercials (request, response) {
@@ -14,9 +14,15 @@ module.exports = {
 
   async editCommercial (request, response) {
     try {
+
+      let getPrefecture = await Prefecture.findOne({ 
+        raw: true,
+        where: { id: request.body.prefecture_id }
+      });
+
       let getCommercial = await Commercial.findOne({ 
         raw: true,
-        where: { prefecture_id: request.body.prefecture_id }
+        where: { id: getPrefecture.commercial_id }
       });
 
       if ( getCommercial == null || getCommercial == undefined ) {
@@ -26,7 +32,7 @@ module.exports = {
       } else {
 
         await Commercial.update({ status: !getCommercial.status }, {
-          where: { prefecture_id: request.body.prefecture_id } 
+          where: { id: getPrefecture.commercial_id } 
         });
 
         response.status(200).json({ message: 'Commercial edited' });

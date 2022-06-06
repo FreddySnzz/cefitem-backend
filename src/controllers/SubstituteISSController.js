@@ -1,4 +1,4 @@
-const { SubstituteISS } = require('../models');
+const { SubstituteISS, Prefecture } = require('../models');
 
 module.exports = {
   async getSubstituteISSs (request, response) {
@@ -14,9 +14,14 @@ module.exports = {
 
   async editSubstituteISS (request, response) {
     try {
+      let getPrefecture = await Prefecture.findOne({ 
+        raw: true,
+        where: { id: request.body.prefecture_id }
+      });
+
       let getSubstituteISS = await SubstituteISS.findOne({ 
         raw: true,
-        where: { prefecture_id: request.body.prefecture_id }
+        where: { id: getPrefecture.substitute_iss_id }
       });
 
       if ( getSubstituteISS == null || getSubstituteISS == undefined ) {
@@ -26,7 +31,7 @@ module.exports = {
       } else {
 
         await SubstituteISS.update({ status: !getSubstituteISS.status }, {
-          where: { prefecture_id: request.body.prefecture_id } 
+          where: { id: getPrefecture.substitute_iss_id } 
         });
 
         response.status(200).json({ message: 'SubstituteISS edited' });

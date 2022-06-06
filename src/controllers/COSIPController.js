@@ -1,4 +1,4 @@
-const { COSIP } = require('../models');
+const { COSIP, Prefecture } = require('../models');
 
 module.exports = {
   async getCOSIPs (request, response) {
@@ -14,9 +14,15 @@ module.exports = {
 
   async editCOSIP (request, response) {
     try {
+
+      let getPrefecture = await Prefecture.findOne({ 
+        raw: true,
+        where: { id: request.body.prefecture_id }
+      });
+
       let getCOSIP = await COSIP.findOne({ 
         raw: true,
-        where: { prefecture_id: request.body.prefecture_id }
+        where: { id: getPrefecture.cosip_id }
       });
 
       if ( getCOSIP == null || getCOSIP == undefined ) {
@@ -26,7 +32,7 @@ module.exports = {
       } else {
 
         await COSIP.update({ status: !getCOSIP.status }, {
-          where: { prefecture_id: request.body.prefecture_id } 
+          where: { id: getPrefecture.cosip_id } 
         });
 
         response.status(200).json({ message: 'COSIP edited' });

@@ -14,6 +14,10 @@ const Contributor = (sequelize, DataTypes) => {
         type: DataTypes.STRING(100),
         allowNull: false,
       },
+      third_party: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
       company_name: {
         type: DataTypes.STRING(50),
         allowNull: true,
@@ -26,8 +30,16 @@ const Contributor = (sequelize, DataTypes) => {
         type: DataTypes.STRING(100),
         allowNull: false,
       },
+      cnpj: {
+        type: DataTypes.STRING(14),
+        allowNull: true,
+      },
+      economic_activity: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+      },
       cep: {
-        type: DataTypes.STRING(8),
+        type: DataTypes.STRING(9),
         allowNull: false,
       },
       uf: {
@@ -63,10 +75,6 @@ const Contributor = (sequelize, DataTypes) => {
         allowNull: true,
       },
       enabled: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-      },
-      terms_confirmed: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
       },

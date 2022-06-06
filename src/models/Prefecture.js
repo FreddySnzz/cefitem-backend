@@ -98,7 +98,7 @@ const Prefecture = (sequelize, DataTypes) => {
         type: DataTypes.STRING(50),
         allowNull: false,
       },
-      commecial_id: {
+      commercial_id: {
         type: DataTypes.STRING(300),
         allowNull: false,
       },
@@ -140,7 +140,7 @@ const Prefecture = (sequelize, DataTypes) => {
     });
 
     prefecture.belongsTo(models.Commercial, {
-      foreignKey: "commecial_id",
+      foreignKey: "commercial_id",
       as: "commercial_prefecture"
     });
 

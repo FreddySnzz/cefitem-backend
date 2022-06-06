@@ -1,4 +1,4 @@
-const { Hired } = require('../models');
+const { Hired, Prefecture } = require('../models');
 
 module.exports = {
   async getHireds (request, response) {
@@ -14,9 +14,14 @@ module.exports = {
 
   async editHired (request, response) {
     try {
+      let getPrefecture = await Prefecture.findOne({ 
+        raw: true,
+        where: { id: request.body.prefecture_id }
+      });
+
       let getHired = await Hired.findOne({ 
         raw: true,
-        where: { prefecture_id: request.body.prefecture_id }
+        where: { id: getPrefecture.hired_id }
       });
 
       if ( getHired == null || getHired == undefined ) {
@@ -26,7 +31,7 @@ module.exports = {
       } else {
 
         await Hired.update({ status: !getHired.status }, {
-          where: { prefecture_id: request.body.prefecture_id } 
+          where: { id: getPrefecture.hired_id } 
         });
 
         response.status(200).json({ message: 'Hired edited' });
