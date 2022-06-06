@@ -12,7 +12,7 @@ module.exports = {
             pass: process.env.GMAIL_PASSWORD, // generated ethereal password
         },
     });
-    
+
     await transporter.sendMail({
       to: data.email, // Change to your recipient
       from: 'w@wlissesmenezes.adv.br', // Change to your verified sender
@@ -181,7 +181,11 @@ module.exports = {
                                                 <tbody>
                                                   <tr>
                                                     <td style="font-size:6px; line-height:10px; padding:0px 0px 0px 0px;" valign="top" align="center">
-                                                      <img class="max-width" border="0" style="display:block; color:#000000; text-decoration:none; font-family:Helvetica, arial, sans-serif; font-size:16px;" width="600" alt="" data-proportionally-constrained="true" data-responsive="false" src="http://cdn.mcauto-images-production.sendgrid.net/f1a5c3839c29043d/83d9de7b-f5dd-4137-8e24-909003578ea7/628x252.png" height="">
+
+                                                      <div style="padding:50px 50px 50px 50px; background-color:#252B4F;">
+                                                         <img class="max-width" border="0" style="display:block; color:#000000; text-decoration:none; font-family:Helvetica, arial, sans-serif; font-size:16px;" width="300" alt="" data-proportionally-
+                                                         constrained="true" data-responsive="false" src="https://s3.us-east-1.wasabisys.com/cefitem/WhatsApp%20Image%202022-04-13%20at%2015.42%201.png" height="">
+                                                      </div>
                                                     </td>
                                                   </tr>
                                                 </tbody>
