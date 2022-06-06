@@ -89,7 +89,7 @@ module.exports = {
 
       console.log(getTIAF);
 
-      saveDocx.generateDocx();
+      await saveDocx.generateDocx();
 
     } catch (error) {
       response.status(500).json({ error: error });

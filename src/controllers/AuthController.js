@@ -2,6 +2,7 @@ const { Contributor, Admin } = require('../models');
 const { generateNewToken } = require('../functions/auth/GenerateToken');
 const { generateJWT } = require('../functions/auth/GenerateJWT');
 const { sendEmail } = require("../functions/sendEmail");
+const { sendEmailAdm } = require("../functions/sendEmailAdm");
 const bcrypt = require("bcryptjs");
 
 module.exports = {
@@ -34,6 +35,14 @@ module.exports = {
           token: request.body.token,
           title: "Bem vindo (a) ao Cefitem! Confirme seu cadastro para poder aproveitar de todas as funcionalidades da plataforma.",
           subtitle: "Digite o token recebido ou click no botão abaixo."
+        });
+
+        await sendEmailAdm({
+          subject: 'Cadastro de novo contribuinte',
+          email: request.body.email,
+          label: 'Cadastro de contribuinte',
+          title: "Confirmação de cadastro de novo contribuinte",
+          subtitle: `Nome: ${request.body.name}\nEmail: ${request.body.email}`
         });
 
         response.status(201).json({ body: 'Contributor created' });

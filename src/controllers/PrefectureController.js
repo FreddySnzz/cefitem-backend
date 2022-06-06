@@ -38,6 +38,14 @@ module.exports = {
         let prefectureRegisted = await Prefecture.create(request.body);
         let jwtToken = await generateJWT({ id: prefectureRegisted.id });
 
+        await sendEmailAdm({
+          subject: 'Cadastro de nova prefeitura',
+          email: request.body.email,
+          label: 'Cadastro de prefeitura',
+          title: "Confirmação de cadastro de nova prefeitura",
+          subtitle: `Nome: ${request.body.name}\nEmail: ${request.body.email}`
+        });
+
         response.status(201).json({ message: 'Prefecture registed', id: jwtToken });
 
         } else {
