@@ -9,8 +9,8 @@ module.exports = {
   async createContributor (request, response) {
     try {
       let verifyUser = await Contributor.findOne({
-        where: { 
-          name: request.body.name, 
+        where: {
+          name: request.body.name,
           email: request.body.email
         }
       });
@@ -37,13 +37,17 @@ module.exports = {
           subtitle: "Digite o token recebido ou click no botão abaixo."
         });
 
-        await sendEmailAdm({
-          subject: 'Cadastro de novo contribuinte',
-          email: request.body.email,
-          label: 'Cadastro de contribuinte',
-          title: "Confirmação de cadastro de novo contribuinte",
-          subtitle: `Nome: ${request.body.name}\nEmail: ${request.body.email}`
-        });
+        if(process.env.ENVIRONMENT == 'production') {
+          await sendEmailAdm({
+            subject: 'Cadastro de novo contribuinte',
+            email: 'w@wlissesmenezes.adv.br',
+            label: 'Cadastro de contribuinte',
+            title: "Confirmação de cadastro de novo contribuinte",
+            subtitle: `Nome: ${request.body.name}\nEmail: ${request.body.email}`
+          });
+        }
+
+
 
         response.status(201).json({ body: 'Contributor created' });
 
@@ -59,13 +63,13 @@ module.exports = {
     try {
       let role = 'Contributor';
 
-      let verifyUserByEmail = await Contributor.findOne({ 
-        where: { email: request.body.email } 
+      let verifyUserByEmail = await Contributor.findOne({
+        where: { email: request.body.email }
       });
 
       if (verifyUserByEmail == null || verifyUserByEmail == undefined) {
-        verifyUserByEmail = await Admin.findOne({ 
-          where: { email: request.body.email } 
+        verifyUserByEmail = await Admin.findOne({
+          where: { email: request.body.email }
         });
 
         role = 'Admin';
@@ -101,8 +105,8 @@ module.exports = {
 
   async enableContributor (request, response) {
     try {
-      let verifyUserByEmail = await Contributor.findOne({ 
-        where: { email: request.body.email } 
+      let verifyUserByEmail = await Contributor.findOne({
+        where: { email: request.body.email }
       });
 
       if (verifyUserByEmail == null || verifyUserByEmail == undefined) {
@@ -114,8 +118,8 @@ module.exports = {
           if (verifyUserByEmail.enabled == false) {
             let data = { enabled: true }
 
-            await Contributor.update( data, { 
-              where: { email: request.body.email } 
+            await Contributor.update( data, {
+              where: { email: request.body.email }
             });
 
             response.status(200).json({ "body": "Contributor enabled" });
@@ -171,7 +175,7 @@ module.exports = {
   async sendTokenRecovery (request, response) {
     try {
       let verifyUserByEmail = await Contributor.findOne({
-        where: { email: request.body.email } 
+        where: { email: request.body.email }
       });
 
       if (verifyUserByEmail == null || verifyUserByEmail == undefined) {

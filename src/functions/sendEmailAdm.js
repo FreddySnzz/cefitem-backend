@@ -203,9 +203,6 @@ module.exports = {
                                                     <td style="padding:50px 40px 40px 40px; line-height:28px; text-align:inherit; background-color:#f8f8f8;" height="100%" valign="top" bgcolor="#f8f8f8" role="module-content">
                                                       <div>
                                                         <div style="font-family: inherit; text-align: inherit"><span style="color: #000000; font-size: 24px; font-family: inherit">${data.title}</span></div>
-                                                        <br>
-                                                        <div><span style="color: #000000; font-size: 32px; font-family: inherit; font-weight: bold;">${data.token}</span></div>
-                                                        <br>
                                                         <div style="font-family: inherit; text-align: inherit"><span style="color: #000000; font-size: 24px; font-family: inherit">${data.subtitle}</span></div>
                                                         <div></div>
                                                       </div>
@@ -221,7 +218,6 @@ module.exports = {
                                                         <tbody>
                                                           <tr>
                                                             <td align="center" bgcolor="#FFCD37" class="inner-td" style="border-radius:6px; font-size:16px; text-align:center; background-color:inherit;">
-                                                              <a href="${data.link}" style="background-color:#FFCD37; border:1px solid #fbde67; border-color:#fbde67; border-radius:10px; border-width:1px; color:#000000; display:inline-block; font-size:16px; font-weight:700; letter-spacing:0px; line-height:22px; padding:12px 18px 12px 18px; text-align:center; text-decoration:none; border-style:solid; font-family:inherit; width:210px;" target="_blank">${data.label}</a>
                                                             </td>
                                                           </tr>
                                                         </tbody>
@@ -259,19 +255,6 @@ module.exports = {
                                                 <p style="font-size:12px; line-height:20px;"><a target="_blank" class="Unsubscribe--unsubscribeLink zzzzzzz" href="{{{unsubscribe}}}" style="">Unsubscribe</a> - <a href="{{{unsubscribe_preferences}}}" target="_blank" class="Unsubscribe--unsubscribePreferences" style="">Unsubscribe Preferences</a></p>
                                               </div>
                                               <table border="0" cellpadding="0" cellspacing="0" class="module" data-role="module-button" data-type="button" role="module" style="table-layout:fixed;" width="100%" data-muid="0644ff51-38f7-4da6-bb03-37fee41f8046">
-                                                <tbody>
-                                                  <tr>
-                                                    <td align="center" bgcolor="" class="outer-td" style="padding:0px 0px 20px 0px;">
-                                                      <table border="0" cellpadding="0" cellspacing="0" class="wrapper-mobile" style="text-align:center;">
-                                                        <tbody>
-                                                          <tr>
-                                                            <td align="center" bgcolor="#f5f8fd" class="inner-td" style="border-radius:6px; font-size:16px; text-align:center; background-color:inherit;"><a href="http://165.227.207.148/" style="background-color:#f5f8fd; border:1px solid #f5f8fd; border-color:#f5f8fd; border-radius:25px; border-width:1px; color:#a8b9d5; display:inline-block; font-size:10px; font-weight:normal; letter-spacing:0px; line-height:normal; padding:5px 18px 5px 18px; text-align:center; text-decoration:none; border-style:solid; font-family:helvetica,sans-serif;" target="_blank">Atrium - Legal tech</a></td>
-                                                          </tr>
-                                                        </tbody>
-                                                      </table>
-                                                    </td>
-                                                  </tr>
-                                                </tbody>
                                               </table>
                                             </td>
                                           </tr>
