@@ -8,7 +8,10 @@ module.exports = {
   async createContributor (request, response) {
     try {
       let verifyUser = await Contributor.findOne({
-        where: { name: request.body.name }
+        where: { 
+          name: request.body.name, 
+          email: request.body.email
+        }
       });
 
       if (verifyUser == null || verifyUser == undefined) {
