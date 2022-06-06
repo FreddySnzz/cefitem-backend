@@ -160,6 +160,12 @@ RouterForPrefecture.post(
   ParameterizationTIAF.generateDocument
 );
 
+RouterForPrefecture.get(
+  '/get-all-tiaf',
+  AdminMiddleware.ValidateADM,
+  ParameterizationTIAF.paginationTiaf
+);
+
 
 
 module.exports = RouterForPrefecture;

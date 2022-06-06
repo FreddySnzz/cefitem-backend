@@ -1,4 +1,5 @@
 const { ParameterizationTIAF, Prefecture } = require('../models');
+const { calculateLimitAndOffset, paginate } = require("paginate-info");
 const saveDocx = require('../functions/createDocxFile');
 
 module.exports = {
@@ -90,6 +91,37 @@ module.exports = {
       console.log(getTIAF);
 
       await saveDocx.generateDocx();
+
+    } catch (error) {
+      response.status(500).json({ error: error });
+    };
+  },
+
+  async paginationTiaf ( request, response ) {
+    try {
+      const { query: { currentPage, pageSize } } = request;
+      const { limit, offset } = calculateLimitAndOffset(currentPage, pageSize);
+      //const getPrefectures = await Prefecture.findAll()
+
+      const { rows, count } = await Prefecture.findAndCountAll({
+        include: [],
+        order: [
+          ['createdAt', 'DESC'],
+        ],
+        attributes: {
+          exclude: []
+        },
+        limit,
+        offset,
+      });
+
+      const meta = paginate( currentPage, count, rows, pageSize );
+      response.json({
+        rows,
+        meta,
+        status: "200",
+        message: "Parametrization TIAF geted",
+      });
 
     } catch (error) {
       response.status(500).json({ error: error });
