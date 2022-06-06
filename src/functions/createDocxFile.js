@@ -1,5 +1,5 @@
 const fs = require("fs");
-const { Document, Packer, Paragraph, TextRun } = require ("docx");
+const { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType } = require ("docx");
 
 module.exports = {
   async generateDocx (data) {
@@ -10,15 +10,15 @@ module.exports = {
               children: [
                   new Paragraph({
                       children: [
-                          new TextRun("Hello World"),
-                          new TextRun({
-                              text: "Foo Bar",
-                              bold: true,
-                          }),
-                          new TextRun({
-                              text: "\tGithub is the best",
-                              bold: true,
-                          }),
+                        new Paragraph({
+                          text: "Estado do Maranhão",
+                          size: 14,
+                          color: "000000",
+                        new Paragraph({
+                            text: "\nPrefeitura de São José de Ribamar MA",
+                            size: 14,
+                            color: "000000",
+                        })
                       ],
                   }),
               ],

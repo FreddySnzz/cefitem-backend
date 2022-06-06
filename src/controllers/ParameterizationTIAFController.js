@@ -92,6 +92,8 @@ module.exports = {
 
       await saveDocx.generateDocx();
 
+      response.status(201).json({ message: "Document saved" });
+
     } catch (error) {
       response.status(500).json({ error: error });
     };
