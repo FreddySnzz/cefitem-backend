@@ -1,6 +1,5 @@
-const { ParameterizationTIAF, Prefecture } = require('../models');
+const { ParameterizationTIAF, Prefecture, Admin, Documents, Contributor } = require('../models');
 const { calculateLimitAndOffset, paginate } = require("paginate-info");
-const saveDocx = require('../functions/createDocxFile');
 
 module.exports = {
   async registerTIAF ( request, response ) {
@@ -77,33 +76,10 @@ module.exports = {
     };
   },
 
-  async generateDocument ( request, response ) {
-    try {
-      let id = request.body.id;
-      let getTIAF = await ParameterizationTIAF.findOne({
-        raw: true,
-        where: { id: id},
-        attributes: {
-          exclude: ['createdAt', 'updatedAt']
-        }
-      });
-
-      console.log(getTIAF);
-
-      await saveDocx.generateDocx();
-
-      response.status(201).json({ message: "Document saved" });
-
-    } catch (error) {
-      response.status(500).json({ error: error });
-    };
-  },
-
   async paginationTiaf ( request, response ) {
     try {
       const { query: { currentPage, pageSize } } = request;
       const { limit, offset } = calculateLimitAndOffset(currentPage, pageSize);
-      //const getPrefectures = await Prefecture.findAll()
 
       const { rows, count } = await Prefecture.findAndCountAll({
         include: [],
@@ -130,4 +106,76 @@ module.exports = {
     };
   },
 
+  async generateTiafDocument ( request, response ) {
+    try {
+
+      let getParameterizationTiaf = await ParameterizationTIAF.findOne({
+        raw: true,
+        where: {
+          id: request.params.id
+        }
+      });
+
+      if (getParameterizationTiaf == null || getParameterizationTiaf == undefined) {
+
+        response.status(401).json({ error: "Parameterization TIAF not found" });
+
+      } else {
+        await Documents.create();
+
+        response.status(201).json({ message: "Document generated! Verify your email" });
+
+        //await saveDocx.generateDocx();
+      };
+
+      // console.log(getParameterizationTiaf);
+
+    } catch (error) {
+      console.log(error)
+      response.status(500).json({ error: error });
+    };
+  },
+
+  // async getTiafDocument (request, response) {
+  //   try {
+
+  //     // let getTiaf = await Documents.findOne({
+  //     //   raw: true,
+  //     //   where: {
+  //     //     label: "Termo de início de ação fiscal - TIAF"
+  //     //   }
+  //     // });
+
+  //     let prefectureId  = request.params.id;
+  //     let getTIAF = await ParameterizationTIAF.findOne({
+  //       raw: true,
+  //       where: { prefecture_id: prefectureId },
+  //       attributes: {
+  //         exclude: ['createdAt', 'updatedAt']
+  //       }
+  //     });
+
+  //     let getCounty = await Prefecture.findOne({
+  //       raw: true,
+  //       where: {
+  //         id: prefectureId
+  //       },
+  //       attributes: {
+  //         exclude: ['createdAt', 'updatedAt']
+  //       }
+  //     });
+
+  //     // if (getTiaf == null || getTiaf == undefined) {
+  //     //   response.status(401).json({ error: "Not exist documents with this label" });
+  //     // } else {
+  //     //   response.status(200).json({ body: getTiaf });
+  //     // };
+
+  //     console.log(getCounty)
+
+  //   } catch (error) {
+  //     console.log(error)
+  //     response.status(500).json({ error: error });
+  //   };
+  // },
 };

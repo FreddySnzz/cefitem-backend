@@ -178,6 +178,11 @@ const Prefecture = (sequelize, DataTypes) => {
       foreignKey: "prefecture_id",
       as: "parameterization_tiaf"
     });
+
+    prefecture.hasMany(models.Documents, {
+      foreignKey: "prefecture_id",
+      as: "prefecture_id_documents"
+    });
   }
 
 

@@ -85,15 +85,16 @@ const Contributor = (sequelize, DataTypes) => {
     }
   );
 
-  // contributor.associate = (models) => {
-  //   console.log(models)
-  //   contributor.hasMany(models.economicActivity, {
-  //     foreignKey: "contributor_id",
-  //     as: "contributor_prefecture"
-  //   });
-  // }
+  contributor.associate = (models) => {
+
+    contributor.hasMany(models.Documents, {
+      foreignKey: "contributor_id",
+      as: "contributor_id_documents"
+    });
+  };
 
   return contributor;
+
 };
 
 module.exports = Contributor;

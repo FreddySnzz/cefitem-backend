@@ -33,6 +33,14 @@ const Admin = (sequelize, DataTypes) => {
     }
   );
 
+  admin.associate = (models) => {
+
+    admin.hasMany(models.Documents, {
+      foreignKey: "admin_id",
+      as: "admin_id_documents"
+    });
+  }
+
   return admin;
 };
 

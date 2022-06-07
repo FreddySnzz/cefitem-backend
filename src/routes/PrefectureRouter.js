@@ -2,7 +2,7 @@ const express = require('express');
 const RouterForPrefecture = express.Router();
 const { celebrate, Segments, Joi } = require("celebrate");
 const PrefectureController = require('../controllers/PrefectureController');
-const ParameterizationTIAF = require('../controllers/ParameterizationTIAFController');
+const ParameterizationTIAFController = require('../controllers/ParameterizationTIAFController');
 const FileUploadMiddleware = require("../middleware/FileUpload").saveFile();
 const AuthMiddleware = require('../middleware/AuthMiddleware');
 const AdminMiddleware = require('../middleware/AdminMiddleware');
@@ -116,7 +116,7 @@ RouterForPrefecture.post(
     }),
   }),
   AdminMiddleware.ValidateADM,
-  ParameterizationTIAF.registerTIAF
+  ParameterizationTIAFController.registerTIAF
 );
 
 RouterForPrefecture.post(
@@ -145,27 +145,31 @@ RouterForPrefecture.post(
     }),
   }),  
   AdminMiddleware.ValidateADM,
-  ParameterizationTIAF.editTIAF
+  ParameterizationTIAFController.editTIAF
 );
 
 RouterForPrefecture.get(
   '/get-tiaf/:id',
   AdminMiddleware.ValidateADM,
-  ParameterizationTIAF.getTIAF
-);
-
-RouterForPrefecture.post(
-  '/generate-document',
-  AdminMiddleware.ValidateADM,
-  ParameterizationTIAF.generateDocument
+  ParameterizationTIAFController.getTIAF
 );
 
 RouterForPrefecture.get(
   '/get-all-tiaf',
   AdminMiddleware.ValidateADM,
-  ParameterizationTIAF.paginationTiaf
+  ParameterizationTIAFController.paginationTiaf
 );
 
+RouterForPrefecture.post(
+  '/generate-tiaf-document/:id',
+  //AdminMiddleware.ValidateADM,
+  ParameterizationTIAFController.generateTiafDocument
+);
 
+// RouterForPrefecture.get(
+//   '/get-all-tiaf-documents/:id',
+//   //AdminMiddeware.ValidateADM,
+//   ParameterizationTIAFController.getTiafDocument
+// );
 
 module.exports = RouterForPrefecture;
