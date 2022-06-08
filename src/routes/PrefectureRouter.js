@@ -107,7 +107,7 @@ RouterForPrefecture.post(
       dl_monetary_correction: Joi.string().required(),
       late_payment_interest: Joi.string().required(),
       dl_late_payment_interest: Joi.string().required(),
-      moratorium_fine: Joi.string().required(), 
+      moratorium_fine: Joi.string().required(),
       limit_moratorium_fine: Joi.string().required(),
       aplication_moratorium_fine: Joi.string().required(),
       indexer: Joi.string().required(),
@@ -136,7 +136,7 @@ RouterForPrefecture.post(
       dl_monetary_correction: Joi.string().optional(),
       late_payment_interest: Joi.string().optional(),
       dl_late_payment_interest: Joi.string().optional(),
-      moratorium_fine: Joi.string().optional(), 
+      moratorium_fine: Joi.string().optional(),
       limit_moratorium_fine: Joi.string().optional(),
       aplication_moratorium_fine: Joi.string().optional(),
       indexer: Joi.string().optional(),
@@ -144,7 +144,7 @@ RouterForPrefecture.post(
       indexer_value: Joi.string().optional(),
       effective_date: Joi.string().optional(),
     }),
-  }),  
+  }),
   AdminMiddleware.ValidateADM,
   ParameterizationTIAFController.editTIAF
 );
@@ -162,7 +162,7 @@ RouterForPrefecture.get(
 );
 
 RouterForPrefecture.post(
-  '/generate-tiaf-document/:id',
+  '/generate-tiaf-document',
   //AdminMiddleware.ValidateADM,
   ParameterizationTIAFController.generateTiafDocument
 );
@@ -173,7 +173,7 @@ RouterForPrefecture.post(
 //   ParameterizationTIAFController.getTiafDocument
 // );
 
-RouterForAuth.post(
+RouterForPrefecture.post(
   '/recovery',
   celebrate({
     [Segments.BODY]: Joi.object().keys({

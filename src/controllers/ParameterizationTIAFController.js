@@ -1,5 +1,6 @@
 const { ParameterizationTIAF, Prefecture, Admin, Documents, Contributor } = require('../models');
 const { calculateLimitAndOffset, paginate } = require("paginate-info");
+const { getIdCounty } = require('../services/labelGenerator');
 
 module.exports = {
   async registerTIAF ( request, response ) {
@@ -112,16 +113,27 @@ module.exports = {
       let getParameterizationTiaf = await ParameterizationTIAF.findOne({
         raw: true,
         where: {
-          id: request.params.id
+          id: request.body.id
         }
       });
+
 
       if (getParameterizationTiaf == null || getParameterizationTiaf == undefined) {
 
         response.status(401).json({ error: "Parameterization TIAF not found" });
 
       } else {
-        await Documents.create();
+
+        const PrefectureData = await Prefecture.findOne({ raw: true, where: { id: getParameterizationTiaf.prefecture_id }});
+
+        let cities = await getIdCounty(PrefectureData.uf);
+
+        cities.map( citiesCallback => {
+          if(citiesCallback.municipio.nome == PrefectureData.city) {
+            console.log(citiesCallback.municipio.id)
+          }
+        })
+        // await Documents.create();
 
         response.status(201).json({ message: "Document generated! Verify your email" });
 
