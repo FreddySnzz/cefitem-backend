@@ -106,6 +106,10 @@ module.exports = {
         type: Sequelize.DataTypes.STRING(50),
         allowNull: false,
       },
+      phrase: {
+        type: Sequelize.DataTypes.STRING(50),
+        allowNull: false,
+      },
       commercial_id: {
         type: Sequelize.DataTypes.STRING(10),
         allowNull: false,

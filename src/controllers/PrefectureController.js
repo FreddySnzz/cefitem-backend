@@ -19,21 +19,25 @@ module.exports = {
       if (verifyPrefectureByName == null || verifyPrefectureByName == undefined) {
         if (verifyPrefectureByCity == null || verifyPrefectureByCity == undefined) {
 
-        let commercialId = await Commercial.create({ status: false });
-        let cosifId = await COSIF.create({ status: false });
-        let cosipId = await COSIP.create({ status: false });
-        let ERBId = await ERB.create({ status: false });
-        let hiredId = await Hired.create({ status: false });
-        let ownIssId = await OwnISS.create({ status: false });
-        let substituteIssId = await SubstituteISS.create({ status: false });
+          const salt = await bcrypt.genSalt(10);
+          let phraseEncrypted = await bcrypt.hashSync( request.body.phrase, salt );
+          
+          let commercialId = await Commercial.create({ status: false });
+          let cosifId = await COSIF.create({ status: false });
+          let cosipId = await COSIP.create({ status: false });
+          let ERBId = await ERB.create({ status: false });
+          let hiredId = await Hired.create({ status: false });
+          let ownIssId = await OwnISS.create({ status: false });
+          let substituteIssId = await SubstituteISS.create({ status: false });
 
-        request.body.commercial_id = commercialId.id;
-        request.body.cosif_id = cosifId.id;
-        request.body.cosip_id = cosipId.id;
-        request.body.erb_id = ERBId.id;
-        request.body.hired_id = hiredId.id;
-        request.body.own_iss_id = ownIssId.id;
-        request.body.substitute_iss_id = substituteIssId.id;
+          request.body.commercial_id = commercialId.id;
+          request.body.cosif_id = cosifId.id;
+          request.body.cosip_id = cosipId.id;
+          request.body.erb_id = ERBId.id;
+          request.body.hired_id = hiredId.id;
+          request.body.own_iss_id = ownIssId.id;
+          request.body.substitute_iss_id = substituteIssId.id;
+          request.body.phrase = phraseEncrypted;
 
         let prefectureRegisted = await Prefecture.create(request.body);
         let jwtToken = await generateJWT({ id: prefectureRegisted.id });
@@ -47,7 +51,6 @@ module.exports = {
             subtitle: `Nome: ${request.body.name}\nEmail: ${request.body.email}`
           });
         }
-
 
         response.status(201).json({ message: 'Prefecture registed', id: jwtToken });
 
@@ -179,6 +182,40 @@ module.exports = {
 
     }
     catch (error) {
+      response.status(500).json({ error: error });
+    };
+  },
+
+  async recoveryPhrase (request, response) {
+    try {
+      let verifyPrefectureBySecureToken = await Prefecture.findOne({ where: { token: request.body.token } });
+
+      if(verifyPrefectureBySecureToken == null || verifyPrefectureBySecureToken == undefined) {
+
+        response.status(404).json({ message: "Prefecture not found" });
+
+      } else {
+        let phraseCompare = bcrypt.compareSync(request.body.new_phrase, verifyPrefectureBySecureToken.phrase);
+
+        if (phraseCompare) {
+
+          response.status(401).json({ message: "The new password must never have been used" });
+
+        } else {
+          const salt = await bcrypt.genSalt(10);
+          let newPhrase = await bcrypt.hashSync( request.body.new_phrase, salt );
+
+          await Prefecture.update(
+            { phrase: newPhrase },
+            { where: { token: request.body.token }
+          });
+
+          response.status(200).json({ body: "Password changed" });
+
+        };
+      };
+
+    } catch (error) {
       response.status(500).json({ error: error });
     };
   },

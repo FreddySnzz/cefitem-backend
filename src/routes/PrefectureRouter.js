@@ -38,9 +38,10 @@ RouterForPrefecture.post(
       technical_contact_name: Joi.string().required(),
       technical_telephone: Joi.string().min(8).required(),
       technical_cellphone: Joi.string().min(9).required(),
-      contact_email: Joi.string().required(),
+      contact_email: Joi.string().email().required(),
       prefecture_telephone: Joi.string().min(8).required(),
-      prefecture_email: Joi.string().required()
+      prefecture_email: Joi.string().email().required(),
+      phrase: Joi.string().required,
     }),
   }),
   PrefectureController.registerPrefecture
@@ -171,5 +172,16 @@ RouterForPrefecture.post(
 //   //AdminMiddeware.ValidateADM,
 //   ParameterizationTIAFController.getTiafDocument
 // );
+
+RouterForAuth.post(
+  '/recovery',
+  celebrate({
+    [Segments.BODY]: Joi.object().keys({
+      token: Joi.string().required(),
+      new_phrase: Joi.string().required()
+    }),
+  }),
+  PrefectureController.recoveryPhrase
+);
 
 module.exports = RouterForPrefecture;
