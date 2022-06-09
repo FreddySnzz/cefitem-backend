@@ -14,6 +14,10 @@ const Contributor = (sequelize, DataTypes) => {
         type: DataTypes.STRING(100),
         allowNull: false,
       },
+      municipal_registration: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+      },
       third_party: {
         type: DataTypes.BOOLEAN,
         allowNull: false,

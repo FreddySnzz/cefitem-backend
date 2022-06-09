@@ -22,6 +22,10 @@ module.exports = {
         type: Sequelize.DataTypes.STRING(100),
         allowNull: false,
       },
+      municipal_registration: {
+        type: Sequelize.DataTypes.STRING(50),
+        allowNull: false,
+      },
       third_party: {
         type: Sequelize.DataTypes.BOOLEAN,
         allowNull: false,
