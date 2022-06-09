@@ -512,7 +512,7 @@ const table5 = new Table({
 });
 
 module.exports = {
-  async generateDocx (data) {
+  async generateTIAFDocx (data) {
     try {
       const doc = new Document({
         styles: {
@@ -580,21 +580,21 @@ module.exports = {
             properties: {},
             children: [
               new Paragraph({
-                text: "Estado do Maranhão",
+                text: `${data.uf}`,
                 size: 12,
                 color: "000000",
                 alignment: AlignmentType.CENTER,
                 style: "principal"
               }),
               new Paragraph({
-                text: "Prefeitura de São José de Ribamar MA",
+                text: `${data.prefecture}`,
                 size: 12,
                 color: "000000",
                 alignment: AlignmentType.CENTER,
                 style: "principal"
               }),
               new Paragraph({
-                text: "Secretaria Municipal da Receita e Fiscalização Urbanística",
+                text: `${data.secretariat}`,
                 size: 12,
                 color: "000000",
                 alignment: AlignmentType.CENTER,
@@ -607,7 +607,7 @@ module.exports = {
                 style: "principal"
               }),
               new Paragraph({
-                text: "Interface gráfica do usuário, Aplicativo, Word Descrição gerada automaticamente. Tendo em vista a falta de êxito para a realização da ciência desta intimação no endereço do estabelecimento, bem como em decorrência da prevenção contra disseminação da COVID-19, faça-se a publicação deste termo o quadro de avisos no átrio da sede da Prefeitura Municipal.",
+                text: "Tendo em vista a falta de êxito para a realização da ciência desta intimação no endereço do estabelecimento, bem como em decorrência da prevenção contra disseminação da COVID-19, faça-se a publicação deste termo o quadro de avisos no átrio da sede da Prefeitura Municipal.",
                 color: "000000",
                 alignment: AlignmentType.JUSTIFIED,
                 style: "11-bold"
@@ -625,7 +625,7 @@ module.exports = {
                 style: "12-bold"
               }),
               new Paragraph({
-                text: "TERMO DE INÍCIO DE AÇÃO FISCAL Nº 1.0102.1.2111201/2022",
+                text: `TERMO DE INÍCIO DE AÇÃO FISCAL Nº ${data.documentId}`,
                 color: "000000",
                 alignment: AlignmentType.CENTER,
                 style: "12-bold"

@@ -6,7 +6,7 @@ const ParameterizationTIAF = (sequelize, DataTypes) => {
         type: DataTypes.STRING(10),
         allowNull: false,
       },
-      partner: {
+      contributor_id: {
         type: DataTypes.STRING(300),
         allowNull: false,
       },
@@ -86,6 +86,11 @@ const ParameterizationTIAF = (sequelize, DataTypes) => {
       foreignKey: "prefecture_id",
       as: "parameterization_tiaf"
     });
+
+    parameterization_tiaf.belongsTo(models.Contributor, {
+      foreignKey: "contributor_id",
+      as: "parameterization_tiaf_contributor"
+    })
   }
 
   return parameterization_tiaf;

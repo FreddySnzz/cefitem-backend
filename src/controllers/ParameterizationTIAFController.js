@@ -1,6 +1,7 @@
 const { ParameterizationTIAF, Prefecture, Admin, Documents, Contributor } = require('../models');
 const { calculateLimitAndOffset, paginate } = require("paginate-info");
 const { getIdCounty } = require('../services/labelGenerator');
+const { generateTIAFDocx } = require('../functions/createTiafFile')
 
 module.exports = {
   async registerTIAF ( request, response ) {
@@ -126,18 +127,15 @@ module.exports = {
 
         const PrefectureData = await Prefecture.findOne({ raw: true, where: { id: getParameterizationTiaf.prefecture_id }});
 
-        let cities = await getIdCounty(PrefectureData.uf);
+        let dataToGenerateDocument = await PrepareDataToTiafDocument(PrefectureData);
 
-        cities.map( citiesCallback => {
-          if(citiesCallback.municipio.nome == PrefectureData.city) {
-            console.log(citiesCallback.municipio.id)
-          }
-        })
+        await generateTIAFDocx(dataToGenerateDocument);
+
+
         // await Documents.create();
 
         response.status(201).json({ message: "Document generated! Verify your email" });
 
-        //await saveDocx.generateDocx();
       };
 
       // console.log(getParameterizationTiaf);
@@ -191,3 +189,38 @@ module.exports = {
   //   };
   // },
 };
+
+
+async function PrepareDataToTiafDocument(prefectureData) {
+  try {
+    var date = new Date();
+    var month = date.getUTCMonth() + 1;
+    var day = date.getUTCDate();
+    var year = date.getUTCFullYear();
+
+    let cities = await getIdCounty(prefectureData.uf);
+    let dataToDocument = {
+      documentId: '',
+      uf: '',
+      prefecture: '',
+      contributor: '',
+      secretariat: ''
+    }
+
+
+    cities.map( citiesCallback => {
+      if(citiesCallback.municipio.nome == prefectureData.city) {
+        // console.log(citiesCallback.municipio.microrregiao.mesorregiao.UF.nome)
+        dataToDocument.documentId = `1.${citiesCallback.municipio.id}/${year}${month}${day}`;
+        dataToDocument.prefecture = `Prefeitura de ${citiesCallback.nome} - ${prefectureData.uf}`;
+        dataToDocument.uf = `Estado do ${citiesCallback.municipio.microrregiao.mesorregiao.UF.nome}`;
+        dataToDocument.secretariat = prefectureData.treasury_secretariat_name
+      }
+    });
+
+    return dataToDocument;
+
+  } catch (error) {
+    console.log(error);
+  }
+}

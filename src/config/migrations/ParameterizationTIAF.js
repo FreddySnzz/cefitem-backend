@@ -14,7 +14,7 @@ module.exports = {
         type: Sequelize.DataTypes.STRING(300),
         allowNull: true
       },
-      partner: {
+      contributor_id: {
         type: Sequelize.DataTypes.STRING(300),
         allowNull: false,
       },

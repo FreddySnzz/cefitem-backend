@@ -97,7 +97,7 @@ RouterForPrefecture.post(
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       prefecture_id: Joi.string().required(),
-      partner: Joi.string().required(),
+      contributor_id: Joi.string().required(),
       law_type: Joi.string().required(),
       law_number: Joi.string().required(),
       publication_date: Joi.string().required(),

@@ -86,10 +86,13 @@ const Contributor = (sequelize, DataTypes) => {
   );
 
   contributor.associate = (models) => {
-
     contributor.hasMany(models.Documents, {
       foreignKey: "contributor_id",
       as: "contributor_id_documents"
+    });
+    contributor.hasMany(models.ParameterizationTIAF, {
+      foreignKey: "contributor_id",
+      as: "parameterization_tiaf_contributor"
     });
   };
 
