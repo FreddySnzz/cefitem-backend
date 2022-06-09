@@ -10,6 +10,7 @@ RouterForAuth.post(
       name: Joi.string().required(),
       contributor_position: Joi.string().required(),
       contributor_registry: Joi.string().required(),
+      municipal_registration: Joi.string().required(),
       third_party: Joi.string().optional(),
       company_name: Joi.string().allow('', null),
       company_cnpj: Joi.string().allow('', null),

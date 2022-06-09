@@ -23,6 +23,7 @@ RouterForContributor.put(
       name: Joi.string().allow('', null),
       contributor_position: Joi.string().allow('', null),
       contributor_registry: Joi.string().allow('', null),
+      municipal_registration: Joi.string().allow('', null),
       third_party: Joi.string().allow('', null),
       company_name: Joi.string().allow('', null),
       company_cnpj: Joi.string().allow('', null),
