@@ -20,12 +20,10 @@ module.exports = {
         })
 
         if (verifyTIAF == null || verifyTIAF == undefined) {
-
           await ParameterizationTIAF.create(request.body);
           response.status(200).json({ message: "Parameterization TIAF Created" });
 
         } else {
-
           response.status(401).json({ error: "This Prefecture already registed in Parameterization TIAF" });
 
         };
@@ -127,9 +125,11 @@ module.exports = {
 
         const PrefectureData = await Prefecture.findOne({ raw: true, where: { id: getParameterizationTiaf.prefecture_id }});
 
-        let dataToGenerateDocument = await PrepareDataToTiafDocument(PrefectureData);
+        let dataToGenerateDocument = await PrepareDataToTiafDocument(PrefectureData, getParameterizationTiaf.contributor_id);
 
-        await generateTIAFDocx(dataToGenerateDocument);
+        console.log(dataToGenerateDocument);
+
+        // await generateTIAFDocx(dataToGenerateDocument);
 
 
         // await Documents.create();
@@ -191,7 +191,7 @@ module.exports = {
 };
 
 
-async function PrepareDataToTiafDocument(prefectureData) {
+async function PrepareDataToTiafDocument(prefectureData, contributor) {
   try {
     var date = new Date();
     var month = date.getUTCMonth() + 1;
@@ -204,19 +204,31 @@ async function PrepareDataToTiafDocument(prefectureData) {
       uf: '',
       prefecture: '',
       contributor: '',
-      secretariat: ''
+      secretariat: '',
+      fiscal: '',
+      matriculaFiscal: '',
+      brasao: ''
     }
 
 
-    cities.map( citiesCallback => {
+    cities.map(citiesCallback => {
       if(citiesCallback.municipio.nome == prefectureData.city) {
         // console.log(citiesCallback.municipio.microrregiao.mesorregiao.UF.nome)
         dataToDocument.documentId = `1.${citiesCallback.municipio.id}/${year}${month}${day}`;
         dataToDocument.prefecture = `Prefeitura de ${citiesCallback.nome} - ${prefectureData.uf}`;
         dataToDocument.uf = `Estado do ${citiesCallback.municipio.microrregiao.mesorregiao.UF.nome}`;
-        dataToDocument.secretariat = prefectureData.treasury_secretariat_name
+        dataToDocument.secretariat = prefectureData.treasury_secretariat_name;
+        dataToDocument.fiscal = prefectureData.taxman_name;
+        dataToDocument.matriculaFiscal = prefectureData.taxman_registration;
       }
     });
+
+    let getContributorWithId = await Contributor.findOne({
+      raw: true,
+      where: { id: contributor },
+      attributes: { exclude: ['createdAt', 'updatedAt', 'phrase', 'token', 'enabled'] }
+    });
+    dataToDocument.contributor = getContributorWithId
 
     return dataToDocument;
 

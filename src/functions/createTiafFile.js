@@ -1,296 +1,10 @@
 const fs = require("fs");
-const { Document, Packer, Paragraph, WidthType, HeadingLevel, TextRun, AlignmentType, Header, Table, TableRow, TableCell } = require ("docx");
+const { Document, Packer, Paragraph, WidthType, HeadingLevel, TextRun, AlignmentType, Image, Table, TableRow, TableCell } = require ("docx");
 
 
-const table = new Table({
-  columnWidths: [9000, 1000, 5505],
-  rows: [
-    new TableRow({
-      children: [
-        new TableCell({
-          width: {
-            size: 9000,
-            type: WidthType.DXA,
-          },
-          children: [
-            new Paragraph({
-              text: "COORRESPONSÁVEL",
-              size: 12,
-              color: "000000",
-              alignment: AlignmentType.LEFT,
-              style: "12-bold"
-            }),
-          ],
-        })
-      ],
-    }),
-    new TableRow({
-      children: [
-        new TableCell({
-          width: {
-            size: 9000,
-            type: WidthType.DXA,
-          },
-          children: [
-            new Paragraph({
-              text: "NOME / NOME FANTASIA",
-              size: 12,
-              color: "000000",
-              alignment: AlignmentType.LEFT,
-              style: "12-bold"
-            }),
-            new Paragraph({
-              text: "Equatorial Maranhão Distribuidora de Energia S.A.",
-              size: 12,
-              color: "000000",
-              alignment: AlignmentType.LEFT,
-              style: "principal"
-            }),
-          ],
-        }),
-      ],
-    })
-  ],
-});
 
-const table2 = new Table({
-  columnWidths: [4000, 2000, 2500, 1500],
-  rows: [
-    new TableRow({
-      children: [
-        new TableCell({
-          width: {
-            size: 1000,
-            type: WidthType.DXA,
-          },
-          children: [
-            new Paragraph({
-              text: "ATIVIDADE",
-              size: 12,
-              color: "000000",
-              alignment: AlignmentType.LEFT,
-              style: "12-bold"
-            }),
-            new Paragraph({
-              text: "Distribuição de Energia",
-              size: 12,
-              color: "000000",
-              alignment: AlignmentType.LEFT,
-              style: "principal"
-            }),
-          ],
-        }),
-        new TableCell({
-          width: {
-            size: 1000,
-            type: WidthType.DXA,
-          },
-          children: [
-            new Paragraph({
-              text: "CNPJ",
-              size: 12,
-              color: "000000",
-              alignment: AlignmentType.LEFT,
-              style: "12-bold"
-            }),
-            new Paragraph({
-              text: "06.272.793/0001-84",
-              size: 12,
-              color: "000000",
-              alignment: AlignmentType.LEFT,
-              style: "principal"
-            }),
-          ],
-        }),
-        new TableCell({
-          width: {
-            size: 1000,
-            type: WidthType.DXA,
-          },
-          children: [
-            new Paragraph({
-              text: "INSCRIÇÃO MUNICIPAL",
-              size: 12,
-              color: "000000",
-              alignment: AlignmentType.LEFT,
-              style: "12-bold"
-            }),
-            new Paragraph({
-              text: "",
-              size: 12,
-              color: "000000",
-              alignment: AlignmentType.LEFT,
-              style: "principal"
-            }),
-          ],
-        }),
-      ],
-    }),
-    new TableRow({
-      children: [
-        new TableCell({
-          width: {
-            size: 1000,
-            type: WidthType.DXA,
-          },
-          children: [
-            new Paragraph({
-              text: "ENDEREÇO",
-              size: 12,
-              color: "000000",
-              alignment: AlignmentType.LEFT,
-              style: "12-bold"
-            }),
-            new Paragraph({
-              text: "AL A, Quadra SQS",
-              size: 12,
-              color: "000000",
-              alignment: AlignmentType.LEFT,
-              style: "principal"
-            }),
-          ],
-        }),
-        new TableCell({
-          width: {
-            size: 1000,
-            type: WidthType.DXA,
-          },
-          children: [
-            new Paragraph({
-              text: "Nº",
-              size: 12,
-              color: "000000",
-              alignment: AlignmentType.LEFT,
-              style: "12-bold"
-            }),
-            new Paragraph({
-              text: "",
-              size: 12,
-              color: "000000",
-              alignment: AlignmentType.LEFT,
-              style: "principal"
-            }),
-          ],
-        }),
-        new TableCell({
-          width: {
-            size: 1000,
-            type: WidthType.DXA,
-          },
-          children: [
-            new Paragraph({
-              text: "COMPLEMENTO",
-              size: 12,
-              color: "000000",
-              alignment: AlignmentType.LEFT,
-              style: "12-bold"
-            }),
-            new Paragraph({
-              text: "",
-              size: 12,
-              color: "000000",
-              alignment: AlignmentType.LEFT,
-              style: "principal"
-            }),
-          ],
-        }),
-      ],
-    }),
 
-    new TableRow({
-      children: [
-        new TableCell({
-          width: {
-            size: 1000,
-            type: WidthType.DXA,
-          },
-          children: [
-            new Paragraph({
-              text: "BAIRRO",
-              size: 12,
-              color: "000000",
-              alignment: AlignmentType.LEFT,
-              style: "12-bold"
-            }),
-            new Paragraph({
-              text: "Loteamento Quintandinha Altos do Calhau",
-              size: 12,
-              color: "000000",
-              alignment: AlignmentType.LEFT,
-              style: "principal"
-            }),
-          ],
-        }),
-        new TableCell({
-          width: {
-            size: 1000,
-            type: WidthType.DXA,
-          },
-          children: [
-            new Paragraph({
-              text: "CIDADE",
-              size: 12,
-              color: "000000",
-              alignment: AlignmentType.LEFT,
-              style: "12-bold"
-            }),
-            new Paragraph({
-              text: "São Luiz",
-              size: 12,
-              color: "000000",
-              alignment: AlignmentType.LEFT,
-              style: "principal"
-            }),
-          ],
-        }),
-        new TableCell({
-          width: {
-            size: 1000,
-            type: WidthType.DXA,
-          },
-          children: [
-            new Paragraph({
-              text: "ESTADO",
-              size: 12,
-              color: "000000",
-              alignment: AlignmentType.LEFT,
-              style: "12-bold"
-            }),
-            new Paragraph({
-              text: "MA",
-              size: 12,
-              color: "000000",
-              alignment: AlignmentType.LEFT,
-              style: "principal"
-            }),
-          ],
-        }),
-        new TableCell({
-          width: {
-            size: 1000,
-            type: WidthType.DXA,
-          },
-          children: [
-            new Paragraph({
-              text: "CEP",
-              size: 12,
-              color: "000000",
-              alignment: AlignmentType.LEFT,
-              style: "12-bold"
-            }),
-            new Paragraph({
-              text: "65.070-900",
-              size: 12,
-              color: "000000",
-              alignment: AlignmentType.LEFT,
-              style: "principal"
-            }),
-          ],
-        }),
-      ],
-    }),
-  ],
-});
+
 
 const table3 = new Table({
   columnWidths: [9000],
@@ -321,82 +35,6 @@ const table3 = new Table({
         })
       ],
     }),
-  ],
-});
-
-const table4 = new Table({
-  columnWidths: [4000, 2000, 3000],
-  rows: [
-    new TableRow({
-      children: [
-        new TableCell({
-          width: {
-            size: 1000,
-            type: WidthType.DXA,
-          },
-          children: [
-            new Paragraph({
-              text: "Agente de Fiscalização Tributária",
-              size: 12,
-              color: "000000",
-              alignment: AlignmentType.LEFT,
-              style: "12-bold"
-            }),
-            new Paragraph({
-              text: "Jacia Andréia Nascimento Sousa Pedral",
-              size: 12,
-              color: "000000",
-              alignment: AlignmentType.LEFT,
-              style: "principal"
-            }),
-          ],
-        }),
-        new TableCell({
-          width: {
-            size: 1000,
-            type: WidthType.DXA,
-          },
-          children: [
-            new Paragraph({
-              text: "Matrícula",
-              size: 12,
-              color: "000000",
-              alignment: AlignmentType.LEFT,
-              style: "12-bold"
-            }),
-            new Paragraph({
-              text: "996552-1",
-              size: 12,
-              color: "000000",
-              alignment: AlignmentType.LEFT,
-              style: "principal"
-            }),
-          ],
-        }),
-        new TableCell({
-          width: {
-            size: 1000,
-            type: WidthType.DXA,
-          },
-          children: [
-            new Paragraph({
-              text: "",
-              size: 12,
-              color: "000000",
-              alignment: AlignmentType.LEFT,
-              style: "12-bold"
-            }),
-            new Paragraph({
-              text: "Assinatura",
-              size: 12,
-              color: "000000",
-              alignment: AlignmentType.START,
-              style: "principal"
-            })
-          ]
-        })
-      ]
-    })
   ],
 });
 
@@ -514,6 +152,388 @@ const table5 = new Table({
 module.exports = {
   async generateTIAFDocx (data) {
     try {
+      const image = new ImageRun({
+        data: fs.readFileSync("./demo/images/pizza.gif"),
+        transformation: {
+            width: 200,
+            height: 200,
+        },
+        floating: {
+            horizontalPosition: {
+                offset: 1014400,
+            },
+            verticalPosition: {
+                offset: 1014400,
+            },
+        },
+      });
+
+      const table = new Table({
+        columnWidths: [9000, 1000, 5505],
+        rows: [
+          new TableRow({
+            children: [
+              new TableCell({
+                width: {
+                  size: 9000,
+                  type: WidthType.DXA,
+                },
+                children: [
+                  new Paragraph({
+                    text: "COORRESPONSÁVEL",
+                    size: 12,
+                    color: "000000",
+                    alignment: AlignmentType.LEFT,
+                    style: "12-bold"
+                  }),
+                ],
+              })
+            ],
+          }),
+          new TableRow({
+            children: [
+              new TableCell({
+                width: {
+                  size: 9000,
+                  type: WidthType.DXA,
+                },
+                children: [
+                  new Paragraph({
+                    text: "NOME / NOME FANTASIA",
+                    size: 12,
+                    color: "000000",
+                    alignment: AlignmentType.LEFT,
+                    style: "12-bold"
+                  }),
+                  new Paragraph({
+                    text: `${data.contributor.company_name}`,
+                    size: 12,
+                    color: "000000",
+                    alignment: AlignmentType.LEFT,
+                    style: "principal"
+                  }),
+                ],
+              }),
+            ],
+          })
+        ],
+      });
+
+      const table2 = new Table({
+        columnWidths: [4000, 2000, 2500, 1500],
+        rows: [
+          new TableRow({
+            children: [
+              new TableCell({
+                width: {
+                  size: 1000,
+                  type: WidthType.DXA,
+                },
+                children: [
+                  new Paragraph({
+                    text: "ATIVIDADE",
+                    size: 12,
+                    color: "000000",
+                    alignment: AlignmentType.LEFT,
+                    style: "12-bold"
+                  }),
+                  new Paragraph({
+                    text: `${data.contributor.economic_activity}`,
+                    size: 12,
+                    color: "000000",
+                    alignment: AlignmentType.LEFT,
+                    style: "principal"
+                  }),
+                ],
+              }),
+              new TableCell({
+                width: {
+                  size: 1000,
+                  type: WidthType.DXA,
+                },
+                children: [
+                  new Paragraph({
+                    text: "CNPJ",
+                    size: 12,
+                    color: "000000",
+                    alignment: AlignmentType.LEFT,
+                    style: "12-bold"
+                  }),
+                  new Paragraph({
+                    text: `${data.contributor.cnpj}`,
+                    size: 12,
+                    color: "000000",
+                    alignment: AlignmentType.LEFT,
+                    style: "principal"
+                  }),
+                ],
+              }),
+              new TableCell({
+                width: {
+                  size: 1000,
+                  type: WidthType.DXA,
+                },
+                children: [
+                  new Paragraph({
+                    text: "INSCRIÇÃO MUNICIPAL",
+                    size: 12,
+                    color: "000000",
+                    alignment: AlignmentType.LEFT,
+                    style: "12-bold"
+                  }),
+                  new Paragraph({
+                    text: "",
+                    size: 12,
+                    color: "000000",
+                    alignment: AlignmentType.LEFT,
+                    style: "principal"
+                  }),
+                ],
+              }),
+            ],
+          }),
+          new TableRow({
+            children: [
+              new TableCell({
+                width: {
+                  size: 1000,
+                  type: WidthType.DXA,
+                },
+                children: [
+                  new Paragraph({
+                    text: "ENDEREÇO",
+                    size: 12,
+                    color: "000000",
+                    alignment: AlignmentType.LEFT,
+                    style: "12-bold"
+                  }),
+                  new Paragraph({
+                    text: `${data.contributor.address}`,
+                    size: 12,
+                    color: "000000",
+                    alignment: AlignmentType.LEFT,
+                    style: "principal"
+                  }),
+                ],
+              }),
+              new TableCell({
+                width: {
+                  size: 1000,
+                  type: WidthType.DXA,
+                },
+                children: [
+                  new Paragraph({
+                    text: "Nº",
+                    size: 12,
+                    color: "000000",
+                    alignment: AlignmentType.LEFT,
+                    style: "12-bold"
+                  }),
+                  new Paragraph({
+                    text: `${data.contributor.address_number}`,
+                    size: 12,
+                    color: "000000",
+                    alignment: AlignmentType.LEFT,
+                    style: "principal"
+                  }),
+                ],
+              }),
+              new TableCell({
+                width: {
+                  size: 1000,
+                  type: WidthType.DXA,
+                },
+                children: [
+                  new Paragraph({
+                    text: "COMPLEMENTO",
+                    size: 12,
+                    color: "000000",
+                    alignment: AlignmentType.LEFT,
+                    style: "12-bold"
+                  }),
+                  new Paragraph({
+                    text: `${data.contributor?.complement}`,
+                    size: 12,
+                    color: "000000",
+                    alignment: AlignmentType.LEFT,
+                    style: "principal"
+                  }),
+                ],
+              }),
+            ],
+          }),
+
+          new TableRow({
+            children: [
+              new TableCell({
+                width: {
+                  size: 1000,
+                  type: WidthType.DXA,
+                },
+                children: [
+                  new Paragraph({
+                    text: "BAIRRO",
+                    size: 12,
+                    color: "000000",
+                    alignment: AlignmentType.LEFT,
+                    style: "12-bold"
+                  }),
+                  new Paragraph({
+                    text: `${data.contributor?.district}`,
+                    size: 12,
+                    color: "000000",
+                    alignment: AlignmentType.LEFT,
+                    style: "principal"
+                  }),
+                ],
+              }),
+              new TableCell({
+                width: {
+                  size: 1000,
+                  type: WidthType.DXA,
+                },
+                children: [
+                  new Paragraph({
+                    text: "CIDADE",
+                    size: 12,
+                    color: "000000",
+                    alignment: AlignmentType.LEFT,
+                    style: "12-bold"
+                  }),
+                  new Paragraph({
+                    text: `${data.contributor?.city}`,
+                    size: 12,
+                    color: "000000",
+                    alignment: AlignmentType.LEFT,
+                    style: "principal"
+                  }),
+                ],
+              }),
+              new TableCell({
+                width: {
+                  size: 1000,
+                  type: WidthType.DXA,
+                },
+                children: [
+                  new Paragraph({
+                    text: "ESTADO",
+                    size: 12,
+                    color: "000000",
+                    alignment: AlignmentType.LEFT,
+                    style: "12-bold"
+                  }),
+                  new Paragraph({
+                    text: `${data.contributor?.uf}`,
+                    size: 12,
+                    color: "000000",
+                    alignment: AlignmentType.LEFT,
+                    style: "principal"
+                  }),
+                ],
+              }),
+              new TableCell({
+                width: {
+                  size: 1000,
+                  type: WidthType.DXA,
+                },
+                children: [
+                  new Paragraph({
+                    text: "CEP",
+                    size: 12,
+                    color: "000000",
+                    alignment: AlignmentType.LEFT,
+                    style: "12-bold"
+                  }),
+                  new Paragraph({
+                    text: `${data.contributor?.cep}`,
+                    size: 12,
+                    color: "000000",
+                    alignment: AlignmentType.LEFT,
+                    style: "principal"
+                  }),
+                ],
+              }),
+            ],
+          }),
+        ],
+      });
+
+      const table4 = new Table({
+        columnWidths: [4000, 2000, 3000],
+        rows: [
+          new TableRow({
+            children: [
+              new TableCell({
+                width: {
+                  size: 1000,
+                  type: WidthType.DXA,
+                },
+                children: [
+                  new Paragraph({
+                    text: "Agente de Fiscalização Tributária",
+                    size: 12,
+                    color: "000000",
+                    alignment: AlignmentType.LEFT,
+                    style: "12-bold"
+                  }),
+                  new Paragraph({
+                    text: `${data.fiscal}`,
+                    size: 12,
+                    color: "000000",
+                    alignment: AlignmentType.LEFT,
+                    style: "principal"
+                  }),
+                ],
+              }),
+              new TableCell({
+                width: {
+                  size: 1000,
+                  type: WidthType.DXA,
+                },
+                children: [
+                  new Paragraph({
+                    text: "Matrícula",
+                    size: 12,
+                    color: "000000",
+                    alignment: AlignmentType.LEFT,
+                    style: "12-bold"
+                  }),
+                  new Paragraph({
+                    text: `${data.matriculaFiscal}`,
+                    size: 12,
+                    color: "000000",
+                    alignment: AlignmentType.LEFT,
+                    style: "principal"
+                  }),
+                ],
+              }),
+              new TableCell({
+                width: {
+                  size: 1000,
+                  type: WidthType.DXA,
+                },
+                children: [
+                  new Paragraph({
+                    text: "",
+                    size: 12,
+                    color: "000000",
+                    alignment: AlignmentType.LEFT,
+                    style: "12-bold"
+                  }),
+                  new Paragraph({
+                    text: "Assinatura",
+                    size: 12,
+                    color: "000000",
+                    alignment: AlignmentType.START,
+                    style: "principal"
+                  })
+                ]
+              })
+            ]
+          })
+        ],
+      });
+
       const doc = new Document({
         styles: {
           paragraphStyles: [
