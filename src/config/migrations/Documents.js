@@ -26,7 +26,7 @@ module.exports = {
         type: Sequelize.DataTypes.INTEGER(10),
         allowNull: false,
       },
-      admin_id: {
+      user_id: {
         type: Sequelize.DataTypes.INTEGER(10),
         allowNull: false,
       },

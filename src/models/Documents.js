@@ -18,7 +18,7 @@ const Documents = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER(10),
         allowNull: false,
       },
-      admin_id: {
+      user_id: {
         type: DataTypes.INTEGER(10),
         allowNull: false,
       },
@@ -52,7 +52,7 @@ const Documents = (sequelize, DataTypes) => {
   };
 
   return documents;
-  
+
 };
 
 module.exports = Documents;
