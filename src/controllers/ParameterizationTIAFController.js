@@ -127,9 +127,9 @@ module.exports = {
 
         let dataToGenerateDocument = await PrepareDataToTiafDocument(PrefectureData, getParameterizationTiaf.contributor_id);
 
-        console.log(dataToGenerateDocument);
+        // console.log(dataToGenerateDocument);
 
-        // await generateTIAFDocx(dataToGenerateDocument);
+        await generateTIAFDocx(dataToGenerateDocument);
 
 
         // await Documents.create();

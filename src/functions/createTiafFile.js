@@ -1,6 +1,6 @@
 const fs = require("fs");
-const { Document, Packer, Paragraph, WidthType, HeadingLevel, TextRun, AlignmentType, Image, Table, TableRow, TableCell } = require ("docx");
-
+const { Document, Packer, Paragraph, WidthType, HeadingLevel, TextRun, AlignmentType, ImageRun, Table, TableRow, TableCell } = require ("docx");
+const { getImage } = require('../services/imageProcess');
 
 
 
@@ -152,19 +152,20 @@ const table5 = new Table({
 module.exports = {
   async generateTIAFDocx (data) {
     try {
+
       const image = new ImageRun({
-        data: fs.readFileSync("./demo/images/pizza.gif"),
+        data: await getImage(),
         transformation: {
-            width: 200,
-            height: 200,
+            width: 100,
+            height: 100,
         },
         floating: {
-            horizontalPosition: {
-                offset: 1014400,
-            },
-            verticalPosition: {
-                offset: 1014400,
-            },
+          horizontalPosition: {
+            offset: 1014400,
+          },
+          verticalPosition: {
+            offset: 507200,
+          },
         },
       });
 
@@ -599,6 +600,9 @@ module.exports = {
         sections: [{
             properties: {},
             children: [
+              new Paragraph({
+                children: [image]
+              }),
               new Paragraph({
                 text: `${data.uf}`,
                 size: 12,
