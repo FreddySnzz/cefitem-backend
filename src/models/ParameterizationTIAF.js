@@ -74,6 +74,14 @@ const ParameterizationTIAF = (sequelize, DataTypes) => {
         type: DataTypes.STRING(300),
         allowNull: false,
       },
+      issued: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+      },
+      sent: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+      }
     },
     {
       tableName: "parameterization_tiaf",

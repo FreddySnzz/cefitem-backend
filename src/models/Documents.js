@@ -18,14 +18,14 @@ const Documents = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER(10),
         allowNull: false,
       },
-      user_id: {
+      admin_id: {
         type: DataTypes.INTEGER(10),
         allowNull: false,
       },
       parameterization_tiaf_id: {
         type: DataTypes.INTEGER(10),
         allowNull: false,
-      },
+      }
     },
     {
       tableName: "documents",

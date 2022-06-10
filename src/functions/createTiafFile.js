@@ -996,9 +996,11 @@ module.exports = {
       });
 
       // Used to export the file into a .docx file
-      Packer.toBuffer(doc).then((buffer) => {
-        fs.writeFileSync("principal.docx", buffer);
+      await Packer.toBuffer(doc).then((buffer) => {
+        fs.writeFileSync(`./files/docx/${data.documentId.replace('/', '-')}.docx`, buffer);
       });
+
+      return data.documentId;
 
     } catch (error) {
       console.log(error);

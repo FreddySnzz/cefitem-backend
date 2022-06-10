@@ -1,7 +1,10 @@
 const { ParameterizationTIAF, Prefecture, Admin, Documents, Contributor } = require('../models');
 const { calculateLimitAndOffset, paginate } = require("paginate-info");
 const { getIdCounty } = require('../services/labelGenerator');
-const { generateTIAFDocx } = require('../functions/createTiafFile')
+const { generateTIAFDocx } = require('../functions/createTiafFile');
+const { getJWTBody } = require('../functions/auth/getJWT');
+
+const { uploadFile } = require('../functions/uploadFileCDN');
 
 module.exports = {
   async registerTIAF ( request, response ) {
@@ -20,6 +23,9 @@ module.exports = {
         })
 
         if (verifyTIAF == null || verifyTIAF == undefined) {
+          request.body.issued = false;
+          request.body.sent = false;
+
           await ParameterizationTIAF.create(request.body);
           response.status(200).json({ message: "Parameterization TIAF Created" });
 
@@ -126,13 +132,26 @@ module.exports = {
         const PrefectureData = await Prefecture.findOne({ raw: true, where: { id: getParameterizationTiaf.prefecture_id }});
 
         let dataToGenerateDocument = await PrepareDataToTiafDocument(PrefectureData, getParameterizationTiaf.contributor_id);
+        let documentId = await generateTIAFDocx(dataToGenerateDocument);
+        let documentLink = await uploadFile(documentId.replace('/' , '-'));
+        let adminId = await getJWTBody(request);
 
-        // console.log(dataToGenerateDocument);
-
-        await generateTIAFDocx(dataToGenerateDocument);
-
-
-        // await Documents.create();
+        console.log({
+          label: documentId,
+          link: documentLink,
+          signed_document: '',
+          prefecture_id: PrefectureData.id,
+          admin_id: adminId,
+          parameterization_tiaf_id: getParameterizationTiaf.id
+        });
+        // await Documents.create({
+        //   label: documentId,
+        //   link: documentLink,
+        //   signed_document: '',
+        //   prefecture_id: PrefectureData.id,
+        //   admin_id: adminId,
+        //   parameterization_tiaf_id: getParameterizationTiaf.id
+        // });
 
         response.status(201).json({ message: "Document generated! Verify your email" });
 
