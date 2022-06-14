@@ -1,8 +1,8 @@
-version: "3.2"
+version: "3.8"
 
 services:
   rabbit-mq:
-    image: rabbitmq:3-management-alpine
+    image: rabbitmq:3.8.25-management-alpine
     container_name: 'rabbit-mq'
     environment:
       - RABBITMQ_DEFAULT_USER=mercury
@@ -11,8 +11,8 @@ services:
       - 5672:5672
       - 15672:15672
     volumes:
-      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+      - ./rabbitmq/data/:/var/lib/rabbitmq/
+      - ./rabbitmq/log/:/var/log/rabbitmq/
     networks:
       - rabbitmq_go_net
 
