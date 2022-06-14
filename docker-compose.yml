@@ -1,35 +1,21 @@
-version: '3'
+version: "3.2"
+
 services:
-  api:
-    container_name: cefitem-backend
-    build: .
-    image: cefitem-backend
-    depends_on:
-      - mysql_db
-
-    ports:
-      - 8080:8080
-    env_file: ./.env
-    links:
-      - mysql_db
-
-  mysql_db:
-    container_name: cefitem_backend_mysql_db
-    image: mysql:5.7
-    command: --innodb_use_native_aio=0
+  rabbit-mq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbit-mq'
     environment:
-      DB_PORT: 3306
-      MYSQL_DATABASE: cefitem-backend
-      MYSQL_ROOT_PASSWORD: supersecret
-      MYSQL_USER: cefitem-backend
-      MYSQL_PASSWORD: test
-      MYSQL_SECRET: admin
-      MYSQL_HOST: 127.0.0.1
-    volumes:
-      - ./data:/var/lib/mysql
-      # - ./mysql.conf:/etc/mysql/conf.d
+      - RABBITMQ_DEFAULT_USER=mercury
+      - RABBITMQ_DEFAULT_PASS=kGGnN95q99Sh
     ports:
-      - 3306:3306
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+      - rabbitmq_go_net
 
-volumes:
-  db:
+networks:
+  rabbitmq_go_net:
+    driver: bridge
