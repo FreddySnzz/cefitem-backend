@@ -1,6 +1,14 @@
 version: "3.8"
 
 services:
+  api:
+    container_name: cefitem-backend
+    build: .
+    image: cefitem-backend
+    ports:
+      - 8080:8080
+    env_file: ./.env
+
   rabbitmq:
     image: rabbitmq:3.7.28-management
     container_name: 'rabbit-mq'
