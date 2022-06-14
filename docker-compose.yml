@@ -12,7 +12,7 @@ services:
       - 15672:15672
     volumes:
       - ./etc/rabbitmq/conf:/etc/rabbitmq/
-      - ./etc/rabbitmq/data/:/var/lib/rabbitmq/
+      - ./etc/rabbitmq/data/:/var/lib/rabbitmq/mnesia
       - ./etc/rabbitmq/logs/:/var/log/rabbitmq/
     networks:
       - rabbitmq_go_net
