@@ -7,6 +7,12 @@
 
 FROM keymetrics/pm2:latest-alpine
 
+FROM rabbitmq
+
+RUN rabbitmq-plugins enable --offline rabbitmq_management
+
+EXPOSE 15671 15672
+
 WORKDIR /app
 
 COPY ./package.json .

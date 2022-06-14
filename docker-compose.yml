@@ -16,8 +16,8 @@ services:
       - RABBITMQ_DEFAULT_USER=mercury
       - RABBITMQ_DEFAULT_PASS=kGGnN95q99Sh
     ports:
-      - 5672:5672
-      - 15672:15672
+      - "5672:5672"
+      - "15672:15672"
     volumes:
       - ./etc/rabbitmq/conf:/etc/rabbitmq/
       - ./etc/rabbitmq/data/:/var/lib/rabbitmq/mnesia
