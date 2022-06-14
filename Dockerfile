@@ -10,6 +10,7 @@ FROM keymetrics/pm2:latest-alpine
 WORKDIR /app
 
 COPY ./package.json .
+COPY ./ecosystem.config.js .
 
 # RUN npm cache clean --force
 
@@ -18,12 +19,11 @@ RUN npm install --loglevel verbose
 COPY ./.env .
 COPY . .
 
-EXPOSE 3000
+EXPOSE 8080
 
 # RUN chmod +x /init.sh
 RUN ls -al -R
 
 # ENTRYPOINT ["/init.sh"]
 
-CMD ["start"]
-
+CMD ["pm2-runtime", "start", "ecosystem.config.js"]
