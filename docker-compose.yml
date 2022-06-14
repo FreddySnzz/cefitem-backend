@@ -1,8 +1,8 @@
-version: "3.8"
+version: "3.2"
 
 services:
   rabbit-mq:
-    image: rabbitmq:3.8.25-management-alpine
+    image: rabbitmq:3-management-alpine
     container_name: 'rabbit-mq'
     environment:
       - RABBITMQ_DEFAULT_USER=mercury
