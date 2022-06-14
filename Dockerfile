@@ -13,7 +13,7 @@ RUN rabbitmq-plugins enable --offline rabbitmq_management
 
 EXPOSE 15671 15672
 
-WORKDIR /app
+# WORKDIR /app
 
 COPY ./package.json .
 COPY ./ecosystem.config.js .
