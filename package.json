@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "startdocker": "docker-compose up --build"
+    "startdocker": "TEST= docker-compose up --build"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.32.0",
