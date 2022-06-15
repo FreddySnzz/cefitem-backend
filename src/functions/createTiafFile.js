@@ -3,9 +3,6 @@ const { Document, Packer, Paragraph, WidthType, HeadingLevel, TextRun, Alignment
 const { getImage } = require('../services/imageProcess');
 
 
-
-
-
 const table3 = new Table({
   columnWidths: [9000],
   rows: [
@@ -18,7 +15,7 @@ const table3 = new Table({
           },
           children: [
             new Paragraph({
-              text: "I. O contribuinte que deixar de atender as solicitações, total ou parcialmente, se recusar a exibir à fiscalização livros e documentos fiscais, embaraçar ou procurar ilidir por qualquer meio, a apuração dos tributos, estará sujeito às cominações das penalidades cabíveis, nos termos das leis tributárias municipal e federal. ",
+              text: "I. O contribuinte que deixar de atender as solicitações, total ou parcialmente, se recusar a exibir à fiscalização livros e documentos fiscais, embaraçar ou procurar iludir por qualquer meio, a apuração dos tributos, estará sujeito às cominações das penalidades cabíveis, nos termos das leis tributárias municipal e federal. ",
               size: 12,
               color: "000000",
               alignment: AlignmentType.LEFT,

@@ -2,6 +2,7 @@ const { ParameterizationTIAF, Prefecture, Admin, Documents, Contributor } = requ
 const { calculateLimitAndOffset, paginate } = require("paginate-info");
 const { getIdCounty } = require('../services/labelGenerator');
 const { generateTIAFDocx } = require('../functions/createTiafFile');
+const { generateNoticeOfInfractionDocument } = require('../functions/createNoticeOfInfractionFile');
 const { getJWTBody } = require('../functions/auth/getJWT');
 
 const { uploadFile } = require('../functions/uploadFileCDN');
@@ -144,6 +145,64 @@ module.exports = {
           admin_id: adminId,
           parameterization_tiaf_id: getParameterizationTiaf.id
         });
+
+        // await Documents.create({
+        //   label: documentId,
+        //   link: documentLink,
+        //   signed_document: '',
+        //   prefecture_id: PrefectureData.id,
+        //   admin_id: adminId,
+        //   parameterization_tiaf_id: getParameterizationTiaf.id
+        // });
+
+        response.status(201).json({ message: "Document generated! Verify your email" });
+
+      };
+
+      // console.log(getParameterizationTiaf);
+
+    } catch (error) {
+      console.log(error)
+      response.status(500).json({ error: error });
+    };
+  },
+
+  async generateNoticeOfInfractionDocument ( request, response ) {
+    try {
+
+      let getParameterizationTiaf = await ParameterizationTIAF.findOne({
+        raw: true,
+        where: {
+          id: request.body.id
+        }
+      });
+
+
+      if (getParameterizationTiaf == null || getParameterizationTiaf == undefined) {
+
+        response.status(401).json({ error: "Parameterization TIAF not found" });
+
+      } else {
+
+        const PrefectureData = await Prefecture.findOne({
+          raw: true,
+          where: { id: getParameterizationTiaf.prefecture_id }
+        });
+
+        let dataToGenerateDocument = await PrepareDataToTiafDocument(PrefectureData, getParameterizationTiaf.contributor_id);
+        let documentId = await generateNoticeOfInfractionDocument(dataToGenerateDocument);
+        //let documentLink = await uploadFile(documentId.replace('/' , '-'));
+        let adminId = await getJWTBody(request);
+
+        console.log({
+          label: documentId,
+          //link: documentLink,
+          signed_document: '',
+          prefecture_id: PrefectureData.id,
+          admin_id: adminId,
+          parameterization_tiaf_id: getParameterizationTiaf.id
+        });
+        
         // await Documents.create({
         //   label: documentId,
         //   link: documentLink,
@@ -254,4 +313,4 @@ async function PrepareDataToTiafDocument(prefectureData, contributor) {
   } catch (error) {
     console.log(error);
   }
-}
+};

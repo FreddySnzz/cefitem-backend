@@ -167,6 +167,12 @@ RouterForPrefecture.post(
   ParameterizationTIAFController.generateTiafDocument
 );
 
+RouterForPrefecture.post(
+  '/generate-notice-of-infraction-document',
+  //AdminMiddleware.ValidateADM,
+  ParameterizationTIAFController.generateNoticeOfInfractionDocument
+);
+
 // RouterForPrefecture.get(
 //   '/get-all-tiaf-documents/:id',
 //   //AdminMiddeware.ValidateADM,

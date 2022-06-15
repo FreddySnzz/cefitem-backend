@@ -25,4 +25,3 @@ RouterForAdmin.get(
 );
 
 module.exports = RouterForAdmin;
-
