@@ -2,6 +2,7 @@ const { Prefecture, Commercial, COSIF, COSIP, ERB, Hired, OwnISS, SubstituteISS 
 const { generateJWT } = require('../functions/auth/GenerateJWT');
 const { getJWTBody } = require('../functions/auth/getJWTBody');
 const { calculateLimitAndOffset, paginate } = require("paginate-info");
+const bcrypt = require("bcryptjs");
 
 module.exports = {
   async registerPrefecture (request, response) {
