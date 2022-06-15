@@ -81,6 +81,32 @@ const tableFatos3 = new Table({
   ],
 });
 
+const tableFatos4 = new Table({
+  columnWidths: [9300],
+  rows: [
+    new TableRow({
+      children: [
+        new TableCell({
+          width: {
+            size: 1200,
+            type: WidthType.DXA,
+          },
+          children: [
+            new Paragraph({
+              text: " 4. AUTUAÇÃO",
+              size: 24,
+              bold: true,
+              color: "000000",
+              alignment: AlignmentType.LEFT,
+              style: "12-bold"
+            }),
+          ],
+        })
+      ],
+    }),
+  ],
+});
+
 const tableArtigo = new Table({
   columnWidths: [9300],
   rows: [
@@ -188,7 +214,7 @@ module.exports = {
       });
 
       const tableMultiplaTitulo1 = new Table({
-        columnWidths: [3500, 2500, 3000],
+        columnWidths: [3500, 2500, 3300],
         rows: [
           new TableRow({
             children: [
@@ -265,7 +291,7 @@ module.exports = {
       });
 
       const tableMultiplaTitulo2 = new Table({
-        columnWidths: [5000, 2000, 3000],
+        columnWidths: [5000, 1800, 2500],
         rows: [
           new TableRow({
             children: [
@@ -342,7 +368,7 @@ module.exports = {
       });
 
       const tableMultiplaTitulo3 = new Table({
-        columnWidths: [2000, 3500, 2000, 1500],
+        columnWidths: [2300, 3500, 2000, 1500],
         rows: [
           new TableRow({
             children: [
@@ -1021,6 +1047,48 @@ module.exports = {
         ],
       });
 
+      const tableAnexo2Total = new Table({
+        columnWidths: [8300, 1500],
+        rows: [
+          new TableRow({
+            children: [
+              new TableCell({
+                width: {
+                  size: 1200,
+                  type: WidthType.DXA,
+                },
+                children: [
+                  new Paragraph({
+                    text: "Total Lançamento",
+                    size: 22,
+                    color: "000000",
+                    alignment: AlignmentType.CENTER,
+                    style: "11-bold",
+                    bold: true
+                  }),
+                ],
+              }),
+              new TableCell({
+                width: {
+                  size: 1200,
+                  type: WidthType.DXA,
+                },
+                children: [
+                  new Paragraph({
+                    text: `R$156.500,00`,
+                    size: 22,
+                    color: "000000",
+                    alignment: AlignmentType.RIGHT,
+                    style: "11-bold",
+                    bold: true
+                  }),
+                ],
+              }),
+            ]
+          })
+        ],
+      });
+
       const doc = new Document({
         styles: {
           paragraphStyles: [
@@ -1212,10 +1280,33 @@ module.exports = {
 
               tableContribuinte,
               tableNome,
-              tableNome,
-              // tableMultiplaTitulo1,
-              // tableMultiplaTitulo2,
-              // tableMultiplaTitulo3,
+
+              new Paragraph({
+                text: "",
+                color: "000000",
+                alignment: AlignmentType.CENTER,
+                style: "12-bold"
+              }),
+
+               tableMultiplaTitulo1,
+
+               new Paragraph({
+                text: "",
+                color: "000000",
+                alignment: AlignmentType.CENTER,
+                style: "12-bold"
+              }),
+
+               tableMultiplaTitulo2,
+
+               new Paragraph({
+                text: "",
+                color: "000000",
+                alignment: AlignmentType.CENTER,
+                style: "12-bold"
+              }),
+
+               tableMultiplaTitulo3,
 
               new Paragraph({
                 text: "",
@@ -1460,6 +1551,208 @@ module.exports = {
 
               tableAnexo2Titulo,
               tableAnexo2Dados,
+
+              new Paragraph({
+                text: "",
+                color: "000000",
+                alignment: AlignmentType.CENTER,
+                style: "principal"
+              }),
+
+              tableAnexo2Total,
+
+              new Paragraph({
+                text: "",
+                color: "000000",
+                alignment: AlignmentType.CENTER,
+                style: "principal"
+              }),
+              new Paragraph({
+                text: "          Como foi visto, o contribuinte deixou de recolher ao erário público municipal a quantia de R$ 59.227,20 (cinquenta e nove mil, duzentos e vinte e sete reais e vinte centavos), valor este que, corrigido e atualizado monetariamente em 14/04/2021, passando a expressar o crédito R$ 83.491,84 (oitenta e três mil, quatrocentos e noventa e um reais e oitenta e quatro centavos).",
+                color: "000000",
+                alignment: AlignmentType.JUSTIFIED,
+                style: "principal"
+              }),
+              new Paragraph({
+                text: "",
+                color: "000000",
+                alignment: AlignmentType.JUSTIFIED,
+                style: "principal"
+              }),
+              new Paragraph({
+                alignment: AlignmentType.JUSTIFIED,
+                children: [
+                  new TextRun({
+                    bullet: {
+                      level: 0
+                    },
+                    text: "Correção Monetária",
+                    color: "000000",
+                    alignment: AlignmentType.JUSTIFIED,
+                    style: "12-bold",
+                    size: 24,
+                    bold: true,
+                  }),
+                  new TextRun({
+                    text: " - Para a atualização monetária dos valores que deixaram de ser recolhidos ao erário municipal foi utilizado o Índice de Correção IPCA, nos termos da alínea c, do Inciso I, do Art.357 da Lei Complementar Municipal n° 001/2005.",
+                    color: "000000",
+                    alignment: AlignmentType.JUSTIFIED,
+                    style: "principal",
+                    size: 24,
+                  }),
+                ]
+              }),
+              new Paragraph({
+                text: "",
+                color: "000000",
+                alignment: AlignmentType.JUSTIFIED,
+                style: "principal"
+              }),
+              new Paragraph({
+                alignment: AlignmentType.JUSTIFIED,
+                children: [
+                  new TextRun({
+                    bullet: {
+                      level: 0
+                    },
+                    text: "Juros de Mora",
+                    color: "000000",
+                    alignment: AlignmentType.JUSTIFIED,
+                    style: "12-bold",
+                    size: 24,
+                    bold: true,
+                  }),
+                  new TextRun({
+                    text: " - Para o Juros de Mora, foi aplicada a alíquota de 1% ao mês, nos termos da alínea b, do Inciso I, do Art.357 da Lei Complementar Municipal n° 001/2005.",
+                    color: "000000",
+                    alignment: AlignmentType.JUSTIFIED,
+                    style: "principal",
+                    size: 24,
+                  }),
+                ]
+              }),
+              new Paragraph({
+                text: "",
+                color: "000000",
+                alignment: AlignmentType.JUSTIFIED,
+                style: "principal"
+              }),
+              new Paragraph({
+                alignment: AlignmentType.JUSTIFIED,
+                children: [
+                  new TextRun({
+                    bullet: {
+                      level: 0
+                    },
+                    text: "Multa de Mora",
+                    color: "000000",
+                    alignment: AlignmentType.JUSTIFIED,
+                    style: "12-bold",
+                    size: 24,
+                    bold: true,
+                  }),
+                  new TextRun({
+                    text: " - Para a multa de Mora, foi aplicada a alíquota de 0,33% (zero virgula trinta e três por cento) ao dia, limitado ao montante de 20% (vinte por cento), nos termos do Inciso I, do Art. 358 da Lei Complementar Municipal n° 001/2005.",
+                    color: "000000",
+                    alignment: AlignmentType.JUSTIFIED,
+                    style: "principal",
+                    size: 24,
+                  }),
+                ]
+              }),
+              new Paragraph({
+                text: "",
+                color: "000000",
+                alignment: AlignmentType.JUSTIFIED,
+                style: "principal"
+              }),
+              new Paragraph({
+                text: "          Ato contínuo, visando-se auferir o valor da multa punitiva, em decorrência da infração cometida pelo(a) contribuinte, foi aplicada a penalidade de 20% sobre o valor de R$ 83.491,84 (oitenta e três mil, quatrocentos e noventa e um reais e oitenta e quatro centavos), referente ao crédito corrigido e atualizado monetariamente, montando a infração a quantia de R$ 16.698,37 (dezesseis mil, seiscentos e noventa e oito reais e trinta e sente centavos), a título de multa punitiva.",
+                color: "000000",
+                alignment: AlignmentType.JUSTIFIED,
+                style: "principal"
+              }),
+              new Paragraph({
+                text: "",
+                color: "000000",
+                alignment: AlignmentType.JUSTIFIED,
+                style: "principal"
+              }),
+              new Paragraph({
+                text: "          Sendo assim, considerando os valores corrigidos e atualizados monetariamente, que deixaram de ser recolhidos ao erário municipal, bem como o valor da infração cometida, este termo de lançamento apurou um Crédito Tributário no valor de R$ 100.190,21 (cem mil, cento e noventa reais e vinte e um centavos), quanto ao(s) exercício(s) 2017.",
+                color: "000000",
+                alignment: AlignmentType.JUSTIFIED,
+                style: "principal"
+              }),
+              new Paragraph({
+                text: "",
+                color: "000000",
+                alignment: AlignmentType.JUSTIFIED,
+                style: "principal"
+              }),
+
+              tableFatos4,
+
+              new Paragraph({
+                text: "",
+                color: "000000",
+                alignment: AlignmentType.JUSTIFIED,
+                style: "principal"
+              }),
+              new Paragraph({
+                text: "          Desta forma, fica o(a) contribuinte acima identificado(a) notificado(a) acerca da lavratura deste Termo de Notificação de Lançamento, no valor R$ 100.190,21 (cem mil, cento e noventa reais e vinte e um centavos), cientificando-o que tem o prazo de 30 (trinta) dias, contados a partir da ciência deste instrumento, para pagar ou interpor recurso, apresentando impugnação escrita e apresentando as provas necessárias junto à Secretaria Municipal de Finanças do Município de Massaranduba - PB, por intermédio do INSTITUTO BRASIL FISCAL* – IBF pelo E-mail: contato@ibftech.com.br.",
+                color: "000000",
+                alignment: AlignmentType.JUSTIFIED,
+                style: "principal"
+              }),
+              new Paragraph({
+                text: "",
+                color: "000000",
+                alignment: AlignmentType.JUSTIFIED,
+                style: "principal"
+              }),
+              new Paragraph({
+                text: "",
+                color: "000000",
+                alignment: AlignmentType.JUSTIFIED,
+                style: "principal"
+              }),
+              new Paragraph({
+                text: "",
+                color: "000000",
+                alignment: AlignmentType.JUSTIFIED,
+                style: "principal"
+              }),
+              new Paragraph({
+                text: "_________________________________________________",
+                color: "000000",
+                alignment: AlignmentType.CENTER,
+                style: "principal"
+              }),
+              new Paragraph({
+                text: "Claudenice Ferreira do Nascimento",
+                color: "000000",
+                alignment: AlignmentType.CENTER,
+                style: "principal"
+              }),
+              new Paragraph({
+                text: "Agente Fiscal de Tributos",
+                color: "000000",
+                alignment: AlignmentType.CENTER,
+                style: "principal"
+              }),
+              new Paragraph({
+                text: "Matrícula: 52420",
+                color: "000000",
+                alignment: AlignmentType.CENTER,
+                style: "principal"
+              }),
+              new Paragraph({
+                text: "",
+                color: "000000",
+                alignment: AlignmentType.JUSTIFIED,
+                style: "principal"
+              }),
             ],
         }],
       });
