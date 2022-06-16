@@ -23,7 +23,7 @@ module.exports = {
 
           const salt = await bcrypt.genSalt(10);
           let phraseEncrypted = await bcrypt.hashSync( request.body.phrase, salt );
-          
+
           let commercialId = await Commercial.create({ status: false });
           let cosifId = await COSIF.create({ status: false });
           let cosipId = await COSIP.create({ status: false });
@@ -107,6 +107,7 @@ module.exports = {
       });
 
     } catch (error) {
+      console.log(error);
       response.status(500).json({ error: error });
     };
   },
