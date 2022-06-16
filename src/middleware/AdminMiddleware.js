@@ -6,6 +6,7 @@ module.exports = {
     try {
       let getToken = request.headers['authorization'];
       let getId = await getJWTBody(getToken);
+
       let verifyUser = await Admin.findOne({ raw: true,
         where: { id: getId }
       });
