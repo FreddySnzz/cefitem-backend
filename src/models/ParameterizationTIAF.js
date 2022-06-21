@@ -50,11 +50,27 @@ const ParameterizationTIAF = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER(255),
         allowNull: false,
       },
+      dl_moratorium_fine: {
+        type: DataTypes.STRING(300),
+        allowNull: false,
+      },
+      dl_limit_moratorium_fine: {
+        type: DataTypes.STRING(300),
+        allowNull: false,
+      },
       limit_moratorium_fine: {
         type: DataTypes.STRING(300),
         allowNull: false,
       },
       aplication_moratorium_fine: {
+        type: DataTypes.STRING(300),
+        allowNull: false,
+      },
+      interest_rate_of_late: {
+        type: DataTypes.STRING(300),
+        allowNull: false,
+      },
+      moras_fine: {
         type: DataTypes.STRING(300),
         allowNull: false,
       },
@@ -105,3 +121,7 @@ const ParameterizationTIAF = (sequelize, DataTypes) => {
 };
 
 module.exports = ParameterizationTIAF;
+{
+interest_rate_of_late
+moras_fine
+}
