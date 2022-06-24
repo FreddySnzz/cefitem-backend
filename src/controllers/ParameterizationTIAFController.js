@@ -123,7 +123,6 @@ module.exports = {
         }
       });
 
-
       if (getParameterizationTiaf == null || getParameterizationTiaf == undefined) {
 
         response.status(401).json({ error: "Parameterization TIAF not found" });
@@ -202,7 +201,7 @@ module.exports = {
           admin_id: adminId,
           parameterization_tiaf_id: getParameterizationTiaf.id
         });
-        
+
         // await Documents.create({
         //   label: documentId,
         //   link: documentLink,

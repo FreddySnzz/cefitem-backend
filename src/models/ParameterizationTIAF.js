@@ -121,7 +121,3 @@ const ParameterizationTIAF = (sequelize, DataTypes) => {
 };
 
 module.exports = ParameterizationTIAF;
-{
-interest_rate_of_late
-moras_fine
-}
