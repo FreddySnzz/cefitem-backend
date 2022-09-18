@@ -58,27 +58,11 @@ module.exports = {
         type: Sequelize.DataTypes.INTEGER(255),
         allowNull: false,
       },
-      dl_moratorium_fine: {
-        type: Sequelize.DataTypes.STRING(300),
-        allowNull: false,
-      },
-      dl_limit_moratorium_fine: {
-        type: Sequelize.DataTypes.STRING(300),
-        allowNull: false,
-      },
       limit_moratorium_fine: {
         type: Sequelize.DataTypes.STRING(300),
         allowNull: false,
       },
       aplication_moratorium_fine: {
-        type: Sequelize.DataTypes.STRING(300),
-        allowNull: false,
-      },
-      interest_rate_of_late: {
-        type: Sequelize.DataTypes.STRING(300),
-        allowNull: false,
-      },
-      moras_fine: {
         type: Sequelize.DataTypes.STRING(300),
         allowNull: false,
       },
